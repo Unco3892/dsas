@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Exercise Set II - NumPy – Introduction to Data Science I MScAS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../labs/exercise_set_3.html" rel="next">
+<link href="../labs/exercise_set_1.html" rel="prev">
+<link href="../images/logo.dark.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-abfe29080efd84a6e6ee59c2a25efe07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c510dcd4cb238ff9ea0c38e124e4433d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-abfe29080efd84a6e6ee59c2a25efe07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CNFS8TM552"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-CNFS8TM552', { 'anonymize_ip': true});
+</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles/custom.css">
+<link rel="stylesheet" href="../css/solution-styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../labs/exercise_set_0.html">Labs</a></li><li class="breadcrumb-item"><a href="../labs/exercise_set_2.html">Exercise Set II - NumPy</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo.light.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.light.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://moodle.unil.ch/course/view.php?id=34127" title="Moodle" class="quarto-navigation-tool px-1" aria-label="Moodle"><i class="bi bi-mortarboard"></i></a>
+    <a href="https://github.com/Unco3892/dsas-support" title="GitHub Repo" class="quarto-navigation-tool px-1" aria-label="GitHub Repo"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Information</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/numpy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to NumPy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Plotting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Science Pipeline</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set 0 - Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set I - Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Exercise Set II - NumPy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set III - Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set IV - Plotting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set V - Pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set VI - HMD</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Assessment</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assessment/project_directives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project Directives</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assessment/presentation_guidelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentation Guidelines</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/data_acquisition/data_sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Sources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/cheatsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link active" data-scroll-target="#exercise-1">Exercise 1</a>
+  <ul class="collapse">
+  <li><a href="#part-a-basics" id="toc-part-a-basics" class="nav-link" data-scroll-target="#part-a-basics">Part A: Basics</a></li>
+  <li><a href="#part-b-claims-example" id="toc-part-b-claims-example" class="nav-link" data-scroll-target="#part-b-claims-example">Part B: Claims Example</a></li>
+  <li><a href="#part-c-array-attributes-and-info" id="toc-part-c-array-attributes-and-info" class="nav-link" data-scroll-target="#part-c-array-attributes-and-info">Part C: Array Attributes and info</a></li>
+  </ul></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a>
+  <ul class="collapse">
+  <li><a href="#part-a-functions" id="toc-part-a-functions" class="nav-link" data-scroll-target="#part-a-functions">Part A: Functions</a></li>
+  <li><a href="#part-b-indexing-and-slicing" id="toc-part-b-indexing-and-slicing" class="nav-link" data-scroll-target="#part-b-indexing-and-slicing">Part B: Indexing and Slicing</a></li>
+  <li><a href="#part-c-booleans" id="toc-part-c-booleans" class="nav-link" data-scroll-target="#part-c-booleans">Part C: Booleans</a></li>
+  </ul></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">Exercise 3</a>
+  <ul class="collapse">
+  <li><a href="#part-a-premium-calculations" id="toc-part-a-premium-calculations" class="nav-link" data-scroll-target="#part-a-premium-calculations">Part A: Premium Calculations</a></li>
+  <li><a href="#part-b-statistical-analysis" id="toc-part-b-statistical-analysis" class="nav-link" data-scroll-target="#part-b-statistical-analysis">Part B: Statistical Analysis</a></li>
+  </ul></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4">Exercise 4</a></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5">Exercise 5</a>
+  <ul class="collapse">
+  <li><a href="#part-a-portfolio-analysis" id="toc-part-a-portfolio-analysis" class="nav-link" data-scroll-target="#part-a-portfolio-analysis">Part A: Portfolio Analysis</a></li>
+  <li><a href="#part-b-broadcasting" id="toc-part-b-broadcasting" class="nav-link" data-scroll-target="#part-b-broadcasting">Part B: Broadcasting</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script type="application/javascript">
+// Description: Change image src depending on body class (quarto-light or quarto-dark)
+function updateImageSrc() {
+  var bodyClass = window.document.body.classList;
+  var images = window.document.getElementsByTagName('img');
+  for (var i = 0; i < images.length; i++) {
+    var image = images[i];
+    var src = image.src;
+    var newSrc = src;
+    if (bodyClass.contains('quarto-light') && src.includes('.dark')) {
+      newSrc = src.replace('.dark', '.light');
+    } else if (bodyClass.contains('quarto-dark') && src.includes('.light')) {
+      newSrc = src.replace('.light', '.dark');
+    }
+    if (newSrc !== src) {
+      image.src = newSrc;
+    }
+  }
+}
+
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+      updateImageSrc();
+    }
+  });
+});
+
+observer.observe(window.document.body, {
+  attributes: true
+});
+
+updateImageSrc();
+</script>
+<script type="application/javascript">
+function downloadNotebook(filename) {
+  const fileUrl = new URL('../ipynb/' + filename, window.location.href);
+  const tempLink = document.createElement('a');
+  tempLink.href = fileUrl.href;
+  tempLink.setAttribute('download', filename);
+  tempLink.rel = 'noopener';
+  tempLink.style.display = 'none';
+
+  const isSafari = /^((?!chrome|android).)*safari/i.test(window.navigator.userAgent);
+
+  document.body.appendChild(tempLink);
+
+  try {
+    // Safari has limited support for programmatic downloads
+    if (isSafari) {
+      window.location.assign(tempLink.href);
+    } else {
+      tempLink.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    }
+  } finally {
+    document.body.removeChild(tempLink);
+  }
+}
+</script>
+<script type="application/javascript" src="../js/solution-manager.js"></script>
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../labs/exercise_set_0.html">Labs</a></li><li class="breadcrumb-item"><a href="../labs/exercise_set_2.html">Exercise Set II - NumPy</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Exercise Set II - NumPy</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="#" class="btn btn-outline-danger btn-sm btn-jupyter" onclick="downloadNotebook('exercise_set_2.ipynb')" title="Download the Jupyter Notebook">Jupyter</a> <a href="https://colab.research.google.com/drive/1ukFBBzI2xLCHIenqbIPear-zQyr8uqXv" class="btn btn-outline-warning btn-sm btn-colab" title="Open in Google Colab">Google Colab</a> <a href="#" class="btn btn-outline-success btn-sm" title="Toggle all hints" onclick="toggleAllHints()"><span id="hints-btn-text">💡 Show Hints</span></a> <a href="#" id="solutions-btn" class="btn btn-outline-primary btn-sm" title="Toggle all solutions" onclick="toggleAllSolutions()"><span id="solutions-btn-text">ℹ️ Show Solutions</span></a></p>
+<section id="exercise-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
+<p>We start of by practicing array creation and some basic numpy operations.</p>
+<section id="part-a-basics" class="level3">
+<h3 class="anchored" data-anchor-id="part-a-basics">Part A: Basics</h3>
+<p>Create the following one-dimensional NumPy <em>array</em> of integers: <code>array_1 = np.array([23, 12, 23, 6, 32, 78, 3, 8, 4, 223, 12, 56, 78, 324])</code>. Write some Python code to answer the following questions:</p>
+<ol type="a">
+<li><p>Get the <span class="math inline">\(4\)</span> largest values of <code>array_1</code>.</p></li>
+<li><p>Compute <code>array_1</code> to the power of <span class="math inline">\(2\)</span> using <span class="math inline">\(3\)</span> different methods.</p></li>
+<li><p>Given <code>array_1</code>, negate all elements which are between <span class="math inline">\(23\)</span> and <span class="math inline">\(84\)</span>, in place.</p></li>
+<li><p>Find indices of elements equal to <span class="math inline">\(12\)</span> from <code>array_1</code>.</p></li>
+<li><p>Convert the one-dimensional <em>array</em> <code>array_1</code> to a two-dimensional <em>array</em> with <span class="math inline">\(7\)</span> rows.</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Use <code>np.sort()</code> with array slicing for finding largest values.</p></li>
+<li><p>For powers, try element-wise operations (<code>**</code>), NumPy functions (<code>np.power()</code>), and custom loops.</p></li>
+<li><p>Boolean indexing with <code>&amp;</code> combines conditions for filtering. Use <code>np.where()</code> or <code>np.nonzero()</code> to find indices.</p></li>
+<li><p>The <code>.reshape()</code> method changes array dimensions.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG51bXB5IGFzIG5wXG5hcnJheV8xID0gbnAuYXJyYXkoWzIzLCAxMiwgMjMsIDYsIDMyLCA3OCwgMywgOCwgNCwgMjIzLCAxMiwgNTYsIDc4LCAzMjRdKSJ9
+</script>
+</div>
+</div>
+<p><em>(a)</em></p>
+<div class="cell">
+<div>
+<div id="pyodide-2" class="exercise-cell">
+
+</div>
+<script type="pyodide-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQobnAuc29ydChhcnJheV8xKVtsZW4oYXJyYXlfMSkgLSA0Ol0pICMgR2V0IDQgbGFyZ2VzdCB2YWx1ZXMgaW4gYXJyYXlfMSAifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-3" class="exercise-cell">
+
+</div>
+<script type="pyodide-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQobnAuc29ydChhcnJheV8xKVs6Oi0xXVs6NF0pICMgR2V0IDQgbGFyZ2VzdCB2YWx1ZXMgaW4gYXJyYXlfMSJ9
+</script>
+</div>
+</div>
+<p><em>(b)</em></p>
+<div class="cell">
+<div>
+<div id="pyodide-4" class="exercise-cell">
+
+</div>
+<script type="pyodide-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGNvbXB1dGVfc3F1YXJlcyh2YWx1ZXMpOiAjIE1ldGhvZCAxOiBDb21wdXRlIGFycmF5XzEgdG8gdGhlIHBvd2VyIG9mIDJcbiAgICBvdXRwdXQgPSBucC5lbXB0eShsZW4odmFsdWVzKSlcbiAgICBmb3IgaSBpbiByYW5nZShsZW4odmFsdWVzKSk6XG4gICAgICAgIG91dHB1dFtpXSA9IHZhbHVlc1tpXSAqKiAyXG4gICAgcmV0dXJuIHByaW50KG91dHB1dCkifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-5" class="exercise-cell">
+
+</div>
+<script type="pyodide-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY29tcHV0ZV9zcXVhcmVzKGFycmF5XzEpICMgTWV0aG9kIDE6IENvbXB1dGUgYXJyYXlfMSB0byB0aGUgcG93ZXIgb2YgMiJ9
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-6" class="exercise-cell">
+
+</div>
+<script type="pyodide-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoYXJyYXlfMSAqKiAyKSAjIE1ldGhvZCAyOiBDb21wdXRlIGFycmF5XzEgdG8gdGhlIHBvd2VyIG9mIDIifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-7" class="exercise-cell">
+
+</div>
+<script type="pyodide-7-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQobnAucG93ZXIoYXJyYXlfMSwgMikpICMgTWV0aG9kIDM6IENvbXB1dGUgYXJyYXlfMSB0byB0aGUgcG93ZXIgb2YgMiJ9
+</script>
+</div>
+</div>
+<p><em>(c)</em></p>
+<div class="cell">
+<div>
+<div id="pyodide-8" class="exercise-cell">
+
+</div>
+<script type="pyodide-8-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibmVnYXRlX2FycmF5XzEgPSBhcnJheV8xWygyMyA8IGFycmF5XzEpICYgKGFycmF5XzEgPCA4NCldICogLTEgIyBOZWdhdGUgYWxsIGVsZW1lbnRzIHdoaWNoIGFyZSBiZXR3ZWVuIDIzIGFuZCA4NFxucHJpbnQobmVnYXRlX2FycmF5XzEpIn0=
+</script>
+</div>
+</div>
+<p><em>(d)</em></p>
+<div class="cell">
+<div>
+<div id="pyodide-9" class="exercise-cell">
+
+</div>
+<script type="pyodide-9-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQobnAud2hlcmUoYXJyYXlfMSA9PSAxMilbMF0pICMgRmluZCBpbmRpY2VzIG9mIGVsZW1lbnRzIGVxdWFsIHRvIDEyIGZyb20gYXJyYXlfMS4ifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-10" class="exercise-cell">
+
+</div>
+<script type="pyodide-10-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQobnAubm9uemVybyhhcnJheV8xID09IDEyKVswXSkgIyBGaW5kIGluZGljZXMgb2YgZWxlbWVudHMgZXF1YWwgdG8gMTIgZnJvbSBhcnJheV8xLiJ9
+</script>
+</div>
+</div>
+<p><em>(e)</em></p>
+<div class="cell">
+<div>
+<div id="pyodide-11" class="exercise-cell">
+
+</div>
+<script type="pyodide-11-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYXJyYXlfMS5yZXNoYXBlKDcsIDIpICMgQ29udmVydCB0aGUgb25lLWRpbWVuc2lvbmFsIGFycmF5IGFycmF5XzEgdG8gYSB0d28tZGltZW5zaW9uYWwgYXJyYXkgd2l0aCA3IHJvd3MuIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-b-claims-example" class="level3">
+<h3 class="anchored" data-anchor-id="part-b-claims-example">Part B: Claims Example</h3>
+<p>Now, let’s create NumPy arrays to represent actuarial data and perform basic operations.</p>
+<ol type="1">
+<li><p>Create a NumPy array representing annual claim amounts for a portfolio: <code>[12500, 8900, 15600, 22000, 5400, 18900, 31200]</code></p></li>
+<li><p>Create a 2D array representing loss ratios for 4 policies over 3 years:</p>
+<pre><code>Policy 1: [0.68, 0.72, 0.65]
+Policy 2: [0.89, 0.91, 0.85] 
+Policy 3: [0.45, 0.52, 0.48]
+Policy 4: [0.78, 0.83, 0.76]</code></pre></li>
+<li><p>Use NumPy functions to create:</p>
+<ul>
+<li>An array of 1000 zeros (for initializing claim counts)</li>
+<li>An array of 500 ones multiplied by 1200 (base premiums)</li>
+<li>An array of integers from 18 to 65 (insurable ages)</li>
+<li>10 evenly spaced discount factors between 1.0 and 0.5</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Use <code>np.array()</code> to convert Python lists to NumPy arrays</p></li>
+<li><p>For the 2D array, create a list of lists where each inner list represents one policy</p></li>
+<li><p>For creating special arrays, look at: <code>np.zeros()</code>, <code>np.ones()</code>, <code>np.arange()</code>, <code>np.linspace()</code></p></li>
+<li><p>Remember that <code>np.arange(start, stop)</code> doesn’t include the stop value</p></li>
+<li><p>You can multiply arrays by scalars: <code>array * 1200</code></p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-12" class="exercise-cell">
+
+</div>
+<script type="pyodide-12-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAxLiBDbGFpbSBhbW91bnRzIGFycmF5XG5jbGFpbV9hbW91bnRzID0gbnAuYXJyYXkoWzEyNTAwLCA4OTAwLCAxNTYwMCwgMjIwMDAsIDU0MDAsIDE4OTAwLCAzMTIwMF0pXG5wcmludChcIkNsYWltIGFtb3VudHM6XCIsIGNsYWltX2Ftb3VudHMpXG5wcmludChcIkRhdGEgdHlwZTpcIiwgY2xhaW1fYW1vdW50cy5kdHlwZSkifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-13" class="exercise-cell">
+
+</div>
+<script type="pyodide-13-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAyLiBMb3NzIHJhdGlvcyAyRCBhcnJheVxubG9zc19yYXRpb3MgPSBucC5hcnJheShbXG4gICAgWzAuNjgsIDAuNzIsIDAuNjVdLCAgIyBQb2xpY3kgMVxuICAgIFswLjg5LCAwLjkxLCAwLjg1XSwgICMgUG9saWN5IDIgIFxuICAgIFswLjQ1LCAwLjUyLCAwLjQ4XSwgICMgUG9saWN5IDNcbiAgICBbMC43OCwgMC44MywgMC43Nl0gICAjIFBvbGljeSA0XG5dKVxucHJpbnQoXCJMb3NzIHJhdGlvcyBzaGFwZTpcIiwgbG9zc19yYXRpb3Muc2hhcGUpXG5wcmludChcIkxvc3MgcmF0aW9zOlwiKVxucHJpbnQobG9zc19yYXRpb3MpIn0=
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-14" class="exercise-cell">
+
+</div>
+<script type="pyodide-14-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAzLiBVc2luZyBOdW1QeSBmdW5jdGlvbnNcbmNsYWltX2NvdW50cyA9IG5wLnplcm9zKDEwMDApXG5wcmludChcIkZpcnN0IDEwIGNsYWltIGNvdW50czpcIiwgY2xhaW1fY291bnRzWzoxMF0pXG5cbmJhc2VfcHJlbWl1bXMgPSBucC5vbmVzKDUwMCkgKiAxMjAwXG5wcmludChcIkZpcnN0IDUgYmFzZSBwcmVtaXVtczpcIiwgYmFzZV9wcmVtaXVtc1s6NV0pXG5cbmluc3VyYWJsZV9hZ2VzID0gbnAuYXJhbmdlKDE4LCA2NikgICMgNjYgdG8gaW5jbHVkZSA2NVxucHJpbnQoXCJJbnN1cmFibGUgYWdlczpcIiwgaW5zdXJhYmxlX2FnZXMpXG5wcmludChcIkFnZSByYW5nZTpcIiwgaW5zdXJhYmxlX2FnZXNbMF0sIFwidG9cIiwgaW5zdXJhYmxlX2FnZXNbLTFdKVxuXG5kaXNjb3VudF9mYWN0b3JzID0gbnAubGluc3BhY2UoMS4wLCAwLjUsIDEwKVxucHJpbnQoXCJEaXNjb3VudCBmYWN0b3JzOlwiLCBkaXNjb3VudF9mYWN0b3JzKSJ9
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-c-array-attributes-and-info" class="level3">
+<h3 class="anchored" data-anchor-id="part-c-array-attributes-and-info">Part C: Array Attributes and info</h3>
+<p>Using the arrays created above:</p>
+<ol type="1">
+<li><p>Print the shape, number of dimensions, and total number of elements for the loss ratios array</p></li>
+<li><p>Calculate the memory usage of the claim amounts array</p></li>
+<li><p>Check and explain the data types of all arrays</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Array attributes you need: <code>.shape</code>, <code>.ndim</code>, <code>.size</code>, <code>.dtype</code></p></li>
+<li><p>For memory usage: <code>.itemsize</code> (bytes per element), <code>.nbytes</code> (total bytes)</p></li>
+<li><p>Data types depend on the input: integers become <code>int64</code>, decimals become <code>float64</code></p></li>
+<li><p>Arrays created with <code>np.zeros()</code> default to <code>float64</code>, <code>np.ones()</code> also defaults to <code>float64</code></p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-15" class="exercise-cell">
+
+</div>
+<script type="pyodide-15-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAxLiBMb3NzIHJhdGlvcyBhcnJheSBhdHRyaWJ1dGVzXG5wcmludChcIkxvc3MgcmF0aW9zIGFycmF5IGF0dHJpYnV0ZXM6XCIpXG5wcmludChcIlNoYXBlOlwiLCBsb3NzX3JhdGlvcy5zaGFwZSlcbnByaW50KFwiTnVtYmVyIG9mIGRpbWVuc2lvbnM6XCIsIGxvc3NfcmF0aW9zLm5kaW0pXG5wcmludChcIlRvdGFsIGVsZW1lbnRzOlwiLCBsb3NzX3JhdGlvcy5zaXplKVxucHJpbnQoXCJEYXRhIHR5cGU6XCIsIGxvc3NfcmF0aW9zLmR0eXBlKSJ9
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-16" class="exercise-cell">
+
+</div>
+<script type="pyodide-16-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAyLiBNZW1vcnkgdXNhZ2Ugb2YgY2xhaW0gYW1vdW50c1xucHJpbnQoXCJDbGFpbSBhbW91bnRzIG1lbW9yeSB1c2FnZTpcIilcbnByaW50KFwiQnl0ZXMgcGVyIGVsZW1lbnQ6XCIsIGNsYWltX2Ftb3VudHMuaXRlbXNpemUpXG5wcmludChcIlRvdGFsIGJ5dGVzOlwiLCBjbGFpbV9hbW91bnRzLm5ieXRlcylcbnByaW50KFwiVG90YWwgbWVtb3J5IChLQik6XCIsIGNsYWltX2Ftb3VudHMubmJ5dGVzIC8gMTAyNCkifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-17" class="exercise-cell">
+
+</div>
+<script type="pyodide-17-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAzLiBEYXRhIHR5cGVzIGV4cGxhbmF0aW9uXG5wcmludChcIkRhdGEgdHlwZXMgb2YgYWxsIGFycmF5czpcIilcbnByaW50KFwiQ2xhaW0gYW1vdW50czpcIiwgY2xhaW1fYW1vdW50cy5kdHlwZSlcbnByaW50KFwiTG9zcyByYXRpb3M6XCIsIGxvc3NfcmF0aW9zLmR0eXBlKVxucHJpbnQoXCJDbGFpbSBjb3VudHM6XCIsIGNsYWltX2NvdW50cy5kdHlwZSlcbnByaW50KFwiQmFzZSBwcmVtaXVtczpcIiwgYmFzZV9wcmVtaXVtcy5kdHlwZSlcbnByaW50KFwiSW5zdXJhYmxlIGFnZXM6XCIsIGluc3VyYWJsZV9hZ2VzLmR0eXBlKVxucHJpbnQoXCJEaXNjb3VudCBmYWN0b3JzOlwiLCBkaXNjb3VudF9mYWN0b3JzLmR0eXBlKSJ9
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
+<p>In this exercise, we’ll practice indexing, slicing, and boolean operations.</p>
+<section id="part-a-functions" class="level3">
+<h3 class="anchored" data-anchor-id="part-a-functions">Part A: Functions</h3>
+<p>Write a Python function to compute averages using a sliding window over an array. That is, your function will take two arguments (or inputs): (i) an array and (ii) a sliding window size. For example, if you provide your <em>function</em> with the <em>array</em> <code>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</code> and the sliding window size <span class="math inline">\(2\)</span> as inputs, then your <em>function</em> should return as output the <em>array</em> <code>array([0.5 1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5])</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-18" class="exercise-cell">
+
+</div>
+<script type="pyodide-18-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIG1vdmluZ19hdmVyYWdlKHZhbHVlcywgd2luZG93KTogIyBXZSBkZWZpbmUgdGhlIGZ1bmN0aW9uIFwibW92aW5nX2F2ZXJhZ2VcIiB0aGF0IGNvbXB1dGVzIGF2ZXJhZ2VzIHVzaW5nIGEgc2xpZGluZyB3aW5kb3cgb3ZlciBhbiBhcnJheVxuICAgIG91dHB1dCA9IG5wLmN1bXN1bSh2YWx1ZXMpXG4gICAgb3V0cHV0W3dpbmRvdzpdID0gb3V0cHV0W3dpbmRvdzpdIC0gb3V0cHV0Wzotd2luZG93XVxuICAgIHJldHVybiBwcmludChvdXRwdXRbd2luZG93IC0gMTpdL3dpbmRvdykifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-19" class="exercise-cell">
+
+</div>
+<script type="pyodide-19-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibW92aW5nX2F2ZXJhZ2UoWzMsIDQsIDEyLCAxLCAzLCA2NywgNywgMjMsIDU2LCA5N10sIDMpIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Now, let’s practice accessing and filtering actuarial data using various indexing techniques.</p>
+</section>
+<section id="part-b-indexing-and-slicing" class="level3">
+<h3 class="anchored" data-anchor-id="part-b-indexing-and-slicing">Part B: Indexing and Slicing</h3>
+<p>Using the loss ratios array from Exercise 1 parts B and C:</p>
+<ol type="1">
+<li><p>Access the loss ratio for Policy 2 in Year 3</p></li>
+<li><p>Get all loss ratios for Policy 1 across all years</p></li>
+<li><p>Get loss ratios for all policies in Year 2</p></li>
+<li><p>Extract a subset containing the first 2 policies and first 2 years</p></li>
+<li><p>Get every other policy (1st, 3rd, etc.)</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>NumPy indexing: <code>array[row_index, column_index]</code></p></li>
+<li><p>Use <code>:</code> to select all elements along an axis: <code>array[:, 1]</code> gets all rows, column 1</p></li>
+<li><p>Slicing syntax: <code>start:stop:step</code></p></li>
+<li><p>For subsets: <code>array[0:2, 0:2]</code> gets first 2 rows and first 2 columns</p></li>
+<li><p>Step slicing: <code>array[::2, :]</code> gets every other row (step=2)</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-20" class="exercise-cell">
+
+</div>
+<script type="pyodide-20-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBSZWNyZWF0ZSBsb3NzIHJhdGlvcyBhcnJheSBmb3IgcmVmZXJlbmNlXG5sb3NzX3JhdGlvcyA9IG5wLmFycmF5KFtcbiAgICBbMC42OCwgMC43MiwgMC42NV0sICAjIFBvbGljeSAxXG4gICAgWzAuODksIDAuOTEsIDAuODVdLCAgIyBQb2xpY3kgMiAgXG4gICAgWzAuNDUsIDAuNTIsIDAuNDhdLCAgIyBQb2xpY3kgM1xuICAgIFswLjc4LCAwLjgzLCAwLjc2XSAgICMgUG9saWN5IDRcbl0pXG5cbnByaW50KFwiT3JpZ2luYWwgbG9zcyByYXRpb3M6XCIpXG5wcmludChsb3NzX3JhdGlvcylcbnByaW50KClcblxuIyAxLiBQb2xpY3kgMiwgWWVhciAzIChpbmRleCAxLCAyKVxucG9saWN5Ml95ZWFyMyA9IGxvc3NfcmF0aW9zWzEsIDJdXG5wcmludChcIlBvbGljeSAyLCBZZWFyIDMgbG9zcyByYXRpbzpcIiwgcG9saWN5Ml95ZWFyMylcblxuIyAyLiBBbGwgeWVhcnMgZm9yIFBvbGljeSAxIChpbmRleCAwLCBhbGwgY29sdW1ucylcbnBvbGljeTFfYWxsX3llYXJzID0gbG9zc19yYXRpb3NbMCwgOl1cbnByaW50KFwiUG9saWN5IDEgYWxsIHllYXJzOlwiLCBwb2xpY3kxX2FsbF95ZWFycylcblxuIyAzLiBBbGwgcG9saWNpZXMgaW4gWWVhciAyIChhbGwgcm93cywgaW5kZXggMSlcbmFsbF9wb2xpY2llc195ZWFyMiA9IGxvc3NfcmF0aW9zWzosIDFdXG5wcmludChcIkFsbCBwb2xpY2llcyBZZWFyIDI6XCIsIGFsbF9wb2xpY2llc195ZWFyMilcblxuIyA0LiBGaXJzdCAyIHBvbGljaWVzLCBmaXJzdCAyIHllYXJzXG5zdWJzZXQgPSBsb3NzX3JhdGlvc1s6MiwgOjJdXG5wcmludChcIkZpcnN0IDIgcG9saWNpZXMsIGZpcnN0IDIgeWVhcnM6XCIpXG5wcmludChzdWJzZXQpXG5cbiMgNS4gRXZlcnkgb3RoZXIgcG9saWN5XG5ldmVyeV9vdGhlcl9wb2xpY3kgPSBsb3NzX3JhdGlvc1s6OjIsIDpdXG5wcmludChcIkV2ZXJ5IG90aGVyIHBvbGljeTpcIilcbnByaW50KGV2ZXJ5X290aGVyX3BvbGljeSkifQ==
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-c-booleans" class="level3">
+<h3 class="anchored" data-anchor-id="part-c-booleans">Part C: Booleans</h3>
+<ol type="1">
+<li><p>Find all loss ratios greater than 0.80</p></li>
+<li><p>Identify which policies have any year with loss ratio &gt; 0.80</p></li>
+<li><p>Count how many loss ratios are between 0.60 and 0.80</p></li>
+<li><p>Create a “high risk” mask for policies with average loss ratio &gt; 0.75</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Boolean operations: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>==</code></p></li>
+<li><p>Combine conditions with <code>&amp;</code> (and) and <code>|</code> (or): <code>(condition1) &amp; (condition2)</code></p></li>
+<li><p>Use parentheses around each condition when combining</p></li>
+<li><p><code>np.any(array, axis=1)</code> checks if any element is True along rows</p></li>
+<li><p><code>np.where(condition)</code> returns indices where condition is True</p></li>
+<li><p><code>np.sum(boolean_array)</code> counts True values (True=1, False=0)</p></li>
+<li><p><strong>Average calculation</strong>: <span class="math inline">\(\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i\)</span></p></li>
+<li><p><code>np.mean(array, axis=1)</code> calculates average along rows (for each policy)</p></li>
+<li><p><strong>Risk assessment</strong>: Policies with high loss ratios indicate higher risk</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-21" class="exercise-cell">
+
+</div>
+<script type="pyodide-21-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAxLiBMb3NzIHJhdGlvcyA+IDAuODBcbmhpZ2hfbG9zc19tYXNrID0gbG9zc19yYXRpb3MgPiAwLjgwXG5wcmludChcIkhpZ2ggbG9zcyByYXRpbyBtYXNrICg+IDAuODApOlwiKVxucHJpbnQoaGlnaF9sb3NzX21hc2spXG5wcmludChcIkFjdHVhbCBoaWdoIGxvc3MgcmF0aW9zOlwiLCBsb3NzX3JhdGlvc1toaWdoX2xvc3NfbWFza10pXG5cbiMgMi4gUG9saWNpZXMgd2l0aCBhbnkgeWVhciA+IDAuODBcbnBvbGljaWVzX3dpdGhfaGlnaF9sb3NzID0gbnAuYW55KGxvc3NfcmF0aW9zID4gMC44MCwgYXhpcz0xKVxucHJpbnQoXCJQb2xpY2llcyB3aXRoIGFueSB5ZWFyID4gMC44MDpcIiwgcG9saWNpZXNfd2l0aF9oaWdoX2xvc3MpXG5wcmludChcIlBvbGljeSBudW1iZXJzIHdpdGggaGlnaCBsb3NzOlwiLCBucC53aGVyZShwb2xpY2llc193aXRoX2hpZ2hfbG9zcylbMF0gKyAxKVxuXG4jIDMuIExvc3MgcmF0aW9zIGJldHdlZW4gMC42MCBhbmQgMC44MFxubW9kZXJhdGVfbG9zc19tYXNrID0gKGxvc3NfcmF0aW9zID49IDAuNjApICYgKGxvc3NfcmF0aW9zIDw9IDAuODApXG5tb2RlcmF0ZV9jb3VudCA9IG5wLnN1bShtb2RlcmF0ZV9sb3NzX21hc2spXG5wcmludChcIk51bWJlciBvZiBsb3NzIHJhdGlvcyBiZXR3ZWVuIDAuNjAgYW5kIDAuODA6XCIsIG1vZGVyYXRlX2NvdW50KVxucHJpbnQoXCJNb2RlcmF0ZSBsb3NzIHJhdGlvczpcIiwgbG9zc19yYXRpb3NbbW9kZXJhdGVfbG9zc19tYXNrXSlcblxuIyA0LiBIaWdoIHJpc2sgcG9saWNpZXMgKGF2ZXJhZ2UgPiAwLjc1KVxuYXZnX2xvc3NfcmF0aW9zID0gbnAubWVhbihsb3NzX3JhdGlvcywgYXhpcz0xKVxuaGlnaF9yaXNrX21hc2sgPSBhdmdfbG9zc19yYXRpb3MgPiAwLjc1XG5wcmludChcIkF2ZXJhZ2UgbG9zcyByYXRpb3MgYnkgcG9saWN5OlwiLCBhdmdfbG9zc19yYXRpb3MpXG5wcmludChcIkhpZ2ggcmlzayBwb2xpY2llcyAoYXZnID4gMC43NSk6XCIsIGhpZ2hfcmlza19tYXNrKVxucHJpbnQoXCJIaWdoIHJpc2sgcG9saWN5IG51bWJlcnM6XCIsIG5wLndoZXJlKGhpZ2hfcmlza19tYXNrKVswXSArIDEpIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3">Exercise 3</h2>
+<p>Now, let’s apply NumPy’s mathematical functions to actuarial calculations.</p>
+<section id="part-a-premium-calculations" class="level3">
+<h3 class="anchored" data-anchor-id="part-a-premium-calculations">Part A: Premium Calculations</h3>
+<ol type="1">
+<li><p>Calculate risk-adjusted premiums for 5 policies with base premium $1000 and risk multipliers: [0.8, 1.2, 1.5, 0.9, 1.8]</p></li>
+<li><p>Compute present values for the following cashflows using 4% annual discount rate:</p>
+<ul>
+<li>$5000 in year 1</li>
+<li>$7500 in year 2<br>
+</li>
+<li>$10000 in year 3</li>
+</ul></li>
+<li><p>Calculate monthly compound interest for initial amount $100,000 at 6% annual rate over 5 years</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Vectorized multiplication: <code>array1 * array2</code> multiplies element by element</p></li>
+<li><p>Array arithmetic: <code>array + value</code>, <code>array - value</code></p></li>
+<li><p><strong>Present value formula</strong>: <span class="math inline">\(PV = \frac{FV}{(1 + r)^n}\)</span> or <span class="math inline">\(PV = FV \times (1 + r)^{-n}\)</span></p>
+<ul>
+<li>Where: <span class="math inline">\(FV\)</span> = future value, <span class="math inline">\(r\)</span> = discount rate, <span class="math inline">\(n\)</span> = number of periods</li>
+</ul></li>
+<li><p>Use <code>np.array()</code> to create arrays of cashflows and years</p></li>
+<li><p><strong>Compound interest formula</strong>: <span class="math inline">\(A = P(1 + r)^n\)</span></p>
+<ul>
+<li>Where: <span class="math inline">\(A\)</span> = final amount, <span class="math inline">\(P\)</span> = principal, <span class="math inline">\(r\)</span> = interest rate, <span class="math inline">\(n\)</span> = periods</li>
+</ul></li>
+<li><p>For monthly compounding: monthly rate = annual rate / 12, periods = years × 12</p></li>
+<li><p><code>np.arange(1, months+1)</code> creates array [1, 2, 3, …, months]</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-22" class="exercise-cell">
+
+</div>
+<script type="pyodide-22-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAxLiBSaXNrLWFkanVzdGVkIHByZW1pdW1zXG5iYXNlX3ByZW1pdW0gPSAxMDAwXG5yaXNrX211bHRpcGxpZXJzID0gbnAuYXJyYXkoWzAuOCwgMS4yLCAxLjUsIDAuOSwgMS44XSlcblxuYWRqdXN0ZWRfcHJlbWl1bXMgPSBiYXNlX3ByZW1pdW0gKiByaXNrX211bHRpcGxpZXJzXG5wcmludChcIlJpc2sgbXVsdGlwbGllcnM6XCIsIHJpc2tfbXVsdGlwbGllcnMpXG5wcmludChcIkFkanVzdGVkIHByZW1pdW1zOlwiLCBhZGp1c3RlZF9wcmVtaXVtcylcbnByaW50KFwiUHJlbWl1bSBhZGp1c3RtZW50czpcIiwgYWRqdXN0ZWRfcHJlbWl1bXMgLSBiYXNlX3ByZW1pdW0pIn0=
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-23" class="exercise-cell">
+
+</div>
+<script type="pyodide-23-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAyLiBQcmVzZW50IHZhbHVlIGNhbGN1bGF0aW9uc1xuY2FzaGZsb3dzID0gbnAuYXJyYXkoWzUwMDAsIDc1MDAsIDEwMDAwXSlcbnllYXJzID0gbnAuYXJyYXkoWzEsIDIsIDNdKVxuZGlzY291bnRfcmF0ZSA9IDAuMDRcblxuIyBQcmVzZW50IHZhbHVlIGZhY3RvcnNcbnB2X2ZhY3RvcnMgPSAoMSArIGRpc2NvdW50X3JhdGUpICoqICgteWVhcnMpXG5wcmVzZW50X3ZhbHVlcyA9IGNhc2hmbG93cyAqIHB2X2ZhY3RvcnNcbnRvdGFsX3B2ID0gbnAuc3VtKHByZXNlbnRfdmFsdWVzKVxuXG5wcmludChcIkNhc2hmbG93czpcIiwgY2FzaGZsb3dzKVxucHJpbnQoXCJZZWFyczpcIiwgeWVhcnMpXG5wcmludChcIlBWIGZhY3RvcnM6XCIsIHB2X2ZhY3RvcnMpXG5wcmludChcIkluZGl2aWR1YWwgcHJlc2VudCB2YWx1ZXM6XCIsIHByZXNlbnRfdmFsdWVzKVxucHJpbnQoXCJUb3RhbCBwcmVzZW50IHZhbHVlOlwiLCB0b3RhbF9wdikifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-24" class="exercise-cell">
+
+</div>
+<script type="pyodide-24-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAzLiBNb250aGx5IGNvbXBvdW5kIGludGVyZXN0XG5pbml0aWFsX2Ftb3VudCA9IDEwMDAwMFxuYW5udWFsX3JhdGUgPSAwLjA2XG5tb250aGx5X3JhdGUgPSBhbm51YWxfcmF0ZSAvIDEyXG5tb250aHMgPSA1ICogMTIgICMgNSB5ZWFyc1xuXG4jIENhbGN1bGF0ZSBtb250aCBieSBtb250aFxudGltZV9wZXJpb2RzID0gbnAuYXJhbmdlKDEsIG1vbnRocyArIDEpXG5tb250aGx5X3ZhbHVlcyA9IGluaXRpYWxfYW1vdW50ICogKDEgKyBtb250aGx5X3JhdGUpICoqIHRpbWVfcGVyaW9kc1xuXG5wcmludChmXCJJbml0aWFsIGFtb3VudDogJHtpbml0aWFsX2Ftb3VudDosLjJmfVwiKVxucHJpbnQoZlwiTW9udGhseSByYXRlOiB7bW9udGhseV9yYXRlOi40Zn1cIilcbnByaW50KGZcIlZhbHVlIGFmdGVyIDEgeWVhcjogJHttb250aGx5X3ZhbHVlc1sxMV06LC4yZn1cIilcbnByaW50KGZcIlZhbHVlIGFmdGVyIDUgeWVhcnM6ICR7bW9udGhseV92YWx1ZXNbLTFdOiwuMmZ9XCIpXG5wcmludChmXCJUb3RhbCBpbnRlcmVzdCBlYXJuZWQ6ICR7bW9udGhseV92YWx1ZXNbLTFdIC0gaW5pdGlhbF9hbW91bnQ6LC4yZn1cIikifQ==
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-b-statistical-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="part-b-statistical-analysis">Part B: Statistical Analysis</h3>
+<p>Using the claim amounts from Exercise 1:</p>
+<ol type="1">
+<li><p>Calculate mean, median, standard deviation, minimum, and maximum</p></li>
+<li><p>Find the 25th, 50th, and 75th percentiles</p></li>
+<li><p>Calculate the coefficient of variation (std/mean)</p></li>
+<li><p>Identify claims that are more than 1 standard deviation above the mean</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Basic statistics: <code>np.mean()</code>, <code>np.median()</code>, <code>np.std()</code>, <code>np.min()</code>, <code>np.max()</code></p></li>
+<li><p>Percentiles: <code>np.percentile(array, [25, 50, 75])</code> gives 25th, 50th, 75th percentiles</p></li>
+<li><p><strong>Coefficient of variation</strong>: <span class="math inline">\(CV = \frac{\sigma}{\mu}\)</span> (standard deviation / mean)</p>
+<ul>
+<li>Measures relative variability; useful for comparing risk across different claim sizes</li>
+</ul></li>
+<li><p><strong>Outlier detection</strong>: Values beyond <span class="math inline">\(\mu \pm k\sigma\)</span> (often <span class="math inline">\(k=1, 2, or 3\)</span>)</p>
+<ul>
+<li>For this exercise: threshold = <span class="math inline">\(\mu + \sigma\)</span> (mean + 1 standard deviation)</li>
+</ul></li>
+<li><p><code>len(array)</code> gives the number of elements</p></li>
+<li><p>Boolean indexing: <code>array[array &gt; threshold]</code> selects elements meeting condition</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-25" class="exercise-cell">
+
+</div>
+<script type="pyodide-25-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBSZWNyZWF0ZSBjbGFpbSBhbW91bnRzXG5jbGFpbV9hbW91bnRzID0gbnAuYXJyYXkoWzEyNTAwLCA4OTAwLCAxNTYwMCwgMjIwMDAsIDU0MDAsIDE4OTAwLCAzMTIwMF0pXG5cbiMgMS4gQmFzaWMgc3RhdGlzdGljc1xubWVhbl9jbGFpbSA9IG5wLm1lYW4oY2xhaW1fYW1vdW50cylcbm1lZGlhbl9jbGFpbSA9IG5wLm1lZGlhbihjbGFpbV9hbW91bnRzKVxuc3RkX2NsYWltID0gbnAuc3RkKGNsYWltX2Ftb3VudHMpXG5taW5fY2xhaW0gPSBucC5taW4oY2xhaW1fYW1vdW50cylcbm1heF9jbGFpbSA9IG5wLm1heChjbGFpbV9hbW91bnRzKVxuXG5wcmludChcIkNsYWltIFN0YXRpc3RpY3M6XCIpXG5wcmludChmXCJNZWFuOiAke21lYW5fY2xhaW06LC4yZn1cIilcbnByaW50KGZcIk1lZGlhbjogJHttZWRpYW5fY2xhaW06LC4yZn1cIilcbnByaW50KGZcIlN0YW5kYXJkIGRldmlhdGlvbjogJHtzdGRfY2xhaW06LC4yZn1cIilcbnByaW50KGZcIk1pbmltdW06ICR7bWluX2NsYWltOiwuMmZ9XCIpXG5wcmludChmXCJNYXhpbXVtOiAke21heF9jbGFpbTosLjJmfVwiKVxuXG4jIDIuIFBlcmNlbnRpbGVzXG5wZXJjZW50aWxlcyA9IG5wLnBlcmNlbnRpbGUoY2xhaW1fYW1vdW50cywgWzI1LCA1MCwgNzVdKVxucHJpbnQoZlwiXFxuUGVyY2VudGlsZXM6XCIpXG5wcmludChmXCIyNXRoIHBlcmNlbnRpbGU6ICR7cGVyY2VudGlsZXNbMF06LC4yZn1cIilcbnByaW50KGZcIjUwdGggcGVyY2VudGlsZSAobWVkaWFuKTogJHtwZXJjZW50aWxlc1sxXTosLjJmfVwiKVxucHJpbnQoZlwiNzV0aCBwZXJjZW50aWxlOiAke3BlcmNlbnRpbGVzWzJdOiwuMmZ9XCIpXG5cbiMgMy4gQ29lZmZpY2llbnQgb2YgdmFyaWF0aW9uXG5jb2VmZl92YXJpYXRpb24gPSBzdGRfY2xhaW0gLyBtZWFuX2NsYWltXG5wcmludChmXCJcXG5Db2VmZmljaWVudCBvZiB2YXJpYXRpb246IHtjb2VmZl92YXJpYXRpb246LjNmfVwiKVxuXG4jIDQuIEhpZ2ggY2xhaW1zICg+IDEgc3RkIGFib3ZlIG1lYW4pXG50aHJlc2hvbGQgPSBtZWFuX2NsYWltICsgc3RkX2NsYWltXG5oaWdoX2NsYWltc19tYXNrID0gY2xhaW1fYW1vdW50cyA+IHRocmVzaG9sZFxuaGlnaF9jbGFpbXMgPSBjbGFpbV9hbW91bnRzW2hpZ2hfY2xhaW1zX21hc2tdXG5cbnByaW50KGZcIlxcbkhpZ2ggY2xhaW1zIHRocmVzaG9sZCAobWVhbiArIDEgc3RkKTogJHt0aHJlc2hvbGQ6LC4yZn1cIilcbnByaW50KGZcIkhpZ2ggY2xhaW1zOiB7aGlnaF9jbGFpbXN9XCIpXG5wcmludChmXCJOdW1iZXIgb2YgaGlnaCBjbGFpbXM6IHtsZW4oaGlnaF9jbGFpbXMpfVwiKVxucHJpbnQoZlwiUGVyY2VudGFnZSBvZiBoaWdoIGNsYWltczoge2xlbihoaWdoX2NsYWltcykvbGVuKGNsYWltX2Ftb3VudHMpKjEwMDouMWZ9JVwiKSJ9
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-4" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-4">Exercise 4</h2>
+<p>In this part, we’ll focus on a a practical actuarial application by creating a simple life insurance premium calculation system.</p>
+<p>You need to calculate annual premiums for term life insurance policies. Given:</p>
+<ul>
+<li><p>Face amounts: [$100,000, $250,000, $500,000, $1,000,000]</p></li>
+<li><p>Ages: [25, 35, 45, 55]</p></li>
+<li><p>Base mortality rates: [0.001, 0.002, 0.005, 0.012] (annual probability of death)</p></li>
+<li><p>Interest rate: 3% annually</p></li>
+<li><p>Policy term: 20 years</p></li>
+<li><p>Loading factor: 20% (to cover expenses and profit)</p></li>
+</ul>
+<p>Now, given the information above, do the following:</p>
+<ol type="1">
+<li><p>Create arrays for all the given data</p></li>
+<li><p>Calculate the expected present value of death benefits for each policy</p></li>
+<li><p>Calculate the expected present value of a $1 annuity for 20 years at each age</p></li>
+<li><p>Calculate the net annual premium (expected PV of benefits / expected PV of annuity)</p></li>
+<li><p>Calculate the gross annual premium (net premium × loading factor)</p></li>
+<li><p>Create a summary table showing age, face amount, net premium, and gross premium</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Start by creating arrays for all input data using <code>np.array()</code></p></li>
+<li><p><strong>Expected Present Value of Death Benefits</strong>: <span class="math inline">\(EPV_{benefits} = \sum_{t=1}^{n} {}_{t-1}p_x \cdot q_{x+t-1} \cdot v^{t-0.5}\)</span></p>
+<ul>
+<li>Where: <span class="math inline">\({}_{t-1}p_x\)</span> = survival probability, <span class="math inline">\(q_{x+t-1}\)</span> = death probability, <span class="math inline">\(v^{t-0.5}\)</span> = discount factor</li>
+</ul></li>
+<li><p><strong>Expected Present Value of Annuity</strong>: <span class="math inline">\(EPV_{annuity} = \sum_{t=1}^{n} {}_{t-1}p_x \cdot v^{t-1}\)</span></p></li>
+<li><p><strong>Net Premium Formula</strong>: <span class="math inline">\(P_{net} = \frac{Face Amount \times EPV_{benefits}}{EPV_{annuity}}\)</span></p></li>
+<li><p><strong>Gross Premium</strong>: <span class="math inline">\(P_{gross} = P_{net} \times (1 + loading)\)</span></p></li>
+<li><p>Survival probability: <span class="math inline">\({}_{t-1}p_x = (1-q)^{t-1}\)</span></p></li>
+<li><p>Death probability in year t: <span class="math inline">\({}_{t-1}p_x \times q\)</span></p></li>
+<li><p>Present value discounting: <span class="math inline">\(v^t = (1 + i)^{-t}\)</span> where <span class="math inline">\(i\)</span> is interest rate</p></li>
+<li><p>Use <code>np.sum()</code> to add up present values across all years</p></li>
+<li><p>Broadcasting: <code>face_amounts[:, np.newaxis]</code> creates column vector for matrix operations</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-26" class="exercise-cell">
+
+</div>
+<script type="pyodide-26-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAxLiBDcmVhdGUgYXJyYXlzIGZvciBnaXZlbiBkYXRhXG5mYWNlX2Ftb3VudHMgPSBucC5hcnJheShbMTAwMDAwLCAyNTAwMDAsIDUwMDAwMCwgMTAwMDAwMF0pXG5hZ2VzID0gbnAuYXJyYXkoWzI1LCAzNSwgNDUsIDU1XSlcbm1vcnRhbGl0eV9yYXRlcyA9IG5wLmFycmF5KFswLjAwMSwgMC4wMDIsIDAuMDA1LCAwLjAxMl0pXG5pbnRlcmVzdF9yYXRlID0gMC4wM1xucG9saWN5X3Rlcm0gPSAyMFxubG9hZGluZ19mYWN0b3IgPSAxLjIwXG5cbnByaW50KFwiSW5wdXQgRGF0YTpcIilcbnByaW50KFwiRmFjZSBhbW91bnRzOlwiLCBmYWNlX2Ftb3VudHMpXG5wcmludChcIkFnZXM6XCIsIGFnZXMpXG5wcmludChcIk1vcnRhbGl0eSByYXRlczpcIiwgbW9ydGFsaXR5X3JhdGVzKVxucHJpbnQoXCJJbnRlcmVzdCByYXRlOlwiLCBpbnRlcmVzdF9yYXRlKVxucHJpbnQoXCJQb2xpY3kgdGVybTpcIiwgcG9saWN5X3Rlcm0sIFwieWVhcnNcIilcbnByaW50KFwiTG9hZGluZyBmYWN0b3I6XCIsIGxvYWRpbmdfZmFjdG9yKSJ9
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-27" class="exercise-cell">
+
+</div>
+<script type="pyodide-27-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAyLiBFeHBlY3RlZCBwcmVzZW50IHZhbHVlIG9mIGRlYXRoIGJlbmVmaXRzXG4jIFNpbXBsaWZpY2F0aW9uOiBhc3N1bWUgY29uc3RhbnQgbW9ydGFsaXR5IHJhdGUgYW5kIG1pZC15ZWFyIGRlYXRoc1xueWVhcnMgPSBucC5hcmFuZ2UoMSwgcG9saWN5X3Rlcm0gKyAxKVxuZGlzY291bnRfZmFjdG9ycyA9ICgxICsgaW50ZXJlc3RfcmF0ZSkgKiogKC15ZWFycyArIDAuNSkgICMgTWlkLXllYXIgZGlzY291bnRpbmdcblxuIyBDYWxjdWxhdGUgZm9yIGVhY2ggYWdlIChhc3N1bWluZyBjb25zdGFudCBtb3J0YWxpdHkpXG5lcHZfYmVuZWZpdHMgPSBbXVxuZm9yIGksIHEgaW4gZW51bWVyYXRlKG1vcnRhbGl0eV9yYXRlcyk6XG4gICAgIyBQcm9iYWJpbGl0eSBvZiBkeWluZyBpbiB5ZWFyIHQgZ2l2ZW4gc3Vydml2YWwgdG8gYmVnaW5uaW5nIG9mIHllYXIgdFxuICAgIHN1cnZpdmFsX3Byb2JzID0gKDEgLSBxKSAqKiAoeWVhcnMgLSAxKSAgIyBTdXJ2aXZlIHRvIGJlZ2lubmluZyBvZiB5ZWFyIHRcbiAgICBkZWF0aF9wcm9icyA9IHN1cnZpdmFsX3Byb2JzICogcSAgIyBEaWUgZHVyaW5nIHllYXIgdFxuICAgIFxuICAgIGVwdl9iZW5lZml0ID0gbnAuc3VtKGRlYXRoX3Byb2JzICogZGlzY291bnRfZmFjdG9ycylcbiAgICBlcHZfYmVuZWZpdHMuYXBwZW5kKGVwdl9iZW5lZml0KVxuXG5lcHZfYmVuZWZpdHMgPSBucC5hcnJheShlcHZfYmVuZWZpdHMpXG5wcmludChcIlxcbkV4cGVjdGVkIFBWIG9mICQxIGRlYXRoIGJlbmVmaXQgYnkgYWdlOlwiKVxuZm9yIGksIGFnZSBpbiBlbnVtZXJhdGUoYWdlcyk6XG4gICAgcHJpbnQoZlwiQWdlIHthZ2V9OiB7ZXB2X2JlbmVmaXRzW2ldOi42Zn1cIikifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-28" class="exercise-cell">
+
+</div>
+<script type="pyodide-28-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAzLiBFeHBlY3RlZCBwcmVzZW50IHZhbHVlIG9mICQxIGFubnVpdHlcbmVwdl9hbm51aXRpZXMgPSBbXVxuZm9yIGksIHEgaW4gZW51bWVyYXRlKG1vcnRhbGl0eV9yYXRlcyk6XG4gICAgIyBQcm9iYWJpbGl0eSBvZiBiZWluZyBhbGl2ZSBhdCBiZWdpbm5pbmcgb2YgZWFjaCB5ZWFyXG4gICAgc3Vydml2YWxfcHJvYnMgPSAoMSAtIHEpICoqICh5ZWFycyAtIDEpXG4gICAgZGlzY291bnRfZmFjdG9yc19hbm51aXR5ID0gKDEgKyBpbnRlcmVzdF9yYXRlKSAqKiAoLXllYXJzICsgMSkgICMgQmVnaW5uaW5nIG9mIHllYXJcbiAgICBcbiAgICBlcHZfYW5udWl0eSA9IG5wLnN1bShzdXJ2aXZhbF9wcm9icyAqIGRpc2NvdW50X2ZhY3RvcnNfYW5udWl0eSlcbiAgICBlcHZfYW5udWl0aWVzLmFwcGVuZChlcHZfYW5udWl0eSlcblxuZXB2X2FubnVpdGllcyA9IG5wLmFycmF5KGVwdl9hbm51aXRpZXMpXG5wcmludChcIlxcbkV4cGVjdGVkIFBWIG9mICQxIGFubnVpdHkgYnkgYWdlOlwiKVxuZm9yIGksIGFnZSBpbiBlbnVtZXJhdGUoYWdlcyk6XG4gICAgcHJpbnQoZlwiQWdlIHthZ2V9OiB7ZXB2X2FubnVpdGllc1tpXTouNGZ9XCIpIn0=
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-29" class="exercise-cell">
+
+</div>
+<script type="pyodide-29-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyA0LiBDYWxjdWxhdGUgbmV0IGFubnVhbCBwcmVtaXVtc1xubmV0X3ByZW1pdW1zID0gKGZhY2VfYW1vdW50c1s6LCBucC5uZXdheGlzXSAqIGVwdl9iZW5lZml0cykgLyBlcHZfYW5udWl0aWVzXG5wcmludChcIlxcbk5ldCBhbm51YWwgcHJlbWl1bXM6XCIpXG5wcmludChcIlNoYXBlOlwiLCBuZXRfcHJlbWl1bXMuc2hhcGUpXG5cbiMgNS4gQ2FsY3VsYXRlIGdyb3NzIGFubnVhbCBwcmVtaXVtcyAgXG5ncm9zc19wcmVtaXVtcyA9IG5ldF9wcmVtaXVtcyAqIGxvYWRpbmdfZmFjdG9yXG5cbiMgNi4gQ3JlYXRlIHN1bW1hcnkgdGFibGVcbnByaW50KFwiXFxuXCIgKyBcIj1cIio4MClcbnByaW50KFwiTElGRSBJTlNVUkFOQ0UgUFJFTUlVTSBTVU1NQVJZXCIpXG5wcmludChcIj1cIio4MClcbnByaW50KGZcInsnQWdlJzo8NX0geydGYWNlIEFtb3VudCc6PDEyfSB7J05ldCBQcmVtaXVtJzo8MTJ9IHsnR3Jvc3MgUHJlbWl1bSc6PDEyfVwiKVxucHJpbnQoXCItXCIqODApXG5cbmZvciBpIGluIHJhbmdlKGxlbihhZ2VzKSk6XG4gICAgZm9yIGogaW4gcmFuZ2UobGVuKGZhY2VfYW1vdW50cykpOlxuICAgICAgICBhZ2UgPSBhZ2VzW2ldXG4gICAgICAgIGZhY2UgPSBmYWNlX2Ftb3VudHNbal1cbiAgICAgICAgbmV0ID0gbmV0X3ByZW1pdW1zW2osIGldXG4gICAgICAgIGdyb3NzID0gZ3Jvc3NfcHJlbWl1bXNbaiwgaV1cbiAgICAgICAgcHJpbnQoZlwie2FnZTo8NX0gJHtmYWNlOjwxMSx9ICR7bmV0OjwxMS4yZn0gJHtncm9zczo8MTEuMmZ9XCIpXG4gICAgaWYgaSA8IGxlbihhZ2VzKSAtIDE6XG4gICAgICAgIHByaW50KFwiLVwiKjQwKSJ9
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
+<p>In this part, we’ll focus on some advanced array operations, namely reshaping, broadcasting, and advanced manipulations.</p>
+<section id="part-a-portfolio-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="part-a-portfolio-analysis">Part A: Portfolio Analysis</h3>
+<p>You have quarterly premium data for 3 product lines over 2 years (8 quarters total):</p>
+<pre><code>Product A: [100, 120, 110, 130, 125, 140, 135, 150] (in thousands)
+Product B: [200, 180, 220, 210, 190, 230, 225, 240]  
+Product C: [50, 60, 55, 65, 58, 70, 68, 75]</code></pre>
+<ol type="1">
+<li><p>Create a 2D array with products as rows and quarters as columns</p></li>
+<li><p>Reshape the data to show annual totals (2 years × 3 products)</p></li>
+<li><p>Calculate quarterly growth rates for each product</p></li>
+<li><p>Find the best and worst performing quarters for each product</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Create 2D array with <code>np.array([product_a, product_b, product_c])</code></p></li>
+<li><p>For annual totals: use <code>.reshape(3, 2, 4)</code> to get (products, years, quarters)</p></li>
+<li><p>Then use <code>np.sum(axis=2)</code> to sum over quarters</p></li>
+<li><p><strong>Growth rate formula</strong>: <span class="math inline">\(Growth\,Rate = \frac{New\,Value - Old\,Value}{Old\,Value} \times 100\%\)</span></p></li>
+<li><p><strong>Year-over-year growth</strong>: <span class="math inline">\(YoY = \frac{Year_2 - Year_1}{Year_1} \times 100\%\)</span></p></li>
+<li><p>For quarterly growth: compare each quarter to the previous one</p></li>
+<li><p><code>np.argmax()</code> and <code>np.argmin()</code> find indices of max/min values</p></li>
+<li><p>Convert quarter index to readable format: <code>Q{(index%4)+1}Y{(index//4)+1}</code></p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-30" class="exercise-cell">
+
+</div>
+<script type="pyodide-30-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDcmVhdGUgdGhlIGRhdGFcbnByb2R1Y3RfYSA9IG5wLmFycmF5KFsxMDAsIDEyMCwgMTEwLCAxMzAsIDEyNSwgMTQwLCAxMzUsIDE1MF0pXG5wcm9kdWN0X2IgPSBucC5hcnJheShbMjAwLCAxODAsIDIyMCwgMjEwLCAxOTAsIDIzMCwgMjI1LCAyNDBdKVxucHJvZHVjdF9jID0gbnAuYXJyYXkoWzUwLCA2MCwgNTUsIDY1LCA1OCwgNzAsIDY4LCA3NV0pXG5cbiMgMS4gQ3JlYXRlIDJEIGFycmF5IChwcm9kdWN0cyDDlyBxdWFydGVycylcbnF1YXJ0ZXJseV9kYXRhID0gbnAuYXJyYXkoW3Byb2R1Y3RfYSwgcHJvZHVjdF9iLCBwcm9kdWN0X2NdKVxucHJpbnQoXCJRdWFydGVybHkgcHJlbWl1bXMgKHByb2R1Y3RzIMOXIHF1YXJ0ZXJzKTpcIilcbnByaW50KFwiUHJvZHVjdHM6IEEsIEIsIENcIilcbnByaW50KFwiUXVhcnRlcnM6IFExWTEsIFEyWTEsIFEzWTEsIFE0WTEsIFExWTIsIFEyWTIsIFEzWTIsIFE0WTJcIilcbnByaW50KHF1YXJ0ZXJseV9kYXRhKVxucHJpbnQoXCJTaGFwZTpcIiwgcXVhcnRlcmx5X2RhdGEuc2hhcGUpIn0=
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-31" class="exercise-cell">
+
+</div>
+<script type="pyodide-31-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAyLiBBbm51YWwgdG90YWxzIChyZXNoYXBlIHRvIDIgeWVhcnMgw5cgNCBxdWFydGVycywgdGhlbiBzdW0pXG5xdWFydGVybHlfcmVzaGFwZWQgPSBxdWFydGVybHlfZGF0YS5yZXNoYXBlKDMsIDIsIDQpICAjIHByb2R1Y3RzIMOXIHllYXJzIMOXIHF1YXJ0ZXJzXG5hbm51YWxfdG90YWxzID0gbnAuc3VtKHF1YXJ0ZXJseV9yZXNoYXBlZCwgYXhpcz0yKSAgICAjIHN1bSBvdmVyIHF1YXJ0ZXJzXG5wcmludChcIlxcbkFubnVhbCB0b3RhbHMgKHByb2R1Y3RzIMOXIHllYXJzKTpcIilcbnByaW50KFwiICAgICAgICBZZWFyIDEgICBZZWFyIDJcIilcbnByaW50KGZcIlByb2R1Y3QgQToge2FubnVhbF90b3RhbHNbMCwgMF06NS4wZn0gICAge2FubnVhbF90b3RhbHNbMCwgMV06NS4wZn1cIilcbnByaW50KGZcIlByb2R1Y3QgQjoge2FubnVhbF90b3RhbHNbMSwgMF06NS4wZn0gICAge2FubnVhbF90b3RhbHNbMSwgMV06NS4wZn1cIilcbnByaW50KGZcIlByb2R1Y3QgQzoge2FubnVhbF90b3RhbHNbMiwgMF06NS4wZn0gICAge2FubnVhbF90b3RhbHNbMiwgMV06NS4wZn1cIilcblxuIyBZZWFyLW92ZXIteWVhciBncm93dGhcbnlveV9ncm93dGggPSAoYW5udWFsX3RvdGFsc1s6LCAxXSAtIGFubnVhbF90b3RhbHNbOiwgMF0pIC8gYW5udWFsX3RvdGFsc1s6LCAwXSAqIDEwMFxucHJpbnQoXCJcXG5ZZWFyLW92ZXIteWVhciBncm93dGggcmF0ZXM6XCIpXG5wcmludChmXCJQcm9kdWN0IEE6IHt5b3lfZ3Jvd3RoWzBdOjUuMWZ9JVwiKVxucHJpbnQoZlwiUHJvZHVjdCBCOiB7eW95X2dyb3d0aFsxXTo1LjFmfSVcIilcbnByaW50KGZcIlByb2R1Y3QgQzoge3lveV9ncm93dGhbMl06NS4xZn0lXCIpIn0=
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-32" class="exercise-cell">
+
+</div>
+<script type="pyodide-32-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAzLiBRdWFydGVybHkgZ3Jvd3RoIHJhdGVzXG5xdWFydGVybHlfZ3Jvd3RoID0gbnAuemVyb3MoKDMsIDcpKSAgIyA3IGdyb3d0aCByYXRlcyAoUTIvUTEsIFEzL1EyLCBldGMuKVxuZm9yIGkgaW4gcmFuZ2UoMyk6ICAjIEZvciBlYWNoIHByb2R1Y3RcbiAgICBmb3IgaiBpbiByYW5nZSg3KTogICMgRm9yIGVhY2ggcXVhcnRlciB0cmFuc2l0aW9uXG4gICAgICAgIHF1YXJ0ZXJseV9ncm93dGhbaSwgal0gPSAocXVhcnRlcmx5X2RhdGFbaSwgaisxXSAtIHF1YXJ0ZXJseV9kYXRhW2ksIGpdKSAvIHF1YXJ0ZXJseV9kYXRhW2ksIGpdICogMTAwXG5cbnByaW50KFwiXFxuUXVhcnRlcmx5IGdyb3d0aCByYXRlcyAoJSk6XCIpXG5wcmludChcIlF1YXJ0ZXIgdHJhbnNpdGlvbnM6IFEyL1ExLCBRMy9RMiwgUTQvUTMsIFExWTIvUTRZMSwgUTJZMi9RMVkyLCBRM1kyL1EyWTIsIFE0WTIvUTNZMlwiKVxucXVhcnRlcnMgPSBbJ1EyL1ExJywgJ1EzL1EyJywgJ1E0L1EzJywgJ1ExWTIvUTRZMScsICdRMlkyL1ExWTInLCAnUTNZMi9RMlkyJywgJ1E0WTIvUTNZMiddXG5mb3IgaSwgcHJvZHVjdCBpbiBlbnVtZXJhdGUoWydBJywgJ0InLCAnQyddKTpcbiAgICBwcmludChmXCJQcm9kdWN0IHtwcm9kdWN0fToge3F1YXJ0ZXJseV9ncm93dGhbaV19XCIpIn0=
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-33" class="exercise-cell">
+
+</div>
+<script type="pyodide-33-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyA0LiBCZXN0IGFuZCB3b3JzdCBxdWFydGVyc1xucHJpbnQoXCJcXG5CZXN0IGFuZCB3b3JzdCBxdWFydGVycyBmb3IgZWFjaCBwcm9kdWN0OlwiKVxuZm9yIGksIHByb2R1Y3QgaW4gZW51bWVyYXRlKFsnQScsICdCJywgJ0MnXSk6XG4gICAgYmVzdF9xdWFydGVyID0gbnAuYXJnbWF4KHF1YXJ0ZXJseV9kYXRhW2ldKVxuICAgIHdvcnN0X3F1YXJ0ZXIgPSBucC5hcmdtaW4ocXVhcnRlcmx5X2RhdGFbaV0pXG4gICAgYmVzdF92YWx1ZSA9IHF1YXJ0ZXJseV9kYXRhW2ksIGJlc3RfcXVhcnRlcl1cbiAgICB3b3JzdF92YWx1ZSA9IHF1YXJ0ZXJseV9kYXRhW2ksIHdvcnN0X3F1YXJ0ZXJdXG4gICAgXG4gICAgcHJpbnQoZlwiUHJvZHVjdCB7cHJvZHVjdH06XCIpXG4gICAgcHJpbnQoZlwiICBCZXN0IHF1YXJ0ZXI6IFF7KGJlc3RfcXVhcnRlciU0KSsxfVl7KGJlc3RfcXVhcnRlci8vNCkrMX0gd2l0aCAke2Jlc3RfdmFsdWV9a1wiKVxuICAgIHByaW50KGZcIiAgV29yc3QgcXVhcnRlcjogUXsod29yc3RfcXVhcnRlciU0KSsxfVl7KHdvcnN0X3F1YXJ0ZXIvLzQpKzF9IHdpdGggJHt3b3JzdF92YWx1ZX1rXCIpIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-b-broadcasting" class="level3">
+<h3 class="anchored" data-anchor-id="part-b-broadcasting">Part B: Broadcasting</h3>
+<p>Apply broadcasting to calculate insurance premiums across multiple dimensions:</p>
+<ul>
+<li><p>3 age groups: [25, 40, 55]</p></li>
+<li><p>4 coverage amounts: [$100k, $250k, $500k, $1M]</p></li>
+<li><p>Base rate: $2 per $1000 of coverage</p></li>
+<li><p>Age multipliers: [0.8, 1.0, 1.5]</p></li>
+</ul>
+<p>Calculate the premium matrix showing all combinations.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><strong>Premium calculation formula</strong>: <span class="math inline">\(Premium = \frac{Coverage}{1000} \times Base\,Rate \times Age\,Multiplier\)</span></p></li>
+<li><p><strong>Broadcasting principle</strong>: Arrays with compatible shapes can be operated on together</p>
+<ul>
+<li>Compatible shapes: (3,1) and (1,4) → result (3,4)</li>
+</ul></li>
+<li><p>Reshape arrays: <code>ages.reshape(-1, 1)</code> makes column vector, <code>coverage.reshape(1, -1)</code> makes row vector</p></li>
+<li><p>Base premium calculation: <code>(coverage / 1000) * base_rate</code></p></li>
+<li><p>Broadcasting automatically expands arrays to compatible shapes</p></li>
+<li><p>Final operation: <code>base_premiums * age_multipliers_column</code></p></li>
+<li><p>Result will be 3×4 matrix (3 ages × 4 coverage amounts)</p></li>
+<li><p>Use nested loops and f-string formatting for nice table output</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div>
+<div id="pyodide-34" class="exercise-cell">
+
+</div>
+<script type="pyodide-34-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBEZWZpbmUgdGhlIGRpbWVuc2lvbnNcbmFnZXMgPSBucC5hcnJheShbMjUsIDQwLCA1NV0pXG5jb3ZlcmFnZV9hbW91bnRzID0gbnAuYXJyYXkoWzEwMDAwMCwgMjUwMDAwLCA1MDAwMDAsIDEwMDAwMDBdKVxuYmFzZV9yYXRlX3Blcl8xMDAwID0gMlxuYWdlX211bHRpcGxpZXJzID0gbnAuYXJyYXkoWzAuOCwgMS4wLCAxLjVdKVxuXG5wcmludChcIklucHV0IHBhcmFtZXRlcnM6XCIpXG5wcmludChcIkFnZXM6XCIsIGFnZXMpXG5wcmludChcIkNvdmVyYWdlIGFtb3VudHM6XCIsIGNvdmVyYWdlX2Ftb3VudHMpXG5wcmludChcIkJhc2UgcmF0ZSBwZXIgJDEwMDA6XCIsIGJhc2VfcmF0ZV9wZXJfMTAwMClcbnByaW50KFwiQWdlIG11bHRpcGxpZXJzOlwiLCBhZ2VfbXVsdGlwbGllcnMpXG5cbiMgUmVzaGFwZSBmb3IgYnJvYWRjYXN0aW5nXG4jIGFnZXM6ICgzLCAxKSAtIGNvbHVtbiB2ZWN0b3JcbiMgY292ZXJhZ2VfYW1vdW50czogKDEsIDQpIC0gcm93IHZlY3RvclxuYWdlc19jb2wgPSBhZ2VzLnJlc2hhcGUoLTEsIDEpXG5jb3ZlcmFnZV9yb3cgPSBjb3ZlcmFnZV9hbW91bnRzLnJlc2hhcGUoMSwgLTEpXG5tdWx0aXBsaWVyc19jb2wgPSBhZ2VfbXVsdGlwbGllcnMucmVzaGFwZSgtMSwgMSlcblxucHJpbnQoXCJcXG5BcnJheSBzaGFwZXMgZm9yIGJyb2FkY2FzdGluZzpcIilcbnByaW50KFwiQWdlcyAoY29sdW1uKTpcIiwgYWdlc19jb2wuc2hhcGUpXG5wcmludChcIkNvdmVyYWdlIChyb3cpOlwiLCBjb3ZlcmFnZV9yb3cuc2hhcGUpXG5wcmludChcIk11bHRpcGxpZXJzIChjb2x1bW4pOlwiLCBtdWx0aXBsaWVyc19jb2wuc2hhcGUpXG5cbiMgQ2FsY3VsYXRlIGJhc2UgcHJlbWl1bXMgKGNvdmVyYWdlIC8gMTAwMCAqIGJhc2VfcmF0ZSlcbmJhc2VfcHJlbWl1bXMgPSAoY292ZXJhZ2Vfcm93IC8gMTAwMCkgKiBiYXNlX3JhdGVfcGVyXzEwMDBcbnByaW50KFwiXFxuQmFzZSBwcmVtaXVtcyAoYmVmb3JlIGFnZSBhZGp1c3RtZW50KTpcIiwgYmFzZV9wcmVtaXVtcylcblxuIyBBcHBseSBhZ2UgbXVsdGlwbGllcnMgdXNpbmcgYnJvYWRjYXN0aW5nXG5maW5hbF9wcmVtaXVtcyA9IGJhc2VfcHJlbWl1bXMgKiBtdWx0aXBsaWVyc19jb2xcbnByaW50KFwiXFxuRmluYWwgcHJlbWl1bSBtYXRyaXggKGFnZXMgw5cgY292ZXJhZ2UgYW1vdW50cyk6XCIpXG5wcmludChcIlNoYXBlOlwiLCBmaW5hbF9wcmVtaXVtcy5zaGFwZSlcbnByaW50KGZpbmFsX3ByZW1pdW1zKVxuXG4jIENyZWF0ZSBhIG5pY2VseSBmb3JtYXR0ZWQgdGFibGVcbnByaW50KFwiXFxuXCIgKyBcIj1cIio3MClcbnByaW50KFwiUFJFTUlVTSBDQUxDVUxBVElPTiBNQVRSSVhcIilcbnByaW50KFwiPVwiKjcwKVxucHJpbnQoZlwieydBZ2UnOjw1fSB7JyQxMDBrJzo8MTB9IHsnJDI1MGsnOjwxMH0geyckNTAwayc6PDEwfSB7JyQxTSc6PDEwfVwiKVxucHJpbnQoXCItXCIqNzApXG5mb3IgaSwgYWdlIGluIGVudW1lcmF0ZShhZ2VzKTpcbiAgICBwcmludChmXCJ7YWdlOjw1fSAke2ZpbmFsX3ByZW1pdW1zW2ksMF06PDkuMGZ9ICR7ZmluYWxfcHJlbWl1bXNbaSwxXTo8OS4wZn0gJHtmaW5hbF9wcmVtaXVtc1tpLDJdOjw5LjBmfSAke2ZpbmFsX3ByZW1pdW1zW2ksM106PDkuMGZ9XCIpIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>These exercises covered the essential NumPy skills for actuarial science:</p>
+<ol type="1">
+<li><strong>Array Creation</strong>: Using appropriate data structures for actuarial data</li>
+<li><strong>Indexing &amp; Slicing</strong>: Accessing specific policies, years, or conditions<br>
+</li>
+<li><strong>Boolean Operations</strong>: Filtering high-risk policies and claims</li>
+<li><strong>Mathematical Operations</strong>: Premium calculations and present value computations</li>
+<li><strong>Statistical Analysis</strong>: Risk assessment and portfolio analysis</li>
+<li><strong>Advanced Operations</strong>: Reshaping data and using broadcasting for multi-dimensional calculations</li>
+</ol>
+
+
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yNy4wL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIiwibWF0cGxvdGxpYiIsIm51bXB5Iiwic2VhYm9ybiIsInBhbmRhcyIsInNjaXB5Il19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTM0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTM0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTMzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTMyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMxIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTMxLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTMwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI5IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjkgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI5LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjktY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yOSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI4IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjggPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI4LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yOCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI3IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjcgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI3LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjctY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI2IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjYgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI2LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjYtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIxIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIxLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE5IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTkgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE5LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTktY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xOSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE4IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTggPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE4LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xOCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE3IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTcgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE3LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTctY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE2IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTYgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE2LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTYtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTExIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTExLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../labs";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../labs/exercise_set_1.html" class="pagination-link" aria-label="Exercise Set I - Python">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exercise Set I - Python</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../labs/exercise_set_3.html" class="pagination-link" aria-label="Exercise Set III - Pandas">
+        <span class="nav-page-text">Exercise Set III - Pandas</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2025, <a href="https://iliaazizi.com/">Ilia Azizi</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with 🤍 and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

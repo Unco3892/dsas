@@ -1,0 +1,2627 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Exercise Set 0 - Setup – Introduction to Data Science I MScAS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../labs/exercise_set_1.html" rel="next">
+<link href="../lectures/pipeline.html" rel="prev">
+<link href="../images/logo.dark.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-abfe29080efd84a6e6ee59c2a25efe07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c510dcd4cb238ff9ea0c38e124e4433d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-abfe29080efd84a6e6ee59c2a25efe07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CNFS8TM552"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-CNFS8TM552', { 'anonymize_ip': true});
+</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles/custom.css">
+<link rel="stylesheet" href="../css/solution-styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../labs/exercise_set_0.html">Labs</a></li><li class="breadcrumb-item"><a href="../labs/exercise_set_0.html">Exercise Set 0 - Setup</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo.light.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.light.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://moodle.unil.ch/course/view.php?id=34127" title="Moodle" class="quarto-navigation-tool px-1" aria-label="Moodle"><i class="bi bi-mortarboard"></i></a>
+    <a href="https://github.com/Unco3892/dsas-support" title="GitHub Repo" class="quarto-navigation-tool px-1" aria-label="GitHub Repo"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Information</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/numpy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to NumPy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Plotting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Science Pipeline</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_0.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Exercise Set 0 - Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set I - Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set II - NumPy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set III - Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set IV - Plotting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set V - Pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set VI - HMD</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Assessment</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assessment/project_directives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project Directives</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assessment/presentation_guidelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentation Guidelines</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/data_acquisition/data_sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Sources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/cheatsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#core-development-tools" id="toc-core-development-tools" class="nav-link active" data-scroll-target="#core-development-tools">Core Development Tools</a></li>
+  <li><a href="#ide-recommendations-by-course-phase" id="toc-ide-recommendations-by-course-phase" class="nav-link" data-scroll-target="#ide-recommendations-by-course-phase">IDE Recommendations by Course Phase</a></li>
+  <li><a href="#python-libraries-for-data-science" id="toc-python-libraries-for-data-science" class="nav-link" data-scroll-target="#python-libraries-for-data-science">Python Libraries for Data Science</a></li>
+  <li><a href="#installation-guide" id="toc-installation-guide" class="nav-link" data-scroll-target="#installation-guide">Installation Guide</a>
+  <ul class="collapse">
+  <li><a href="#step-1-install-anaconda" id="toc-step-1-install-anaconda" class="nav-link" data-scroll-target="#step-1-install-anaconda">Step 1: Install Anaconda</a></li>
+  <li><a href="#step-2-verify-python-installation" id="toc-step-2-verify-python-installation" class="nav-link" data-scroll-target="#step-2-verify-python-installation">Step 2: Verify Python Installation</a></li>
+  <li><a href="#step-3-install-your-chosen-ide" id="toc-step-3-install-your-chosen-ide" class="nav-link" data-scroll-target="#step-3-install-your-chosen-ide">Step 3: Install Your Chosen IDE</a></li>
+  <li><a href="#step-4-set-up-git-and-github" id="toc-step-4-set-up-git-and-github" class="nav-link" data-scroll-target="#step-4-set-up-git-and-github">Step 4: Set Up Git and GitHub</a></li>
+  <li><a href="#step-5-install-quarto-optional-but-recommended" id="toc-step-5-install-quarto-optional-but-recommended" class="nav-link" data-scroll-target="#step-5-install-quarto-optional-but-recommended">Step 5: Install Quarto (Optional but Recommended)</a></li>
+  <li><a href="#step-6-test-your-setup" id="toc-step-6-test-your-setup" class="nav-link" data-scroll-target="#step-6-test-your-setup">Step 6: Test Your Setup</a></li>
+  </ul></li>
+  <li><a href="#installing-python-packages" id="toc-installing-python-packages" class="nav-link" data-scroll-target="#installing-python-packages">Installing Python Packages</a>
+  <ul class="collapse">
+  <li><a href="#understanding-pip" id="toc-understanding-pip" class="nav-link" data-scroll-target="#understanding-pip">Understanding pip</a></li>
+  <li><a href="#basic-pip-commands" id="toc-basic-pip-commands" class="nav-link" data-scroll-target="#basic-pip-commands">Basic pip Commands</a></li>
+  <li><a href="#installing-course-requirements" id="toc-installing-course-requirements" class="nav-link" data-scroll-target="#installing-course-requirements">Installing Course Requirements</a></li>
+  <li><a href="#verifying-installations" id="toc-verifying-installations" class="nav-link" data-scroll-target="#verifying-installations">Verifying Installations</a></li>
+  <li><a href="#managing-virtual-environments" id="toc-managing-virtual-environments" class="nav-link" data-scroll-target="#managing-virtual-environments">Managing Virtual Environments</a></li>
+  <li><a href="#common-installation-issues-and-solutions" id="toc-common-installation-issues-and-solutions" class="nav-link" data-scroll-target="#common-installation-issues-and-solutions">Common Installation Issues and Solutions</a></li>
+  </ul></li>
+  <li><a href="#understanding-the-terminal" id="toc-understanding-the-terminal" class="nav-link" data-scroll-target="#understanding-the-terminal">Understanding the Terminal</a>
+  <ul class="collapse">
+  <li><a href="#what-is-the-terminal" id="toc-what-is-the-terminal" class="nav-link" data-scroll-target="#what-is-the-terminal">What is the Terminal?</a></li>
+  <li><a href="#your-first-terminal-commands" id="toc-your-first-terminal-commands" class="nav-link" data-scroll-target="#your-first-terminal-commands">Your First Terminal Commands</a></li>
+  </ul></li>
+  <li><a href="#command-line-basics" id="toc-command-line-basics" class="nav-link" data-scroll-target="#command-line-basics">Command Line Basics</a>
+  <ul class="collapse">
+  <li><a href="#essential-commands" id="toc-essential-commands" class="nav-link" data-scroll-target="#essential-commands">Essential Commands</a></li>
+  <li><a href="#practice-exercise" id="toc-practice-exercise" class="nav-link" data-scroll-target="#practice-exercise">Practice Exercise</a></li>
+  </ul></li>
+  <li><a href="#best-practices-for-learning" id="toc-best-practices-for-learning" class="nav-link" data-scroll-target="#best-practices-for-learning">Best Practices for Learning</a>
+  <ul class="collapse">
+  <li><a href="#disable-auto-completion-while-learning" id="toc-disable-auto-completion-while-learning" class="nav-link" data-scroll-target="#disable-auto-completion-while-learning">1. Disable Auto-completion While Learning</a></li>
+  <li><a href="#avoid-ai-code-generation-tools" id="toc-avoid-ai-code-generation-tools" class="nav-link" data-scroll-target="#avoid-ai-code-generation-tools">2. Avoid AI Code Generation Tools</a></li>
+  </ul></li>
+  <li><a href="#setting-up-your-first-project" id="toc-setting-up-your-first-project" class="nav-link" data-scroll-target="#setting-up-your-first-project">Setting Up Your First Project</a></li>
+  <li><a href="#troubleshooting-common-issues" id="toc-troubleshooting-common-issues" class="nav-link" data-scroll-target="#troubleshooting-common-issues">Troubleshooting Common Issues</a>
+  <ul class="collapse">
+  <li><a href="#issue-1-python-command-not-found" id="toc-issue-1-python-command-not-found" class="nav-link" data-scroll-target="#issue-1-python-command-not-found">Issue 1: “python” command not found</a></li>
+  <li><a href="#issue-2-package-import-errors" id="toc-issue-2-package-import-errors" class="nav-link" data-scroll-target="#issue-2-package-import-errors">Issue 2: Package import errors</a></li>
+  <li><a href="#issue-3-jupyter-kernel-dies-repeatedly" id="toc-issue-3-jupyter-kernel-dies-repeatedly" class="nav-link" data-scroll-target="#issue-3-jupyter-kernel-dies-repeatedly">Issue 3: Jupyter kernel dies repeatedly</a></li>
+  <li><a href="#issue-4-git-push-authentication-fails" id="toc-issue-4-git-push-authentication-fails" class="nav-link" data-scroll-target="#issue-4-git-push-authentication-fails">Issue 4: Git push authentication fails</a></li>
+  </ul></li>
+  <li><a href="#your-first-data-science-computation" id="toc-your-first-data-science-computation" class="nav-link" data-scroll-target="#your-first-data-science-computation">Your First Data Science Computation</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script type="application/javascript">
+// Description: Change image src depending on body class (quarto-light or quarto-dark)
+function updateImageSrc() {
+  var bodyClass = window.document.body.classList;
+  var images = window.document.getElementsByTagName('img');
+  for (var i = 0; i < images.length; i++) {
+    var image = images[i];
+    var src = image.src;
+    var newSrc = src;
+    if (bodyClass.contains('quarto-light') && src.includes('.dark')) {
+      newSrc = src.replace('.dark', '.light');
+    } else if (bodyClass.contains('quarto-dark') && src.includes('.light')) {
+      newSrc = src.replace('.light', '.dark');
+    }
+    if (newSrc !== src) {
+      image.src = newSrc;
+    }
+  }
+}
+
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+      updateImageSrc();
+    }
+  });
+});
+
+observer.observe(window.document.body, {
+  attributes: true
+});
+
+updateImageSrc();
+</script>
+<script type="application/javascript">
+function downloadNotebook(filename) {
+  const fileUrl = new URL('../ipynb/' + filename, window.location.href);
+  const tempLink = document.createElement('a');
+  tempLink.href = fileUrl.href;
+  tempLink.setAttribute('download', filename);
+  tempLink.rel = 'noopener';
+  tempLink.style.display = 'none';
+
+  const isSafari = /^((?!chrome|android).)*safari/i.test(window.navigator.userAgent);
+
+  document.body.appendChild(tempLink);
+
+  try {
+    // Safari has limited support for programmatic downloads
+    if (isSafari) {
+      window.location.assign(tempLink.href);
+    } else {
+      tempLink.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    }
+  } finally {
+    document.body.removeChild(tempLink);
+  }
+}
+</script>
+<script type="application/javascript" src="../js/solution-manager.js"></script>
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../labs/exercise_set_0.html">Labs</a></li><li class="breadcrumb-item"><a href="../labs/exercise_set_0.html">Exercise Set 0 - Setup</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Exercise Set 0 - Setup</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- [Jupyter](#){.btn .btn-outline-danger .btn-sm .btn .btn-jupyter onclick="downloadNotebook('exercise_set_0.ipynb')" title="Download the Jupyter Notebook"}
+[Google Colab](https://colab.research.google.com/drive/1-rVoJ11YuhnEfdtbXdDmVHHsQ-aHSUXu){.btn .btn-outline-warning .btn-sm .btn .btn-colab title="Open in Google Colab"} -->
+<p>Welcome to your first exercise set! Before we can start analyzing actuarial data and building models, we need to set up our development environment. This session will ensure everyone has the necessary tools installed and configured correctly.</p>
+<!-- TODO: 
+- Add the quarto different format examples from the slides
+-->
+<section id="core-development-tools" class="level3">
+<h3 class="anchored" data-anchor-id="core-development-tools">Core Development Tools</h3>
+<section id="python-via-anaconda" class="level4">
+<h4 class="anchored" data-anchor-id="python-via-anaconda">1. Python (via Anaconda)</h4>
+<p>Python is our primary programming language. We’ll install it through <strong>Anaconda</strong>, which is a distribution that includes:</p>
+<ul>
+<li>Python interpreter</li>
+<li>Package manager (conda/pip)</li>
+<li>Pre-installed data science libraries</li>
+<li>Jupyter Notebook</li>
+<li>Spyder IDE</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Why Anaconda?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Anaconda simplifies package management and deployment. It comes with over 250 pre-installed packages commonly used in data science, saving you hours of installation time.</p>
+</div>
+</div>
+</section>
+<section id="jupyter-notebooks" class="level4">
+<h4 class="anchored" data-anchor-id="jupyter-notebooks">2. Jupyter Notebooks</h4>
+<p>Interactive computing environment where you can:</p>
+<ul>
+<li>Write and execute code in chunks (cells)</li>
+<li>Include formatted text, equations, and visualizations</li>
+<li>Create reproducible analyses</li>
+<li>Share your work easily</li>
+</ul>
+</section>
+<section id="integrated-development-environments-ides" class="level4">
+<h4 class="anchored" data-anchor-id="integrated-development-environments-ides">3. Integrated Development Environments (IDEs)</h4>
+<p>Choose your coding environment based on your experience level and project goals:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="" aria-current="page">Beginner: Jupyter Notebook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Intermediate: Visual Studio Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Advanced: Cursor</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Best for:</strong> Learning, exploration, data analysis, course exercises</p>
+<p><strong>Why choose Jupyter:</strong></p>
+<ul>
+<li>See results immediately after each code cell</li>
+<li>Mix code, text, and visualizations in one document</li>
+<li>Perfect for data exploration and prototyping</li>
+<li>Easy to share analyses</li>
+<li>Built into Anaconda</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Interactive code execution</li>
+<li>Rich output display (plots, tables, HTML)</li>
+<li>Markdown support for documentation</li>
+<li>Easy export to HTML, PDF</li>
+<li>No complex setup required</li>
+</ul>
+<!-- ![Jupyter Notebook Interface](Images/notebook-ui.png) -->
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/jupyter-notebook.png" class="img-fluid figure-img"></p>
+<figcaption>Jupyter Notebook Interface</figcaption>
+</figure>
+</div>
+<!-- Coming from https://www.google.com/url?sa=i&url=https%3A%2F%2Fjupyterlab.readthedocs.io%2Fen%2Flatest%2Fuser%2Fnotebook.html&psig=AOvVaw2KwXZCzv4i0chcucHv3TUD&ust=1757400177268000&source=images&cd=vfe&opi=89978449&ved=0CBgQjhxqGAoTCMj_ifzHyI8DFQAAAAAdAAAAABCbAQ -->
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Perfect for Course Work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Jupyter is ideal for all course exercises and your final project exploration phase. Most data scientists start their analysis in Jupyter!</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>Best for:</strong> Larger projects, script development, version control</p>
+<p><strong>Why choose VS Code:</strong></p>
+<ul>
+<li>Professional development environment</li>
+<li>Excellent Python support</li>
+<li>Integrated terminal and Git</li>
+<li>Powerful debugging tools</li>
+<li>Extensions ecosystem</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Syntax highlighting and IntelliSense</li>
+<li>Integrated Jupyter notebook support</li>
+<li>Built-in version control</li>
+<li>Multiple file management</li>
+<li>Customizable with extensions</li>
+</ul>
+<p><strong>Download:</strong> <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/vscode_python_setup.png" class="img-fluid figure-img"></p>
+<figcaption>VS Code IDE (without showing the AI Features)</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Growing Into VS Code
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As your projects become more complex (multiple files, classes, modules), VS Code becomes invaluable. Great for the implementation phase of your final project.</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Best for:</strong> AI-assisted development, rapid prototyping, complex projects</p>
+<p><strong>Why choose Cursor:</strong></p>
+<ul>
+<li>AI-powered code completion and generation</li>
+<li>Natural language to code conversion</li>
+<li>Intelligent refactoring suggestions</li>
+<li>Built on VS Code foundation</li>
+<li>Perfect for productivity acceleration</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li>AI pair programming</li>
+<li>Context-aware suggestions</li>
+<li>Code explanation and documentation</li>
+<li>Automatic bug detection</li>
+<li>Multi-language support</li>
+</ul>
+<p><strong>Download:</strong> <a href="https://cursor.com/">https://cursor.com/</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/cursor_ide.png" class="img-fluid figure-img"></p>
+<figcaption>Cursor IDE (without showing the AI Features)</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Use Responsibly for Learning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While Cursor is powerful, rely on it <strong>only after</strong> mastering fundamentals. Use it for your final project, but learn Python basics manually first!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ide-recommendations-by-course-phase" class="level3">
+<h3 class="anchored" data-anchor-id="ide-recommendations-by-course-phase">IDE Recommendations by Course Phase</h3>
+<table class="caption-top table">
+<caption>IDE Recommendations by Course Phase</caption>
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Course Phase</th>
+<th>Recommended IDE</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Setup &amp; Python Basics</strong></td>
+<td>Jupyter Notebook</td>
+<td>Immediate feedback, easy to learn</td>
+</tr>
+<tr class="even">
+<td><strong>NumPy &amp; Pandas</strong></td>
+<td>Jupyter Notebook</td>
+<td>Perfect for data exploration</td>
+</tr>
+<tr class="odd">
+<td><strong>Project Exploration</strong></td>
+<td>Jupyter Notebook</td>
+<td>Interactive analysis and visualization</td>
+</tr>
+<tr class="even">
+<td><strong>Project Implementation</strong></td>
+<td>VS Code or Cursor</td>
+<td>Better for larger codebases</td>
+</tr>
+<tr class="odd">
+<td><strong>Final Report</strong></td>
+<td>Quarto + any IDE</td>
+<td>Combine code and narrative</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>You Can Use Multiple IDEs!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Many professionals use Jupyter for exploration and VS Code/Cursor for implementation. Start with Jupyter and gradually incorporate others as needed.</p>
+</div>
+</div>
+<section id="git-and-github" class="level4">
+<h4 class="anchored" data-anchor-id="git-and-github">4. Git and GitHub</h4>
+<p>Version control system and platform for:</p>
+<ul>
+<li>Tracking changes in your code</li>
+<li>Collaborating with others</li>
+<li>Creating a portfolio of your work</li>
+<li>Backing up your projects</li>
+</ul>
+</section>
+<section id="command-line-interface-terminalshell" class="level4">
+<h4 class="anchored" data-anchor-id="command-line-interface-terminalshell">5. Command Line Interface (Terminal/Shell)</h4>
+<p>Essential for:</p>
+<ul>
+<li>Navigating file systems</li>
+<li>Running Python scripts</li>
+<li>Managing packages</li>
+<li>Using Git commands</li>
+</ul>
+</section>
+<section id="quarto" class="level4">
+<h4 class="anchored" data-anchor-id="quarto">6. Quarto</h4>
+<p>A scientific publishing system that:</p>
+<ul>
+<li>Combines code, results, and narrative in one document</li>
+<li>Creates professional reports, presentations, and websites</li>
+<li>Supports Python, R, Julia, and Observable</li>
+<li>Exports to HTML, PDF, Word, and more</li>
+<li>Perfect for creating reproducible research</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/qmd-how-it-works.png" class="img-fluid figure-img"></p>
+<figcaption>How Quarto Works</figcaption>
+</figure>
+</div>
+<div id="fig-quarto" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-quarto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/demo-jupyter-plain.png" class="img-fluid figure-img"></p>
+<figcaption>Source Code as Jupyter Notebook</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/demo-jupyter-output.png" class="img-fluid figure-img"></p>
+<figcaption>HTML Output</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quarto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Difference between the input source code (Jupyter Notebook) vs the output file (HTML)
+</figcaption>
+</figure>
+</div>
+<p>For a full list of examples, see the <a href="https://quarto.org/docs/gallery/">Quarto Gallery</a>. For using it with VS Code, see <a href="https://quarto.org/docs/get-started/hello/vscode.html">Quarto VS Code Extension</a> and for using it with Jupyter Notebook, see <a href="https://quarto.org/docs/get-started/hello/jupyter.html">Quarto Jupyter Notebook Extension</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/vscode-render.png" class="img-fluid figure-img"></p>
+<figcaption>Quarto VS Code Extension</figcaption>
+</figure>
+</div>
+<p><strong>Learn more</strong>: <a href="https://quarto.org/">Quarto Official Website</a></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Why Quarto for Actuarial Work?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Create client reports with embedded calculations</li>
+<li>Document your analysis process</li>
+<li>Build presentations with live code</li>
+<li>Generate this course website!</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="python-libraries-for-data-science" class="level3">
+<h3 class="anchored" data-anchor-id="python-libraries-for-data-science">Python Libraries for Data Science</h3>
+<p>We’ll be using these essential libraries throughout the course:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Library</th>
+<th>Purpose</th>
+<th>Example Use in Actuarial Work</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>NumPy</strong></td>
+<td>Numerical computing</td>
+<td>Monte Carlo simulations, matrix calculations</td>
+</tr>
+<tr class="even">
+<td><strong>Pandas</strong></td>
+<td>Data manipulation</td>
+<td>Claims data analysis, portfolio management</td>
+</tr>
+<tr class="odd">
+<td><strong>Geopandas</strong></td>
+<td>Geographic data manipulation</td>
+<td>Geographic data analysis, mapping</td>
+</tr>
+<tr class="even">
+<td><strong>Matplotlib</strong></td>
+<td>Basic plotting</td>
+<td>Loss distribution visualization</td>
+</tr>
+<tr class="odd">
+<td><strong>Seaborn</strong></td>
+<td>Statistical visualization</td>
+<td>Correlation heatmaps, regression plots</td>
+</tr>
+<tr class="even">
+<td><strong>SciPy</strong></td>
+<td>Scientific computing</td>
+<td>Statistical tests, optimization</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that we do not introduce SciPy and Geopandas in this course, but only briefly refer to them for some examples when learning the other libraries.</p>
+</div>
+</div>
+</section>
+<section id="installation-guide" class="level2">
+<h2 class="anchored" data-anchor-id="installation-guide">Installation Guide</h2>
+<section id="step-1-install-anaconda" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-install-anaconda">Step 1: Install Anaconda</h3>
+<p>Visit <a href="https://www.anaconda.com/download">https://www.anaconda.com/download</a> and download the installer for your operating system.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/anaconda_ui.png" class="img-fluid figure-img"></p>
+<figcaption>Anaconda Interface</figcaption>
+</figure>
+</div>
+<!-- ![](Images/InstallingAnacondaStep1.pdf){fig-alt="python crash course" fig-align="left" width="100%" height="150%"} -->
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>For a detailed installation guide, see the following link <a href="https://www.geeksforgeeks.org/installation-guide/how-to-install-anaconda-on-windows/">Windows Anaconda Installation Guide</a></p>
+<p><strong>Download:</strong> 64-bit graphical installer (.exe)</p>
+<p><strong>Installation Steps:</strong></p>
+<ol type="1">
+<li>Double-click the downloaded <code>.exe</code> file</li>
+<li>Click “Next” on the welcome screen</li>
+<li>Agree to the license terms</li>
+<li>Choose “Just Me” (recommended)</li>
+<li>Select installation location (default is fine)</li>
+<li><strong>Important:</strong> Check “Add Anaconda to my PATH environment variable” <img src="Images/add_path_conda.png" class="img-fluid" alt="Add Anaconda to my PATH environment variable"></li>
+<li>Click “Install” (takes 10-20 minutes)</li>
+<li>Click “Next” and “Finish”</li>
+</ol>
+<p><strong>Verify Installation:</strong> - Open “Anaconda Prompt” from Start Menu - Type <code>conda --version</code></p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>For a detailed installation guide, see the following link <a href="https://www.geeksforgeeks.org/installation-guide/how-to-install-anaconda-on-macos/">macOS Anaconda Installation Guide</a></p>
+<p><strong>Download:</strong> 64-bit graphical installer (.pkg) or command line installer</p>
+<p><strong>Installation Steps:</strong></p>
+<ol type="1">
+<li>Double-click the downloaded <code>.pkg</code> file</li>
+<li>Click “Continue” through the introduction</li>
+<li>Agree to the license</li>
+<li>Select installation location (default is fine)</li>
+<li>Click “Install” (may need admin password)</li>
+<li>Installation takes 10-20 minutes</li>
+<li>Click “Close” when finished</li>
+</ol>
+<p><strong>Verify Installation:</strong></p>
+<ul>
+<li>Open Terminal (Cmd + Space, type “Terminal”)</li>
+<li>Type <code>conda --version</code></li>
+<li>If not found, run: <code>source ~/anaconda3/bin/activate</code></li>
+</ul>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>For a detailed installation guide, see the following link <a href="https://www.geeksforgeeks.org/installation-guide/how-to-install-anaconda-on-linux/">Linux Anaconda Installation Guide</a> and more specifically for Ubuntu <a href="https://www.geeksforgeeks.org/linux-unix/how-to-install-anaconda-on-ubuntu-20-04/">Ubuntu Anaconda Installation Guide</a></p>
+<p><strong>Download:</strong> 64-bit command line installer (.sh)</p>
+<p><strong>Installation Steps:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open terminal and navigate to Downloads</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Downloads</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Make installer executable</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x Anaconda3-2024.XX-Linux-x86_64.sh</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run installer</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> Anaconda3-2024.XX-Linux-x86_64.sh</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Follow prompts:</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># - Press Enter to review license</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># - Type 'yes' to accept</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># - Press Enter for default location</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># - Type 'yes' to initialize conda</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Verify Installation:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restart terminal or run:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check installation</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Common Installation Issues
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>All Platforms:</strong></p>
+<ul>
+<li>Ensure you have at least 5GB free disk space</li>
+<li>Close all Python/Jupyter applications before installing</li>
+<li>Installation typically takes 10-20 minutes</li>
+</ul>
+<p><strong>Windows Specific:</strong></p>
+<ul>
+<li>Run installer as regular user, not administrator</li>
+<li>If PATH issues occur, use “Anaconda Prompt” instead of regular Command Prompt</li>
+</ul>
+<p><strong>macOS Specific:</strong></p>
+<ul>
+<li>On M1/M2 Macs, ensure you download the ARM64 version</li>
+<li>May need to allow installer in System Preferences → Security &amp; Privacy</li>
+</ul>
+<p><strong>Linux Specific:</strong></p>
+<ul>
+<li>Ensure you have bash shell (not sh)</li>
+<li>Add conda to PATH by running <code>conda init</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="step-2-verify-python-installation" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-verify-python-installation">Step 2: Verify Python Installation</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p><strong>Using Anaconda Prompt (Recommended):</strong> 1. Open “Anaconda Prompt” from Start Menu 2. Run these commands:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> <span class="at">--version</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">where</span> python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Expected output:</strong></p>
+<pre><code>Python 3.11.x :: Anaconda, Inc.
+conda 23.x.x
+C:\Users\YourName\anaconda3\python.exe</code></pre>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p><strong>Using Terminal:</strong> 1. Open Terminal (Cmd + Space, type “Terminal”) 2. Run these commands:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> <span class="at">--version</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Expected output:</strong></p>
+<pre><code>Python 3.11.x :: Anaconda, Inc.
+conda 23.x.x
+/Users/YourName/anaconda3/bin/python</code></pre>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<p><strong>Using Terminal:</strong> 1. Open Terminal (Ctrl + Alt + T) 2. Run these commands:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> <span class="at">--version</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Expected output:</strong></p>
+<pre><code>Python 3.11.x :: Anaconda, Inc.
+conda 23.x.x
+/home/YourName/anaconda3/bin/python</code></pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Troubleshooting
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <code>python</code> command doesn’t work:</p>
+<ul>
+<li><strong>Windows</strong>: Use <code>python3</code> or open “Anaconda Prompt”</li>
+<li><strong>macOS/Linux</strong>: Try <code>python3</code> or run <code>source ~/anaconda3/bin/activate</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="step-3-install-your-chosen-ide" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-install-your-chosen-ide">Step 3: Install Your Chosen IDE</h3>
+<p>Based on the IDE comparison above, choose and install your development environment:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Jupyter Notebook (Included with Anaconda)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Visual Studio Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>Good news! Jupyter Notebook is already installed with Anaconda. No additional setup required.</p>
+<p><strong>To start using Jupyter:</strong></p>
+<ol type="1">
+<li>Open terminal/Anaconda Prompt</li>
+<li>Type: <code>jupyter notebook</code></li>
+<li>Your browser will open with the Jupyter interface</li>
+</ol>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p><strong>Installation:</strong></p>
+<ol type="1">
+<li>Download from <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
+<li>Install following the default options for your operating system</li>
+<li>Install the Python extension:
+<ul>
+<li>Open VS Code</li>
+<li>Click Extensions icon (or press <code>Ctrl+Shift+X</code>)</li>
+<li>Search for “Python”</li>
+<li>Install the official Python extension by Microsoft</li>
+</ul></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/vscode_python_extension.png" class="img-fluid figure-img"></p>
+<figcaption>VS Code Python Extension</figcaption>
+</figure>
+</div>
+<p><strong>Additional Recommended Extensions:</strong></p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter">Jupyter</a> (for notebook support in VSCode)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons">vscode-icons</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens">GitLens — Git supercharged</a> (not needed for the course as we use GitHub Desktop, but can help in a more professional environment)</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Pro Tip: Start Simple
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you’re new to programming, start with <strong>Jupyter Notebook</strong> for this course. You can always install VS Code or Cursor later as your projects grow in complexity.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-4-set-up-git-and-github" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-set-up-git-and-github">Step 4: Set Up Git and GitHub</h3>
+<section id="understanding-git-vs-github-desktop" class="level4">
+<h4 class="anchored" data-anchor-id="understanding-git-vs-github-desktop">Understanding Git vs GitHub Desktop</h4>
+<p><strong>Git</strong> is a version control system that tracks changes in your code. You can use it through: 1. <strong>Command Line</strong> (traditional method) - More powerful but steeper learning curve 2. <strong>GitHub Desktop</strong> (visual interface) - Easier for beginners, covers most common tasks</p>
+</section>
+<section id="option-a-install-github-desktop-recommended-for-beginners" class="level4">
+<h4 class="anchored" data-anchor-id="option-a-install-github-desktop-recommended-for-beginners">Option A: Install GitHub Desktop (Recommended for Beginners)</h4>
+<p><a href="https://desktop.github.com/">GitHub Desktop</a> provides a user-friendly graphical interface for Git operations.</p>
+<ol type="1">
+<li>Download from <a href="https://desktop.github.com/">https://desktop.github.com/</a></li>
+<li>Install and sign in with your GitHub account</li>
+<li>No command line configuration needed!</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/github_desktop_interface.png" class="img-fluid figure-img"></p>
+<figcaption>GitHub Desktop Interface</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Why GitHub Desktop?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Visual representation of changes</li>
+<li>Easy commit and push operations</li>
+<li>Built-in merge conflict resolution</li>
+<li>No memorizing Git commands</li>
+</ul>
+</div>
+</div>
+<p>For a full guide, you can also refer to <a href="https://www.fabriziomusacchio.com/blog/2022-10-31-GitHub/">the following GitHub Desktop Guide</a></p>
+</section>
+<section id="option-b-install-command-line-git" class="level4">
+<h4 class="anchored" data-anchor-id="option-b-install-command-line-git">Option B: Install Command Line Git</h4>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false" href="">Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<p><strong>Install Git:</strong></p>
+<ol type="1">
+<li>Download from <a href="https://git-scm.com/">https://git-scm.com/</a></li>
+<li>Run the installer</li>
+<li>Use recommended settings (Git Bash included)</li>
+</ol>
+<p><strong>Configure Git:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open Git Bash (installed with Git)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p><strong>Install Git:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open Terminal (Applications &gt; Utilities &gt; Terminal)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Git comes with Xcode Command Line Tools</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Configure Git:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
+<p><strong>Install Git:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ubuntu/Debian</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install git</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Fedora</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> yum install git</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Arch</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pacman <span class="at">-S</span> git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Configure Git:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-github-account" class="level4">
+<h4 class="anchored" data-anchor-id="create-github-account">Create GitHub Account</h4>
+<ol type="1">
+<li>Go to <a href="https://github.com/">https://github.com/</a></li>
+<li>Sign up for a free account</li>
+<li>Choose a professional username (you’ll use this for your portfolio)</li>
+</ol>
+</section>
+</section>
+<section id="step-5-install-quarto-optional-but-recommended" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-install-quarto-optional-but-recommended">Step 5: Install Quarto (Optional but Recommended)</h3>
+<p>Quarto is what powers this course website and will help you create professional reports.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false" href="">Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<ol type="1">
+<li>Download from <a href="https://quarto.org/docs/get-started/">https://quarto.org/docs/get-started/</a></li>
+<li>Run the <code>.msi</code> installer</li>
+<li>Follow the installation wizard</li>
+</ol>
+<p><strong>Verify Installation:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<ol type="1">
+<li>Download from <a href="https://quarto.org/docs/get-started/">https://quarto.org/docs/get-started/</a></li>
+<li>Open the <code>.pkg</code> installer</li>
+<li>Follow the installation steps</li>
+</ol>
+<p><strong>Verify Installation:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
+<p><strong>Using package manager:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ubuntu/Debian</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.550/quarto-1.4.550-linux-amd64.deb</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> quarto-1.4.550-linux-amd64.deb</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Or download tar.gz and extract</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Verify Installation:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>When to Use Quarto
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Creating your final project report</li>
+<li>Making presentations with code</li>
+<li>Building reproducible analyses</li>
+<li>Generating PDF reports from Jupyter notebooks</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="step-6-test-your-setup" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-test-your-setup">Step 6: Test Your Setup</h3>
+<p>Let’s verify everything is working correctly.</p>
+<section id="test-jupyter-notebook" class="level4">
+<h4 class="anchored" data-anchor-id="test-jupyter-notebook">Test Jupyter Notebook</h4>
+<p>In terminal, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This should open a browser window with the Jupyter interface.</p>
+</section>
+<section id="test-quarto-if-installed" class="level4">
+<h4 class="anchored" data-anchor-id="test-quarto-if-installed">Test Quarto (if installed)</h4>
+<p>Create a simple Quarto document to test the installation:</p>
+<ol type="1">
+<li>Create a file called <code>test.qmd</code> with this content:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "My First Quarto Document"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> python3</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Testing Quarto with Python</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate some data</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.sin(x)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, <span class="st">'b-'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Sine Wave'</span>)</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'sin(x)'</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>The value of π is approximately {python} np.pi {python}.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>Render it:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render test.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="3" type="1">
+<li>Open the generated <code>test.html</code> in your browser</li>
+</ol>
+</section>
+<section id="test-python-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="test-python-libraries">Test Python Libraries</h4>
+<p>Create a new notebook and run:</p>
+<div class="cell">
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBUZXN0IGltcG9ydGluZyBlc3NlbnRpYWwgbGlicmFyaWVzXG5pbXBvcnQgc3lzXG5pbXBvcnQgbnVtcHkgYXMgbnBcbmltcG9ydCBwYW5kYXMgYXMgcGRcbmltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcbmltcG9ydCBzZWFib3JuIGFzIHNuc1xuXG5wcmludChmXCJQeXRob24gdmVyc2lvbjoge3N5cy52ZXJzaW9ufVwiKVxucHJpbnQoZlwiTnVtUHkgdmVyc2lvbjoge25wLl9fdmVyc2lvbl9ffVwiKVxucHJpbnQoZlwiUGFuZGFzIHZlcnNpb246IHtwZC5fX3ZlcnNpb25fX31cIilcbnByaW50KGZcIk1hdHBsb3RsaWIgdmVyc2lvbjoge3BsdC5tYXRwbG90bGliLl9fdmVyc2lvbl9ffVwiKVxucHJpbnQoZlwiU2VhYm9ybiB2ZXJzaW9uOiB7c25zLl9fdmVyc2lvbl9ffVwiKVxuXG4jIFF1aWNrIGZ1bmN0aW9uYWxpdHkgdGVzdFxuZGF0YSA9IG5wLnJhbmRvbS5ub3JtYWwoMTAwLCAxNSwgMTAwMClcbnByaW50KGZcIlxcbkdlbmVyYXRlZCB7bGVuKGRhdGEpfSByYW5kb20gbm9ybWFsIHZhbHVlc1wiKVxucHJpbnQoZlwiTWVhbjoge25wLm1lYW4oZGF0YSk6LjJmfSwgU3RkOiB7bnAuc3RkKGRhdGEpOi4yZn1cIikifQ==
+</script>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="installing-python-packages" class="level2">
+<h2 class="anchored" data-anchor-id="installing-python-packages">Installing Python Packages</h2>
+<section id="understanding-pip" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-pip">Understanding pip</h3>
+<p><code>pip</code> is Python’s package installer. It downloads and installs packages from the Python Package Index (<a href="https://pypi.org/">PyPI</a>).</p>
+</section>
+<section id="basic-pip-commands" class="level3">
+<h3 class="anchored" data-anchor-id="basic-pip-commands">Basic pip Commands</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install a package</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install package_name</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install a specific version</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install package_name==1.2.3</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Install multiple packages</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install numpy pandas matplotlib geopandas</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Upgrade a package</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--upgrade</span> package_name</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Uninstall a package</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> uninstall package_name</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># List installed packages</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> list</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Show package information</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> show package_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="installing-course-requirements" class="level3">
+<h3 class="anchored" data-anchor-id="installing-course-requirements">Installing Course Requirements</h3>
+<p>Create a file called <code>requirements.txt</code> with our course dependencies:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>numpy&gt;=1.24.0</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>pandas&gt;=2.0.0</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>matplotlib&gt;=3.7.0</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>geopandas&gt;=1.0.1</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>seaborn&gt;=0.12.0</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>scipy&gt;=1.10.0</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>statsmodels&gt;=0.14.0</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>scikit-learn&gt;=1.3.0</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>jupyterlab&gt;=4.0.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Install all at once:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="verifying-installations" class="level3">
+<h3 class="anchored" data-anchor-id="verifying-installations">Verifying Installations</h3>
+<p>After installing packages, verify they work correctly:</p>
+<div class="cell">
+<div>
+<div id="pyodide-2" class="exercise-cell">
+
+</div>
+<script type="pyodide-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDb21wcmVoZW5zaXZlIHBhY2thZ2UgdmVyaWZpY2F0aW9uXG5pbXBvcnQgaW1wb3J0bGliXG5pbXBvcnQgc3lzXG5cbiMgRGVmaW5lIHBhY2thZ2VzIHRvIGNoZWNrXG5wYWNrYWdlcyA9IHtcbiAgICAnbnVtcHknOiAnbnAnLFxuICAgICdwYW5kYXMnOiAncGQnLFxuICAgICdtYXRwbG90bGliJzogJ21wbCcsXG4gICAgJ3NlYWJvcm4nOiAnc25zJyxcbiAgICAnc2NpcHknOiAnc2NpcHknLFxuICAgICdnZW9wYW5kYXMnOiAnZ3BkJyxcbn1cblxucHJpbnQoXCJQYWNrYWdlIEluc3RhbGxhdGlvbiBTdGF0dXNcIilcbnByaW50KFwiPVwiICogNTApXG5cbmZvciBwYWNrYWdlLCBhbGlhcyBpbiBwYWNrYWdlcy5pdGVtcygpOlxuICAgIHRyeTpcbiAgICAgICAgIyBJbXBvcnQgdGhlIHBhY2thZ2VcbiAgICAgICAgbW9kdWxlID0gaW1wb3J0bGliLmltcG9ydF9tb2R1bGUocGFja2FnZSlcbiAgICAgICAgdmVyc2lvbiA9IGdldGF0dHIobW9kdWxlLCAnX192ZXJzaW9uX18nLCAnVW5rbm93bicpXG4gICAgICAgIHByaW50KGZcIuKckyB7cGFja2FnZTo8MTV9IHt2ZXJzaW9uOjwxMH0gT0tcIilcbiAgICBleGNlcHQgSW1wb3J0RXJyb3IgYXMgZTpcbiAgICAgICAgcHJpbnQoZlwi4pyXIHtwYWNrYWdlOjwxNX0geyctLS0nOjwxMH0gTk9UIElOU1RBTExFRFwiKVxuICAgICAgICBwcmludChmXCIgIEluc3RhbGwgd2l0aDogcGlwIGluc3RhbGwge3BhY2thZ2V9XCIpXG5cbiMgVGVzdCBiYXNpYyBmdW5jdGlvbmFsaXR5XG5wcmludChcIlxcbkZ1bmN0aW9uYWxpdHkgVGVzdHNcIilcbnByaW50KFwiPVwiICogNTApXG5cbnRyeTpcbiAgICBpbXBvcnQgbnVtcHkgYXMgbnBcbiAgICBhcnIgPSBucC5hcnJheShbMSwgMiwgMywgNCwgNV0pXG4gICAgcHJpbnQoZlwi4pyTIE51bVB5IGFycmF5IGNyZWF0aW9uOiB7YXJyfVwiKVxuZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOlxuICAgIHByaW50KGZcIuKclyBOdW1QeSB0ZXN0IGZhaWxlZDoge2V9XCIpXG5cbnRyeTpcbiAgICBpbXBvcnQgcGFuZGFzIGFzIHBkXG4gICAgZGYgPSBwZC5EYXRhRnJhbWUoeydBJzogWzEsIDIsIDNdLCAnQic6IFs0LCA1LCA2XX0pXG4gICAgcHJpbnQoZlwi4pyTIFBhbmRhcyBEYXRhRnJhbWUgc2hhcGU6IHtkZi5zaGFwZX1cIilcbmV4Y2VwdCBFeGNlcHRpb24gYXMgZTpcbiAgICBwcmludChmXCLinJcgUGFuZGFzIHRlc3QgZmFpbGVkOiB7ZX1cIilcblxudHJ5OlxuICAgIGltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcbiAgICBmaWcsIGF4ID0gcGx0LnN1YnBsb3RzKClcbiAgICBwcmludChmXCLinJMgTWF0cGxvdGxpYiBmaWd1cmUgY3JlYXRlZFwiKVxuICAgIHBsdC5jbG9zZShmaWcpXG5leGNlcHQgRXhjZXB0aW9uIGFzIGU6XG4gICAgcHJpbnQoZlwi4pyXIE1hdHBsb3RsaWIgdGVzdCBmYWlsZWQ6IHtlfVwiKVxuXG50cnk6XG4gICAgaW1wb3J0IGdlb3BhbmRhcyBhcyBncGRcbiAgICBwcmludChmXCLinJMgR2VvcGFuZGFzIGltcG9ydGVkXCIpXG5leGNlcHQgRXhjZXB0aW9uIGFzIGU6XG4gICAgcHJpbnQoZlwi4pyXIEdlb3BhbmRhcyB0ZXN0IGZhaWxlZDoge2V9XCIpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="managing-virtual-environments" class="level3">
+<h3 class="anchored" data-anchor-id="managing-virtual-environments">Managing Virtual Environments</h3>
+<p>For project isolation, use virtual environments:</p>
+<section id="using-conda-recommended-for-data-science" class="level4">
+<h4 class="anchored" data-anchor-id="using-conda-recommended-for-data-science">Using conda (Recommended for Data Science)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new environment</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> actuarial_env python=3.11</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate the environment</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate actuarial_env</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages in the environment</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install numpy pandas matplotlib seaborn geopandas</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># List environments</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env list</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Deactivate current environment</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove an environment</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> remove <span class="at">-n</span> actuarial_env <span class="at">--all</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="using-venv-built-in-python" class="level4">
+<h4 class="anchored" data-anchor-id="using-venv-built-in-python">Using venv (Built-in Python)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create virtual environment</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv myenv</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate (Windows)</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="ex">myenv\Scripts\activate</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate (macOS/Linux)</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> myenv/bin/activate</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install numpy pandas geopandas</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Deactivate</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="ex">deactivate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Best Practice: Project-Specific Environments
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Create a separate environment for each project to avoid package conflicts:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> project_mortality python=3.11</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate project_mortality</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+</section>
+<section id="common-installation-issues-and-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="common-installation-issues-and-solutions">Common Installation Issues and Solutions</h3>
+<section id="issue-pip-is-not-recognized" class="level4">
+<h4 class="anchored" data-anchor-id="issue-pip-is-not-recognized">Issue: “pip is not recognized”</h4>
+<p><strong>Solution</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows: Use Python to run pip</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install package_name</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or add Python Scripts to PATH</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Usually: C:\Users\YourName\Anaconda3\Scripts</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="issue-permission-denied-errors" class="level4">
+<h4 class="anchored" data-anchor-id="issue-permission-denied-errors">Issue: “Permission denied” errors</h4>
+<p><strong>Solution</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install for current user only</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--user</span> package_name</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or use conda instead</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install package_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="issue-package-conflicts" class="level4">
+<h4 class="anchored" data-anchor-id="issue-package-conflicts">Issue: Package conflicts</h4>
+<p><strong>Solution</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a fresh environment</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> fresh_env python=3.11</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fresh_env</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages one by one to identify conflicts</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install numpy</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pandas</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install geopandas</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># etc.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="issue-ssl-certificate-errors" class="level4">
+<h4 class="anchored" data-anchor-id="issue-ssl-certificate-errors">Issue: “SSL Certificate” errors</h4>
+<p><strong>Solution</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Temporarily trust PyPI</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--trusted-host</span> pypi.org <span class="at">--trusted-host</span> files.pythonhosted.org package_name</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or use conda-forge channel</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge package_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+</section>
+<section id="understanding-the-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-terminal">Understanding the Terminal</h2>
+<section id="what-is-the-terminal" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-terminal">What is the Terminal?</h3>
+<p>The terminal (also called command line, console, or shell) is a text-based interface for interacting with your computer. Instead of clicking buttons, you type commands. It’s essential for:</p>
+<ul>
+<li>Running Python scripts</li>
+<li>Managing packages</li>
+<li>Using Git</li>
+<li>Automating tasks</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false" href="">Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<p><strong>Terminal Options:</strong></p>
+<ol type="1">
+<li><strong>Command Prompt (cmd)</strong> - Basic Windows terminal</li>
+<li><strong>PowerShell</strong> - More advanced Windows terminal</li>
+<li><strong>Git Bash</strong> - Linux-like terminal (comes with Git)</li>
+<li><strong>Windows Terminal</strong> - Modern terminal (Windows 10/11)</li>
+</ol>
+<p><strong>How to open:</strong> - Press <code>Win + R</code>, type <code>cmd</code>, press Enter - Search “Command Prompt” in Start Menu - Right-click in folder → “Open in Terminal”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/windows-terminals.png" class="img-fluid figure-img"></p>
+<figcaption>Windows Terminal Options</figcaption>
+</figure>
+</div>
+<!-- Source: https://sourcebae.com/blog/what-is-the-difference-between-powershell-and-command-prompt/ -->
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Recommendation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use <strong>Git Bash</strong> for this course. It provides Linux-like commands that match most tutorials.</p>
+</div>
+</div>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p><strong>Terminal Options:</strong> 1. <strong>Terminal.app</strong> - Default macOS terminal 2. <strong>iTerm2</strong> - Popular alternative with more features</p>
+<p><strong>How to open:</strong> - Press <code>Cmd + Space</code>, type “Terminal”, press Enter - Go to Applications → Utilities → Terminal - Right-click in folder → Services → “New Terminal at Folder”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/mac-terminal.png" class="img-fluid figure-img"></p>
+<figcaption>macOS Terminal</figcaption>
+</figure>
+</div>
+<p><strong>First time setup:</strong> - macOS uses <code>zsh</code> shell by default (since Catalina) - Older versions use <code>bash</code> shell</p>
+</div>
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<p><strong>Terminal Options:</strong> 1. <strong>GNOME Terminal</strong> - Ubuntu/Fedora default 2. <strong>Konsole</strong> - KDE default 3. <strong>XTerm</strong> - Lightweight option</p>
+<p><strong>How to open:</strong> - Press <code>Ctrl + Alt + T</code> (most distributions) - Search “Terminal” in applications - Right-click on desktop → “Open Terminal”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/linux-terminal.png" class="img-fluid figure-img"></p>
+<figcaption>Linux Terminal</figcaption>
+</figure>
+</div>
+<p><strong>Popular shells:</strong> - <code>bash</code> - Most common - <code>zsh</code> - Feature-rich - <code>fish</code> - User-friendly</p>
+</div>
+</div>
+</div>
+</section>
+<section id="your-first-terminal-commands" class="level3">
+<h3 class="anchored" data-anchor-id="your-first-terminal-commands">Your First Terminal Commands</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Terminal Basics
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The prompt shows where you are (current directory)</li>
+<li>Commands are case-sensitive</li>
+<li>Use Tab key for auto-completion</li>
+<li>Use ↑/↓ arrows to navigate command history</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="command-line-basics" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-basics">Command Line Basics</h2>
+<p>Understanding basic command line operations is essential for data science work.</p>
+<section id="essential-commands" class="level3">
+<h3 class="anchored" data-anchor-id="essential-commands">Essential Commands</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">Cross-Platform</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Windows (cmd/PowerShell)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false" href="">macOS/Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>These commands work similarly across all platforms:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>python</code></td>
+<td>Run Python</td>
+<td><code>python script.py</code></td>
+</tr>
+<tr class="even">
+<td><code>pip</code></td>
+<td>Install packages</td>
+<td><code>pip install numpy</code></td>
+</tr>
+<tr class="odd">
+<td><code>git</code></td>
+<td>Version control</td>
+<td><code>git status</code></td>
+</tr>
+<tr class="even">
+<td><code>jupyter</code></td>
+<td>Start Jupyter</td>
+<td><code>jupyter notebook</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>cd</code></td>
+<td>Change directory</td>
+<td><code>cd Documents</code></td>
+</tr>
+<tr class="even">
+<td><code>dir</code></td>
+<td>List files</td>
+<td><code>dir</code></td>
+</tr>
+<tr class="odd">
+<td><code>mkdir</code></td>
+<td>Make directory</td>
+<td><code>mkdir my_project</code></td>
+</tr>
+<tr class="even">
+<td><code>del</code></td>
+<td>Delete file</td>
+<td><code>del file.txt</code></td>
+</tr>
+<tr class="odd">
+<td><code>cls</code></td>
+<td>Clear screen</td>
+<td><code>cls</code></td>
+</tr>
+<tr class="even">
+<td><code>type</code></td>
+<td>Show file contents</td>
+<td><code>type README.md</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pwd</code></td>
+<td>Print working directory</td>
+<td><code>pwd</code></td>
+</tr>
+<tr class="even">
+<td><code>ls</code></td>
+<td>List files</td>
+<td><code>ls -la</code></td>
+</tr>
+<tr class="odd">
+<td><code>cd</code></td>
+<td>Change directory</td>
+<td><code>cd Documents</code></td>
+</tr>
+<tr class="even">
+<td><code>mkdir</code></td>
+<td>Make directory</td>
+<td><code>mkdir my_project</code></td>
+</tr>
+<tr class="odd">
+<td><code>rm</code></td>
+<td>Remove file</td>
+<td><code>rm file.txt</code></td>
+</tr>
+<tr class="even">
+<td><code>clear</code></td>
+<td>Clear screen</td>
+<td><code>clear</code></td>
+</tr>
+<tr class="odd">
+<td><code>cat</code></td>
+<td>Show file contents</td>
+<td><code>cat README.md</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="practice-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="practice-exercise">Practice Exercise</h3>
+<p>Try these commands in your terminal:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">Windows (cmd)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Windows/Linux (Git Bash)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false" href="">macOS/Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a># Navigate to your home directory</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="pp">%</span><span class="va">USERPROFILE</span><span class="pp">%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a># See where you are</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a># Create a course folder</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="bu">mkdir</span> actuarial_data_science</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> actuarial_data_science</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a># Create subfolders</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="bu">mkdir</span> notebooks</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="bu">mkdir</span> data</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="bu">mkdir</span> scripts</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a># List the contents</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to your home directory</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># See where you are</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a course folder</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> actuarial_data_science</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> actuarial_data_science</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subfolders</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> notebooks</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> scripts</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># List the contents</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to your home directory</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># See where you are</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a course folder</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> actuarial_data_science</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> actuarial_data_science</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subfolders</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> notebooks</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> scripts</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co"># List the contents</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="best-practices-for-learning" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices-for-learning">Best Practices for Learning</h2>
+<section id="disable-auto-completion-while-learning" class="level3">
+<h3 class="anchored" data-anchor-id="disable-auto-completion-while-learning">1. Disable Auto-completion While Learning</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Learning vs.&nbsp;Productivity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p>“<strong><em>The illiterate of the 21st century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn.</em></strong>” Alvin Toffler</p>
+</blockquote>
+<p>While auto-completion and AI tools boost productivity, they can hinder learning. During this course, <strong>type everything manually</strong> to build muscle memory and understanding.</p>
+</div>
+</div>
+<p><strong>In VS Code</strong>, temporarily disable IntelliSense:</p>
+<ol type="1">
+<li>Press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on macOS)</li>
+<li>Type “Preferences: Open Settings (JSON)”</li>
+<li>Add: <code>"editor.quickSuggestions": false</code></li>
+</ol>
+<p><strong>In Jupyter</strong>, disable auto-completion: 1. Create a Jupyter config: <code>jupyter notebook --generate-config</code> 2. Edit the config file and add: <code>python    c.Completer.use_jedi = False</code></p>
+</section>
+<section id="avoid-ai-code-generation-tools" class="level3">
+<h3 class="anchored" data-anchor-id="avoid-ai-code-generation-tools">2. Avoid AI Code Generation Tools</h3>
+<p>While learning fundamentals:</p>
+<ul>
+<li>❌ Don’t use ChatGPT, GitHub Copilot, or similar tools</li>
+<li>❌ Avoid copy-pasting code without understanding</li>
+<li>✅ Type code manually</li>
+<li>✅ Make mistakes and debug them</li>
+<li>✅ Understand each line before moving on</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>For Your Final Project
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You’re welcome to use AI tools for your final project! By then, you’ll have the foundation to use them effectively rather than as a crutch.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="setting-up-your-first-project" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-your-first-project">Setting Up Your First Project</h2>
+<p>Let’s create a structured workspace for the course:</p>
+<div class="cell">
+<div>
+<div id="pyodide-3" class="exercise-cell">
+
+</div>
+<script type="pyodide-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDcmVhdGUgYSBwcm9qZWN0IHN0cnVjdHVyZSBmb3IgdGhlIGNvdXJzZSAocnVuIHRoaXMgaW4gYSBKdXB5dGVyIG5vdGVib29rIG9yIGFzIGEgc2NyaXB0KVxuaW1wb3J0IG9zXG5cbiMgRGVmaW5lIHByb2plY3Qgc3RydWN0dXJlXG5wcm9qZWN0X25hbWUgPSBcImRzYXNfMjVcIlxuZm9sZGVycyA9IFtcbiAgICBcImxlY3R1cmVzXCIsXG4gICAgXCJsYWJzXCIsXG4gICAgXCJkYXRhXCIsXG4gICAgXCJwcm9qZWN0XCIsXG4gICAgXCJzY3JpcHRzXCIsXG4gICAgXCJhdXhpbGlhcnlcIixcbl1cblxuIyBDcmVhdGUgYmFzZSBkaXJlY3RvcnlcbmlmIG5vdCBvcy5wYXRoLmV4aXN0cyhwcm9qZWN0X25hbWUpOlxuICAgIG9zLm1ha2VkaXJzKHByb2plY3RfbmFtZSlcbiAgICBwcmludChmXCJDcmVhdGVkIHByb2plY3QgZm9sZGVyOiB7cHJvamVjdF9uYW1lfVwiKVxuXG4jIENyZWF0ZSBzdWJkaXJlY3Rvcmllc1xuZm9yIGZvbGRlciBpbiBmb2xkZXJzOlxuICAgIHBhdGggPSBvcy5wYXRoLmpvaW4ocHJvamVjdF9uYW1lLCBmb2xkZXIpXG4gICAgaWYgbm90IG9zLnBhdGguZXhpc3RzKHBhdGgpOlxuICAgICAgICBvcy5tYWtlZGlycyhwYXRoKVxuICAgICAgICBwcmludChmXCJDcmVhdGVkOiB7cGF0aH1cIilcblxucHJpbnQoXCJcXG5Qcm9qZWN0IHN0cnVjdHVyZSBjcmVhdGVkIHN1Y2Nlc3NmdWxseSFcIikifQ==
+</script>
+</div>
+</div>
+<p>If you want a simpler structure for your final project, you can use the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> README.md : This file contains the project description and instructions.</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data : This directory contains all the data files for the project.</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> report : Contains all the report files.</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── sections : Contains the seperate sections/chapters of the report.</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> src : This <span class="st">"source code"</span> directory contains all the Python scripts used in this project.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="troubleshooting-common-issues" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
+<section id="issue-1-python-command-not-found" class="level3">
+<h3 class="anchored" data-anchor-id="issue-1-python-command-not-found">Issue 1: “python” command not found</h3>
+<p><strong>Solution</strong>: Add Anaconda to your PATH or use the Anaconda Prompt (Windows)</p>
+</section>
+<section id="issue-2-package-import-errors" class="level3">
+<h3 class="anchored" data-anchor-id="issue-2-package-import-errors">Issue 2: Package import errors</h3>
+<p><strong>Solution</strong>: Install missing packages:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install numpy pandas matplotlib seaborn geopandas</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install numpy pandas matplotlib seaborn geopandas</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="issue-3-jupyter-kernel-dies-repeatedly" class="level3">
+<h3 class="anchored" data-anchor-id="issue-3-jupyter-kernel-dies-repeatedly">Issue 3: Jupyter kernel dies repeatedly</h3>
+<p><strong>Solution</strong>: Create a fresh environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> actuarial python=3.11</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate actuarial</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install jupyter numpy pandas matplotlib seaborn geopandas</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="issue-4-git-push-authentication-fails" class="level3">
+<h3 class="anchored" data-anchor-id="issue-4-git-push-authentication-fails">Issue 4: Git push authentication fails</h3>
+<p><strong>Solution</strong>: Set up SSH keys or use personal access tokens (check GitHub docs)</p>
+</section>
+</section>
+<section id="your-first-data-science-computation" class="level2">
+<h2 class="anchored" data-anchor-id="your-first-data-science-computation">Your First Data Science Computation</h2>
+<p>Let’s end with a practical actuarial calculation to test your setup:</p>
+<div class="cell">
+<div>
+<div id="pyodide-4" class="exercise-cell">
+
+</div>
+<script type="pyodide-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDYWxjdWxhdGUgdGhlIHByZXNlbnQgdmFsdWUgb2YgYW4gYW5udWl0eVxuaW1wb3J0IG51bXB5IGFzIG5wXG5pbXBvcnQgcGFuZGFzIGFzIHBkXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5cbiMgQW5udWl0eSBwYXJhbWV0ZXJzXG5hbm51YWxfcGF5bWVudCA9IDEwMDAwICAjIOKCrDEwLDAwMCBwZXIgeWVhclxuaW50ZXJlc3RfcmF0ZSA9IDAuMDM1ICAgIyAzLjUlIGFubnVhbCByYXRlICBcbnllYXJzID0gMjAgICAgICAgICAgICAgICMgMjAteWVhciBhbm51aXR5XG5cbiMgQ2FsY3VsYXRlIHByZXNlbnQgdmFsdWUgb2YgZWFjaCBwYXltZW50XG50aW1lX3BlcmlvZHMgPSBucC5hcmFuZ2UoMSwgeWVhcnMgKyAxKVxuZGlzY291bnRfZmFjdG9ycyA9ICgxICsgaW50ZXJlc3RfcmF0ZSkgKiogLXRpbWVfcGVyaW9kc1xucHJlc2VudF92YWx1ZXMgPSBhbm51YWxfcGF5bWVudCAqIGRpc2NvdW50X2ZhY3RvcnNcblxuIyBDcmVhdGUgYSBEYXRhRnJhbWUgZm9yIGNsZWFyIHByZXNlbnRhdGlvblxuYW5udWl0eV9kZiA9IHBkLkRhdGFGcmFtZSh7XG4gICAgJ1llYXInOiB0aW1lX3BlcmlvZHMsXG4gICAgJ1BheW1lbnQnOiBhbm51YWxfcGF5bWVudCxcbiAgICAnRGlzY291bnQgRmFjdG9yJzogZGlzY291bnRfZmFjdG9ycyxcbiAgICAnUHJlc2VudCBWYWx1ZSc6IHByZXNlbnRfdmFsdWVzXG59KVxuXG4jIENhbGN1bGF0ZSB0b3RhbCBwcmVzZW50IHZhbHVlXG50b3RhbF9wdiA9IHByZXNlbnRfdmFsdWVzLnN1bSgpXG5cbnByaW50KGZcIkFubnVpdHkgQW5hbHlzaXNcIilcbnByaW50KGZcIj1cIio0MClcbnByaW50KGZcIkFubnVhbCBQYXltZW50OiDigqx7YW5udWFsX3BheW1lbnQ6LH1cIilcbnByaW50KGZcIkludGVyZXN0IFJhdGU6IHtpbnRlcmVzdF9yYXRlOi4xJX1cIilcbnByaW50KGZcIlRlcm06IHt5ZWFyc30geWVhcnNcIilcbnByaW50KGZcIlRvdGFsIFByZXNlbnQgVmFsdWU6IOKCrHt0b3RhbF9wdjosLjJmfVwiKVxucHJpbnQoZlwiXFxuRmlyc3QgNSB5ZWFyczpcIilcbnByaW50KGFubnVpdHlfZGYuaGVhZCgpKVxuXG4jIFZpc3VhbGl6ZSB0aGUgcHJlc2VudCB2YWx1ZXNcbnBsdC5maWd1cmUoZmlnc2l6ZT0oMTAsIDYpKVxucGx0LmJhcih0aW1lX3BlcmlvZHMsIHByZXNlbnRfdmFsdWVzLCBjb2xvcj0nc3RlZWxibHVlJywgYWxwaGE9MC43KVxucGx0LnhsYWJlbCgnWWVhcicpXG5wbHQueWxhYmVsKCdQcmVzZW50IFZhbHVlICjigqwpJylcbnBsdC50aXRsZSgnUHJlc2VudCBWYWx1ZSBvZiBBbm51YWwgUGF5bWVudHMnKVxucGx0LmdyaWQoYXhpcz0neScsIGFscGhhPTAuMylcbnBsdC5zaG93KCkifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
+<p>Congratulations! Your development environment is now ready. Before our next class:</p>
+<ol type="1">
+<li><strong>Practice Python basics</strong>:
+<ul>
+<li>Open a Jupyter notebook</li>
+<li>Try basic arithmetic operations</li>
+<li>Create variables and simple functions</li>
+</ul></li>
+<li><strong>Explore the tools</strong>:
+<ul>
+<li>Navigate folders using the command line</li>
+<li>Create and save a Jupyter notebook</li>
+<li>Make your first Git commit</li>
+</ul></li>
+<li><strong>Prepare questions</strong>:
+<ul>
+<li>Note any installation issues</li>
+<li>Think about actuarial problems you’d like to solve</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ready for More?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you finish early, explore:</p>
+<ul>
+<li>Python’s official tutorial: <a href="https://docs.python.org/3/tutorial/">https://docs.python.org/3/tutorial/</a></li>
+<li>NumPy quickstart: <a href="https://numpy.org/doc/stable/user/quickstart.html">https://numpy.org/doc/stable/user/quickstart.html</a></li>
+<li>Pandas getting started: <a href="https://pandas.pydata.org/docs/getting_started/index.html">https://pandas.pydata.org/docs/getting_started/index.html</a></li>
+</ul>
+</div>
+</div>
+<p>Remember: The goal isn’t just to install software, but to understand your tools. Take time to explore each component. See you in the next session where we’ll dive into Python programming!</p>
+<!-- ## Overview of Tools
+
+### Core Programming Tools
+
+#### Python
+The primary language for data science, chosen for its:
+- Clear, readable syntax perfect for beginners
+- Extensive libraries for data analysis
+- Strong community support
+- Industry adoption in insurance and finance
+
+**Learn more**: [Python Official Website](https://www.python.org/)
+
+#### Jupyter Notebooks
+Interactive documents that combine:
+
+- Executable code
+- Rich text documentation
+- Visualizations
+- Mathematical formulas
+
+**Learn more**: [Jupyter Project](https://jupyter.org/)
+
+![Jupyter Notebook Interface](images/jupyter_interface.png)
+
+#### Development Environments
+- **[VS Code](https://code.visualstudio.com/)**: Professional code editor with excellent Python support
+- **[Anaconda](https://www.anaconda.com/)**: Python distribution with pre-installed data science libraries
+- **[Google Colab](https://colab.research.google.com/)**: Cloud-based notebooks requiring no local installation
+
+![Development Environment Comparison](images/dev_environments_comparison.png)
+
+### Essential Libraries
+
+We'll master four fundamental libraries that form the backbone of data science in Python:
+
+#### NumPy
+- Numerical computing foundation
+- Fast array operations
+- Mathematical functions
+- Random number generation for simulations
+
+**Documentation**: [NumPy Official Docs](https://numpy.org/doc/stable/)
+
+<!-- ```{pyodide}
+import numpy as np
+# Example: Calculate present value of future cash flows
+cash_flows = np.array([1000, 1000, 1000, 1000, 1000])
+discount_rate = 0.05
+periods = np.arange(1, 6)
+present_values = cash_flows / (1 + discount_rate) ** periods
+print(f"Total PV: ${present_values.sum():,.2f}")
+``` -->
+<!-- ### Tools
+
+#### Pandas
+- Data manipulation and analysis
+- Reading/writing various file formats
+- Data cleaning and transformation
+- Time series functionality
+
+**Documentation**: [Pandas Official Docs](https://pandas.pydata.org/docs/)
+
+![Pandas DataFrame Example](images/pandas_dataframe.png)
+
+#### Matplotlib & Seaborn
+- Statistical visualization
+- Publication-quality figures
+- Interactive plots
+- Actuarial-specific charts (mortality curves, loss distributions)
+
+**Documentation**: 
+- [Matplotlib](https://matplotlib.org/)
+- [Seaborn](https://seaborn.pydata.org/)
+
+![Visualization Examples](images/visualization_gallery.png)
+
+### Supporting Tools
+
+- **[Git](https://git-scm.com/) / [GitHub](https://github.com/)**: Version control for tracking code changes and collaboration
+- **Command Line**: Basic shell commands for file management and automation
+  - [Windows Terminal](https://aka.ms/terminal)
+  - [macOS Terminal Guide](https://support.apple.com/guide/terminal/welcome/mac)
+  - [Linux Command Line](https://ubuntu.com/tutorials/command-line-for-beginners)
+- **[Quarto](https://quarto.org/)**: Creating reports that blend code, results, and narrative
+
+![Git Workflow Diagram](images/git_workflow.png) -->
+
+
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yNy4wL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIiwibWF0cGxvdGxpYiIsIm51bXB5Iiwic2VhYm9ybiIsInBhbmRhcyIsInNjaXB5Il19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../labs";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../lectures/pipeline.html" class="pagination-link" aria-label="Data Science Pipeline">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Data Science Pipeline</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../labs/exercise_set_1.html" class="pagination-link" aria-label="Exercise Set I - Python">
+        <span class="nav-page-text">Exercise Set I - Python</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2025, <a href="https://iliaazizi.com/">Ilia Azizi</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with 🤍 and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

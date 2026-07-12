@@ -1,0 +1,252 @@
+.border {
+  border: 1px solid #dee2e6;
+}
+
+.border-thick {
+  border-width: 3px;
+}
+
+.reveal blockquote {
+text-align: left;
+width: 85%;
+border: none;
+box-shadow: none;
+background: none;
+}
+.reveal figure { margin: 1em; border: none; }
+.reveal section img { border: none; }
+.longquote blockquote { font-size: 0.8em; }
+.reveal blockquote:before { content: ''; }
+.reveal blockquote:after { content: ''; }
+
+
+.caption{
+  text-align: center;
+}
+
+figcaption {
+  margin: auto;
+  text-align: center;
+}
+
+.btn-jupyter::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 2px;
+  background-image: url('jupyter_logo.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: text-bottom;
+}
+
+.btn-colab::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 1px;
+  margin-bottom: -1px;
+  background-image: url('colab_logo.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: text-bottom;
+}
+
+.btn {
+  border-radius: 6px !important;
+  transition: all 0.3s ease;
+}
+
+/*-- scss:defaults --*/
+
+/*-- scss:rules --*/
+
+/*li {
+  font-size: 25px;
+}*/
+
+/* #tabset-1 {
+  font-size: 16px;
+} */
+
+/* special css only for the first session */
+
+/* .v-center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+ */
+
+/* Add the custom font EB Garamond */
+/* @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap'); */
+
+/* Make reveal figures smaller */
+.reveal figure {
+  margin: 0em;
+} 
+
+.quarto-figure {
+    position: relative;
+    margin-bottom: 0em;
+}
+
+.reveal h1.title {
+  font-size: 180%;
+  margin-bottom: 3rem;
+}
+
+
+/* Make the title of the title slide smaller */
+.reveal.smaller #title-slide > h1.title {
+  font-size: 180%;
+  margin-bottom: 3rem;
+}
+
+/* Remove the bottom of the subtitle slide */
+/* #title-slide .subtitle, div.reveal div.slides section.quarto-title-block .subtitle */
+.reveal.smaller #title-slide .subtitle {
+  font-size: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Make the author of the title slide smaller */
+.reveal.smaller #title-slide > div > div > div {
+  font-size: 100%;
+}
+
+/* Make font of the h2 titles smaller */
+.reveal.smaller .slides h2 {
+  font-size: 150%;
+}
+
+.reveal .slide-number > a[href*='title-slide'] {
+  display: none;
+}
+
+.reveal aside {
+  font-size: 50% !important;
+}
+
+ul.panel-tabset-tabby li a {
+  font-size: 70% !important;
+}
+
+.caption{
+   text-align: center;
+}
+
+.menubar a.logo {
+  width: 4em;
+  margin: 0;
+  padding: 0.25em 0.5em;
+}
+.menubar a.logo img {
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+
+.v-center-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: top;
+  height: 90%;
+}
+
+.mjx-math{
+  text-align: center 
+}
+
+
+.MathJax, .MathJax_Display  {
+    font-size: 80%  !important;
+}
+
+.custom-small table {
+  font-size: 0.8em
+}
+
+.custom-small-html table {
+  font-size: 0.25em
+}
+
+.custom-small-fig #tbl-results > figure > div .reveal .slides {
+  text-align: right !important;
+}
+
+caption, .figure-caption {
+  text-align: center;
+}
+
+/* .border {
+  border: 1px solid #dee2e6;
+}
+
+.border-thick {
+  border-width: 3px;
+}
+
+.reveal blockquote {
+text-align: left;
+width: 85%;
+border: none;
+box-shadow: none;
+background: none;
+}
+.reveal figure { margin: 1em; border: none; }
+.reveal section img { border: none; }
+.longquote blockquote { font-size: 0.8em; }
+.reveal blockquote:before { content: ''; }
+.reveal blockquote:after { content: ''; } */
+
+.larger-callout-font .callout-content {
+  font-size: 1.3em !important; /* Adjust this value as needed */
+}
+
+.reveal section.top {
+  top: 0px !important;
+  margin-top: 20% !important;
+  font-size: 130% !important;
+  /* center align */
+  text-align: center !important;
+}
+
+
+/* ------------- */
+/* From the MLBA slides */
+/*-- scss:rules --*/
+
+/* li {
+  font-size: 30px;
+}
+
+#tabset-1 {
+  font-size: 16px;
+}
+
+.reveal pre code {
+  max-height: 200px;
+}
+
+.reveal pre {
+  background-color: transparent;
+}
+
+div, iframe {
+  margin: 0 auto;
+}
+
+iframe {
+  display: block;
+  border-style:none;
+} 
+*/
+
+/* ------------- */

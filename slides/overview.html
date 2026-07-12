@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="overview_files/libs/clipboard/clipboard.min.js"></script>
+<script src="overview_files/libs/quarto-html/tabby.min.js"></script>
+<script src="overview_files/libs/quarto-html/popper.min.js"></script>
+<script src="overview_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="overview_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="overview_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="overview_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="overview_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="overview_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script src="overview_files/libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
+
+  <meta name="author" content="Ilia Azizi">
+  <meta name="dcterms.date" content="2025-09-23">
+  <title>Introduction to Data Science I</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="overview_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="overview_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="overview_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="auxiliary/styles/ml_slides.css">
+  <link rel="stylesheet" href="auxiliary/styles/flow.scss">
+  <link href="overview_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="overview_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="overview_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="overview_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="overview_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="overview_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <script src="overview_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="overview_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="overview_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+  <style>
+  /* Button styles for reveal.js - adapted from custom.css */
+  .btn {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 6px !important;
+    transition: all 0.3s ease;
+  }
+
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 6px !important;
+  }
+
+  /* Light mode button styles */
+  .btn-outline-secondary {
+    color: var(--bs-secondary, #6c757d) !important;
+    border-color: var(--bs-secondary, #6c757d) !important;
+    background-color: transparent;
+  }
+  .btn-outline-secondary:hover {
+    color: white !important;
+    background-color: var(--bs-secondary, #6c757d) !important;
+    border-color: var(--bs-secondary, #6c757d) !important;
+  }
+
+  .btn-outline-danger {
+    color: var(--bs-danger, #dc3545) !important;
+    border-color: var(--bs-danger, #dc3545) !important;
+    background-color: transparent;
+  }
+  .btn-outline-danger:hover {
+    color: white !important;
+    background-color: var(--bs-danger, #dc3545) !important;
+    border-color: var(--bs-danger, #dc3545) !important;
+  }
+
+  .btn-outline-warning {
+    color: #f39c12 !important;
+    border-color: #f39c12 !important;
+    background-color: transparent;
+  }
+  .btn-outline-warning:hover {
+    color: white !important;
+    background-color: #f39c12 !important;
+    border-color: #f39c12 !important;
+  }
+
+  .btn-outline-success {
+    color: var(--bs-success, #198754) !important;
+    border-color: var(--bs-success, #198754) !important;
+    background-color: transparent;
+  }
+  .btn-outline-success:hover {
+    color: white !important;
+    background-color: var(--bs-success, #198754) !important;
+    border-color: var(--bs-success, #198754) !important;
+  }
+
+  .btn-outline-primary {
+    color: var(--bs-primary, #0d6efd) !important;
+    border-color: var(--bs-primary, #0d6efd) !important;
+    background-color: transparent;
+  }
+  .btn-outline-primary:hover {
+    color: white !important;
+    background-color: var(--bs-primary, #0d6efd) !important;
+    border-color: var(--bs-primary, #0d6efd) !important;
+  }
+
+  /* Custom button icons */
+  .btn-jupyter::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 2px;
+    background-image: url('auxiliary/styles/jupyter_logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: text-bottom;
+  }
+
+  .btn-colab::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 1px;
+    margin-bottom: -1px;
+    background-image: url('auxiliary/styles/colab_logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: text-bottom;
+  }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Introduction to Data Science I</h1>
+  <p class="subtitle">MScAS 2025 - Overview</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Ilia Azizi 
+</div>
+</div>
+</div>
+
+  <p class="date">2025-09-23</p>
+</section>
+<section id="welcome" class="slide level2">
+<h2>Welcome!</h2>
+<div style="font-size: 70%;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="course-details">Course Details</h4>
+<ul>
+<li>🧑🏻‍🏫 <strong>Instructor</strong>: Ilia Azizi</li>
+<li>🕛 <strong>Time</strong>: Tuesdays 10:15-14:00</li>
+<li>🏫 <strong>Room</strong>: Internef 122</li>
+<li>📚 <strong>Duration</strong>: 6 weeks</li>
+</ul>
+<p><br></p>
+<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+<div id="" class="qrcode"></div>
+<script type="text/javascript">
+(function() {
+  var script = document.currentScript;
+  var qrcode = script.previousElementSibling;
+  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#000000","colorLight":"#ffffff","height":128,"text":"https://unco3892.github.io/dsas/","width":128});
+  script.remove();
+})();
+</script>
+    
+</div>
+<div style="font-size: 80%; text-align: center;">
+<p>Course website for the material</p>
+</div>
+</div><div class="column" style="width:50%;;">
+<h4 id="todays-agenda">Today’s Agenda</h4>
+<ul>
+<li>Course Overview &amp; Objectives</li>
+<li>Why Python for Actuarial Science?</li>
+<li>Development Environment Setup</li>
+<li>Introduction to Python</li>
+</ul>
+<!-- center the text -->
+<p><br></p>
+<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+<div id="" class="qrcode"></div>
+<script type="text/javascript">
+(function() {
+  var script = document.currentScript;
+  var qrcode = script.previousElementSibling;
+  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#000000","colorLight":"#ffffff","height":128,"text":"https://moodle.unil.ch/course/view.php?id=34127","width":128});
+  script.remove();
+})();
+</script>
+    
+</div>
+<div style="font-size: 80%; text-align: center;">
+<p>Moodle for communication</p>
+</div>
+</div></div>
+</div>
+</section>
+<section id="about-me" class="slide level2">
+<h2>About Me</h2>
+<div style="font-size: 60%;">
+<ul>
+<li>Finishing my PhD in Business Analytics at HEC Lausanne</li>
+<li>I work on multi-modal machine learning with uncertainty quantification</li>
+<li>MSc from HEC Lausanne and BSc from University of Rome Tor Vergata</li>
+<li>I speak English, French, Italian, Spanish, Farsi and some Arabic</li>
+<li>I love teaching, open-source development and generally building things</li>
+<li>Some of my hobbies include PC gaming (&amp; building), technology, and food science</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="auxiliary/images/pc_images.png" class="quarto-figure quarto-figure-center" style="width:30.0%"></p>
+</figure>
+</div>
+<ul>
+<li>To learn more about me, check out my <a href="https://iliaazizi.com/">website</a> and feel free to reach out by email (<a href="mailto:ilia.azizi@unil.ch">ilia.azizi@unil.ch</a>), <a href="https://moodle.unil.ch/course/view.php?id=34127">Moodle</a> or <a href="https://github.com/Unco3892/dsas-issues">GitHub</a>.</li>
+</ul>
+</div>
+</section>
+<section id="objectives" class="slide level2">
+<h2>Objectives</h2>
+<div style="font-size: 60%;">
+<p>This course is designed around three core principles:</p>
+<ol type="1">
+<li><strong>Hands-on Learning</strong>: You’ll write code from day one. Theory and practice go hand in hand.</li>
+<li><strong>Real-world Relevance</strong>: Every concept is illustrated with actuarial examples.</li>
+<li><strong>Progressive Complexity</strong>: Starting with basics, we gradually build complete data science workflows.</li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Bring Your Laptop!</strong></p>
+</div>
+<div class="callout-content">
+<p>This is a <strong>hands-on course</strong> centered around coding. You’ll need your laptop in every session to follow along with live coding demonstrations and work on exercises.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="structure" class="slide level2">
+<h2>Structure</h2>
+<div style="font-size: 60%;">
+<p>Lasting for six weeks, each Tuesday session (10:15-14:00) has the following structure:</p>
+<ul>
+<li><strong>50% Interactive Lectures</strong>: Live coding demonstrations where we explore concepts together</li>
+<li><strong>50% Practical Lab Exercises</strong>: Hands-on problem solving based on the lectures</li>
+</ul>
+<div style="font-size: 70%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Week</th>
+<th>Date</th>
+<th>Topic</th>
+<th>Lecture</th>
+<th>Lab</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Tue, Sep 23</td>
+<td>Introduction to DS &amp; Programming</td>
+<td>📄 <a href="https://unco3892.github.io/dsas/lectures/overview">Overview</a><br><br>📄 <a href="https://unco3892.github.io/dsas/lectures/python">Intro to Python</a></td>
+<td>📝 <a href="https://unco3892.github.io/dsas/labs/exercise_set_0">Setup</a><br><br>📝 <a href="https://unco3892.github.io/dsas/labs/exercise_set_1">Lab 1</a></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Tue, Sep 30</td>
+<td>Numerical Computation</td>
+<td>📄 <a href="https://unco3892.github.io/dsas/lectures/numpy">Intro to Numpy</a></td>
+<td>📝 <a href="https://unco3892.github.io/dsas/labs/exercise_set_2">Lab 2</a></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Tue, Oct 7</td>
+<td>Data Wrangling</td>
+<td>📄 <a href="https://unco3892.github.io/dsas/lectures/pandas">Intro to Pandas</a></td>
+<td>📝 <a href="https://unco3892.github.io/dsas/labs/exercise_set_3">Lab 3</a></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Thu, Oct 9</td>
+<td><strong>Project proposal deadline (<a href="https://forms.gle/r22zJeqhuZVvTwTAA">google form here</a>)</strong> ❗</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Tue, Oct 14</td>
+<td>Visualization</td>
+<td>📄 <a href="https://unco3892.github.io/dsas/lectures/plotting">Intro to Plotting</a></td>
+<td>📝 <a href="https://unco3892.github.io/dsas/labs/exercise_set_4">Lab 4</a></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Tue, Oct 21</td>
+<td>Data Science Workflow &amp; Case Study</td>
+<td>📄 <a href="https://unco3892.github.io/dsas/lectures/pipeline">Data Science Pipeline</a></td>
+<td>📝 <a href="https://unco3892.github.io/dsas/labs/exercise_set_5">Lab 5</a><br><br>📝 <a href="https://unco3892.github.io/dsas/labs/exercise_set_6">Lab 6</a></td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Tue, Oct 28</td>
+<td>Guest Lectures, Catch up &amp; Coaching</td>
+<td>💬 1-1 group meetings</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wed, Nov 12</td>
+<td><strong>Project report deadline (moodle)</strong> ❗</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Fri, Nov 14</td>
+<td><strong>Project presentation deadline (moodle)</strong> ❗</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Tue, Nov 18</td>
+<td><strong>Final presentations (on site)</strong> ❗</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- The exact balance will vary by topic. Some concepts need more explanation, others more practice.  -->
+</div>
+</section>
+<section id="topics" class="slide level2">
+<h2>Topics</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    %% Main linear flow
+    Acquire --&gt; Tidy
+    Tidy --&gt; Transform
+    
+    %% Circular connections between Transform, Visualize, and Model
+    Transform &lt;--&gt; Visualize
+    Visualize &lt;--&gt; Model
+    Model &lt;--&gt; Transform
+    
+    %% Final connections to Communicate
+    %% Visualize --&gt; Communicate
+    Model --&gt; Communicate
+    
+    %% Styling for clean appearance
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,font-family:Arial,font-size:14px
+    
+    class Acquire,Tidy,Transform,Visualize,Model,Communicate default
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div style="font-size: 60%;">
+<p>Each chapter cover can be attributed to the following topics:</p>
+<ul>
+<li><p><a href="https://unco3892.github.io/dsas/lectures/python">Introduction to Python</a>: Python Fundamentals that are relevant crucial for the entire workflow</p></li>
+<li><p><a href="https://unco3892.github.io/dsas/lectures/numpy">Introduction to NumPy</a>: Numerical Computing with NumPy (Tidy + Transform)</p></li>
+<li><p><a href="https://unco3892.github.io/dsas/lectures/pandas">Introduction to Pandas</a>: Data Manipulation with Pandas (Tidy + Transform)</p></li>
+<li><p><a href="https://unco3892.github.io/dsas/lectures/plotting">Introduction to Plotting</a>: Visualization (univariate and multivariate plots)</p></li>
+<li><p><a href="https://unco3892.github.io/dsas/lectures/pipeline">Data Science pipeline</a>: Complete Data Science Pipeline</p></li>
+<li><p><a href="https://unco3892.github.io/dsas/labs/exercise_set_0#quarto">Exercise Set 0 - Setup</a>: Communication via Quarto</p></li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Modeling is only covered in Introduction to DS II</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="learning-outcomes" class="slide level2">
+<h2>Learning Outcomes</h2>
+<div style="font-size: 60%;">
+<p>What you will be able to do at the end of the course:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 51%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Technical Skills</strong></th>
+<th><strong>Applied Competencies</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Write Python programs, with a focus on solving actuarial problems</td>
+<td>Performing exploratory data analysis on insurance portfolios</td>
+</tr>
+<tr class="even">
+<td>Manipulate and analyze datasets effectively and efficiently</td>
+<td>Automating repetitive tasks in pricing and valuation</td>
+</tr>
+<tr class="odd">
+<td>Create professional visualizations for technical and non-technical audiences</td>
+<td>Calculating actuarial metrics (loss ratios, claim frequencies, reserves)</td>
+</tr>
+<tr class="even">
+<td>Build reproducible data analysis pipelines</td>
+<td>Preparing data for advanced modeling (covered in DS II)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="font-size: 80%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>These are just some examples</strong></p>
+</div>
+<div class="callout-content">
+<p>You’re only be bound by your imagination!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="career-paths" class="slide level2">
+<h2>Career Paths</h2>
+<div style="font-size: 60%;">
+<p>Here’s how this course prepares you for different data science roles:</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    %% Main linear flow
+    Acquire --&gt; Tidy
+    Tidy --&gt; Transform
+    
+    %% Circular connections between Transform, Visualize, and Model
+    Transform &lt;--&gt; Visualize
+    Visualize &lt;--&gt; Model
+    Model &lt;--&gt; Transform
+    
+    %% Final connections to Communicate
+    %% Visualize --&gt; Communicate
+    Model --&gt; Communicate
+    
+    %% Styling for clean appearance
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,font-family:Arial,font-size:14px
+    
+    class Acquire,Tidy,Transform,Visualize,Model,Communicate default
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Data Engineer</strong>: Focuses on <code>Acquire</code>, <code>Tidy</code>, and <code>Transform</code> - building robust data systems. Our course emphasizes analysis over infrastructure.</li>
+<li><strong>Data Analyst</strong>: Emphasizes <code>Transform</code>, <code>Visualize</code>, and <code>Communicate</code> - interpreting data for insights. Strong foundation in Pandas and visualization from this course.</li>
+<li><strong>Machine Learning Engineer/Scientist</strong>: Focuses on <code>Transform</code> (feature engineering) and <code>Model</code> - building AI/ML solutions. This course provides essential Python and data preparation prerequisites.</li>
+<li><strong>Data Scientist</strong>: Involved across entire workflow - “jack of all trades” approach. This course builds foundational skills for advanced modeling in DS II.</li>
+</ul>
+</div>
+</section>
+<section id="assessment" class="slide level2">
+<h2>Assessment</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Project Scope &amp; Components</a></li><li><a href="#tabset-1-2">Project Ideas</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div style="font-size: 50%;">
+<ul>
+<li><strong>Practical project</strong> that demonstrates your ability to apply course concepts to a real actuarial problem.</li>
+<li><strong>Members of groups of 3</strong> (maybe 4, depending on the number of participants). It’s up to you to find your group members, but there is a moodle forum to facilitate the process.</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Weight</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Proposal</td>
+<td>20%</td>
+<td>Define problem and approach</td>
+</tr>
+<tr class="even">
+<td>Report</td>
+<td>40%</td>
+<td>Complete analysis with code</td>
+</tr>
+<tr class="odd">
+<td>Presentation</td>
+<td>40%</td>
+<td>Communicate findings effectively</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ul>
+<li><strong>October 9 at 23:59 (CEST)</strong>: Project proposal deadline</li>
+<li><strong>November 12 at 23:59 (CEST)</strong>: Project report deadline<br>
+</li>
+<li><strong>November 14 at 23:59 (CEST)</strong>: Slides submission deadline</li>
+<li><strong>November 18</strong>: Project presentations</li>
+</ul>
+</div>
+</div>
+<div id="tabset-1-2">
+<div style="font-size: 50%;">
+<p><strong>Start thinking about actuarial problems you’d like to explore:</strong></p>
+<ul>
+<li>Mortality or morbidity analysis</li>
+<li>Claims frequency/severity modeling</li>
+<li>Portfolio risk assessment</li>
+</ul>
+<p><strong>Examples of specific research questions:</strong></p>
+<ul>
+<li><p>How do mortality patterns vary across different regions in Switzerland, and what demographic factors have the most substantial impacts on life expectancy?</p></li>
+<li><p>What seasonal patterns exist in automobile insurance claims, and how do weather conditions correlate with claim frequency and severity?</p></li>
+<li><p>Do earthquakes follow a Poisson process, and how can an index insurance product be designed for this type of disaster?</p></li>
+<li><p>How effectively can the claim frequency for Belgian Motor-TPL insurance be predicted using ML algorithms?</p></li>
+</ul>
+<p>Some sample projects will be shared later during the course.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="tech-stack" class="slide level2">
+<h2>Tech Stack</h2>
+<div style="font-size: 50%;">
+<p>The term “tech stack” refers to the collection of technologies that are used to build a product or service. In this case, the tech stack is the collection of technologies that we use for this course.</p>
+</div>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Overview</a></li><li><a href="#tabset-2-2">In a Nutshell</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div style="font-size: 50%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Purpose</th>
+<th>When You’ll Use It</th>
+<th>Why It’s Important</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Python</strong></td>
+<td>Programming language</td>
+<td>Writing all code and analyses</td>
+<td>The foundation - everything else builds on this</td>
+</tr>
+<tr class="even">
+<td><strong>Anaconda</strong></td>
+<td>Package distribution</td>
+<td>Initial setup only</td>
+<td>Bundles Python with essential libraries</td>
+</tr>
+<tr class="odd">
+<td><strong>Jupyter Notebooks</strong></td>
+<td>Interactive coding</td>
+<td>Exploratory analysis, exercises</td>
+<td>See results immediately, mix code with notes</td>
+</tr>
+<tr class="even">
+<td><strong>VS Code</strong></td>
+<td>Code editor</td>
+<td>Writing scripts, larger projects</td>
+<td>Professional development environment</td>
+</tr>
+<tr class="odd">
+<td><strong>Git/GitHub</strong></td>
+<td>Version control</td>
+<td>Saving work, collaboration</td>
+<td>Track changes, build portfolio</td>
+</tr>
+<tr class="even">
+<td><strong>Terminal</strong></td>
+<td>Command interface</td>
+<td>Running scripts, managing packages</td>
+<td>Direct computer control</td>
+</tr>
+<tr class="odd">
+<td><strong>Quarto</strong></td>
+<td>Document creation</td>
+<td>Reports, presentations</td>
+<td>Combine code, results, and narrative</td>
+</tr>
+<tr class="even">
+<td><strong>Libraries</strong></td>
+<td>Open-source code</td>
+<td>Data manipulation, visualization</td>
+<td>Pre-built functions for complex tasks</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="tabset-2-2">
+<div style="font-size: 60%;">
+<p>Think of these tools as your actuarial toolkit:</p>
+<ul>
+<li><strong>Python</strong> is your calculator, with libraries for re-using existing code</li>
+<li><strong>Jupyter</strong> is your scratch pad (<em>quick and dirty</em> analysis)</li>
+<li><strong>VS Code</strong> is your professional workspace (what we refer to as <em>production code</em>)</li>
+<li><strong>Git</strong> is your filing system (<em>think OneDrive/iCloud</em>)</li>
+<li><strong>Quarto</strong> is your reporting tool (<em>pdf, doc and even websites from a single file</em>)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="website-tools" class="slide level2">
+<h2>Website Tools</h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Live Code Environment</a></li><li><a href="#tabset-3-2">Other Functionalities</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<div style="font-size: 60%;">
+<p>The course website features <strong>interactive code blocks</strong> that run directly in your browser:</p>
+</div>
+<div style="font-size: 80%;">
+<div class="cell">
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBUcnkgaXQhIENsaWNrIFwiUnVuIENvZGVcIiBvciBwcmVzcyBTaGlmdCtFbnRlclxucHJpbnQoXCJXZWxjb21lIHRvIERhdGEgU2NpZW5jZSBmb3IgQWN0dWFyaWVzIVwiKVxucHJpbnQoZlwiMiArIDIgPSB7MiArIDJ9XCIpIn0=
+</script>
+</div>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important: Browser Code is Temporary!</strong></p>
+</div>
+<div class="callout-content">
+<p>Code you run in these interactive blocks is <strong>not saved</strong>. The environment resets when you refresh the page. For permanent work, download the Jupyter notebooks or use Google Colab.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2">
+<div style="font-size: 60%;">
+<p>Throughout the course, you’ll encounter several interactive elements, found at the beginning of the documents:</p>
+<ul>
+<li><a href="data/lecture_numpy.zip" class="btn btn-outline-secondary btn-sm" title="Download the datasets">🗄️ Data</a> downloads the datasets to run the examples outside of the DSAS website</li>
+<li><a href="#/" class="btn btn-outline-danger btn-sm btn-jupyter" onclick="downloadNotebook('example.ipynb')" title="Download the Jupyter Notebook">Jupyter</a> downloads jupyter notebook files to work locally</li>
+<li><a href="https://colab.research.google.com" class="btn btn-outline-warning btn-sm btn-colab" title="Open in Google Colab">Google Colab</a> is a cloud-based alternative to local Jupyter notebooks</li>
+<li><a href="#/" class="btn btn-outline-success btn-sm" title="Show Hints">💡 Hints</a> with you guidance when stuck</li>
+<li><a href="#/" class="btn btn-outline-primary btn-sm" title="Show Solutions">ℹ️ Solutions</a> to see the answers after attempting exercises. They remain locked until the end of the lecture day at 00:00 (CEST) with a countdown timer</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="note-learning-to-code" class="slide level2">
+<h2>Note: Learning to Code</h2>
+<div style="font-size: 60%;">
+<p>Learning to program is like learning a new language, it takes practice and patience. Some advice:</p>
+<ul>
+<li><strong>Errors are normal</strong>: Even experienced programmers encounter errors daily</li>
+<li><strong>Search, search and search</strong>: If you run into an issue, most likely you’re not the only one</li>
+<li><strong>Type everything</strong>: Don’t copy-paste during learning; muscle memory helps</li>
+<li><strong>Experiment freely</strong>: Try changing code to see what happens</li>
+<li><strong>Collaborate</strong>: Discuss approaches with classmates (but write your own code)</li>
+</ul>
+</div>
+<div style="font-size: 70%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Feeling overwhelmed is normal!</strong></p>
+</div>
+<div class="callout-content">
+<p>Technical fields involve many evolving tools. Focus on the key takeaway: doing “correct” data science and building complete workflows using Python as one implementation approach.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>On AI and learning</strong></p>
+</div>
+<div class="callout-content">
+<p>Avoid AI tools during learning and master the fundamentals first. You can use them for your final project after building a strong foundation.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="getting-started" class="slide level2">
+<h2>Getting Started</h2>
+<div style="font-size: 60%;">
+<p>Ready to begin? Your first tasks:</p>
+<ol type="1">
+<li><strong>Set up your environment</strong> (covered in <a href="https://unco3892.github.io/dsas/labs/exercise_set_0">Exercise Set 0</a>)</li>
+<li><strong>Join the course resources</strong>:
+<ul>
+<li>Sign up on <a href="https://moodle.unil.ch/course/section.php?id=437410">moodle here</a></li>
+<li>Access course materials on the website <a href="https://unco3892.github.io/dsas/">https://unco3892.github.io/dsas/</a></li>
+<li>Download Anaconda Python distribution</li>
+<li>Create a GitHub account for version control</li>
+</ul></li>
+<li><strong>Prepare for interactive learning</strong>:
+<ul>
+<li>Bring a fully charged laptop to every session</li>
+<li>Be ready to code along during demonstrations</li>
+<li>Don’t hesitate to ask questions!</li>
+</ul></li>
+</ol>
+</div>
+<div style="font-size: 70%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Start thinking about your project</strong></p>
+</div>
+<div class="callout-content">
+<p>You have any ideas on which actuarial problems can be solved with data science? Great! You can start working on your project proposal now!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="questions" class="title-slide slide level1 center">
+<h1>Questions?</h1>
+
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="auxiliary/images/unil_logo25.svg" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>DSAS 2025 | HEC Lausanne</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="overview_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="overview_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="overview_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="overview_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="overview_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="overview_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="overview_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="overview_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="overview_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="overview_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../..";
+    window._ojs.paths.runtimeToRoot = "../../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

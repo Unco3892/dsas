@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to Python – Introduction to Data Science I MScAS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../lectures/numpy.html" rel="next">
+<link href="../lectures/overview.html" rel="prev">
+<link href="../images/logo.dark.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-abfe29080efd84a6e6ee59c2a25efe07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c510dcd4cb238ff9ea0c38e124e4433d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-abfe29080efd84a6e6ee59c2a25efe07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CNFS8TM552"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-CNFS8TM552', { 'anonymize_ip': true});
+</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles/custom.css">
+<link rel="stylesheet" href="../css/solution-styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/overview.html">Lectures</a></li><li class="breadcrumb-item"><a href="../lectures/python.html">Introduction to Python</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo.light.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.light.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://moodle.unil.ch/course/view.php?id=34127" title="Moodle" class="quarto-navigation-tool px-1" aria-label="Moodle"><i class="bi bi-mortarboard"></i></a>
+    <a href="https://github.com/Unco3892/dsas-support" title="GitHub Repo" class="quarto-navigation-tool px-1" aria-label="GitHub Repo"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Information</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/python.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/numpy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to NumPy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Plotting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Science Pipeline</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set 0 - Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set I - Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set II - NumPy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set III - Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set IV - Plotting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set V - Pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/exercise_set_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Set VI - HMD</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Assessment</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assessment/project_directives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project Directives</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assessment/presentation_guidelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentation Guidelines</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/data_acquisition/data_sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Sources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/cheatsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-python-for-data-science" id="toc-why-python-for-data-science" class="nav-link active" data-scroll-target="#why-python-for-data-science">Why Python for Data Science?</a></li>
+  <li><a href="#basics-comments-and-whitespace" id="toc-basics-comments-and-whitespace" class="nav-link" data-scroll-target="#basics-comments-and-whitespace">Basics: Comments and Whitespace</a>
+  <ul class="collapse">
+  <li><a href="#comments-explaining-your-code" id="toc-comments-explaining-your-code" class="nav-link" data-scroll-target="#comments-explaining-your-code">Comments: Explaining Your Code</a></li>
+  <li><a href="#whitespace-pythons-unique-feature" id="toc-whitespace-pythons-unique-feature" class="nav-link" data-scroll-target="#whitespace-pythons-unique-feature">Whitespace: Python’s Unique Feature</a></li>
+  <li><a href="#line-continuation-handling-long-formulas" id="toc-line-continuation-handling-long-formulas" class="nav-link" data-scroll-target="#line-continuation-handling-long-formulas">Line Continuation: Handling Long Formulas</a></li>
+  </ul></li>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types">Data Types</a>
+  <ul class="collapse">
+  <li><a href="#numbers-the-foundation-of-actuarial-work" id="toc-numbers-the-foundation-of-actuarial-work" class="nav-link" data-scroll-target="#numbers-the-foundation-of-actuarial-work">Numbers: The Foundation of Actuarial Work</a></li>
+  <li><a href="#strings-working-with-text-data" id="toc-strings-working-with-text-data" class="nav-link" data-scroll-target="#strings-working-with-text-data">Strings: Working with Text Data</a></li>
+  <li><a href="#lists-ordered-collections-of-data" id="toc-lists-ordered-collections-of-data" class="nav-link" data-scroll-target="#lists-ordered-collections-of-data">Lists: Ordered Collections of Data</a></li>
+  <li><a href="#dictionaries-key-value-data-storage" id="toc-dictionaries-key-value-data-storage" class="nav-link" data-scroll-target="#dictionaries-key-value-data-storage">Dictionaries: Key-Value Data Storage</a></li>
+  <li><a href="#tuples-immutable-sequences" id="toc-tuples-immutable-sequences" class="nav-link" data-scroll-target="#tuples-immutable-sequences">Tuples: Immutable Sequences</a></li>
+  <li><a href="#assign-vars" id="toc-assign-vars" class="nav-link" data-scroll-target="#assign-vars">Assigning variables in Python</a></li>
+  </ul></li>
+  <li><a href="#control-flow-and-functions" id="toc-control-flow-and-functions" class="nav-link" data-scroll-target="#control-flow-and-functions">Control Flow and Functions</a>
+  <ul class="collapse">
+  <li><a href="#why-control-flow-matters" id="toc-why-control-flow-matters" class="nav-link" data-scroll-target="#why-control-flow-matters">Why Control Flow Matters</a></li>
+  <li><a href="#if-statements-making-decisions" id="toc-if-statements-making-decisions" class="nav-link" data-scroll-target="#if-statements-making-decisions">If Statements: Making Decisions</a></li>
+  <li><a href="#loops-repeating-tasks" id="toc-loops-repeating-tasks" class="nav-link" data-scroll-target="#loops-repeating-tasks">Loops: Repeating Tasks</a></li>
+  <li><a href="#logical-operators-in-python" id="toc-logical-operators-in-python" class="nav-link" data-scroll-target="#logical-operators-in-python">Logical Operators in Python</a></li>
+  <li><a href="#functions-reusable-blocks-of-code" id="toc-functions-reusable-blocks-of-code" class="nav-link" data-scroll-target="#functions-reusable-blocks-of-code">Functions: Reusable Blocks of Code</a></li>
+  <li><a href="#error-handling-with-tryexcept" id="toc-error-handling-with-tryexcept" class="nav-link" data-scroll-target="#error-handling-with-tryexcept">Error Handling with try/except</a></li>
+  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together">Putting It All Together</a></li>
+  </ul></li>
+  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
+  <ul class="collapse">
+  <li><a href="#brief-introduction-to-classes" id="toc-brief-introduction-to-classes" class="nav-link" data-scroll-target="#brief-introduction-to-classes">Brief Introduction to Classes</a></li>
+  <li><a href="#what-is-init-in-a-class" id="toc-what-is-init-in-a-class" class="nav-link" data-scroll-target="#what-is-init-in-a-class">What is <strong>init</strong> in a Class?</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#bonus-advanced-strings" id="toc-bonus-advanced-strings" class="nav-link" data-scroll-target="#bonus-advanced-strings">Bonus: Advanced Strings</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script type="application/javascript">
+// Description: Change image src depending on body class (quarto-light or quarto-dark)
+function updateImageSrc() {
+  var bodyClass = window.document.body.classList;
+  var images = window.document.getElementsByTagName('img');
+  for (var i = 0; i < images.length; i++) {
+    var image = images[i];
+    var src = image.src;
+    var newSrc = src;
+    if (bodyClass.contains('quarto-light') && src.includes('.dark')) {
+      newSrc = src.replace('.dark', '.light');
+    } else if (bodyClass.contains('quarto-dark') && src.includes('.light')) {
+      newSrc = src.replace('.light', '.dark');
+    }
+    if (newSrc !== src) {
+      image.src = newSrc;
+    }
+  }
+}
+
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+      updateImageSrc();
+    }
+  });
+});
+
+observer.observe(window.document.body, {
+  attributes: true
+});
+
+updateImageSrc();
+</script>
+<script type="application/javascript">
+function downloadNotebook(filename) {
+  const fileUrl = new URL('../ipynb/' + filename, window.location.href);
+  const tempLink = document.createElement('a');
+  tempLink.href = fileUrl.href;
+  tempLink.setAttribute('download', filename);
+  tempLink.rel = 'noopener';
+  tempLink.style.display = 'none';
+
+  const isSafari = /^((?!chrome|android).)*safari/i.test(window.navigator.userAgent);
+
+  document.body.appendChild(tempLink);
+
+  try {
+    // Safari has limited support for programmatic downloads
+    if (isSafari) {
+      window.location.assign(tempLink.href);
+    } else {
+      tempLink.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    }
+  } finally {
+    document.body.removeChild(tempLink);
+  }
+}
+</script>
+<script type="application/javascript" src="../js/solution-manager.js"></script>
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/overview.html">Lectures</a></li><li class="breadcrumb-item"><a href="../lectures/python.html">Introduction to Python</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Introduction to Python</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="#" class="btn btn-outline-danger btn-sm btn-jupyter" onclick="downloadNotebook('python.ipynb')" title="Download the Jupyter Notebook">Jupyter</a> <a href="https://colab.research.google.com/drive/1_BzL3lXo5qUofJ-AqP9yCJz7YULozZuF" class="btn btn-outline-warning btn-sm btn-colab" title="Open in Google Colab">Google Colab</a></p>
+<section id="why-python-for-data-science" class="level2">
+<h2 class="anchored" data-anchor-id="why-python-for-data-science">Why Python for Data Science?</h2>
+<p>Python has become the leading language for data science because of its versatility, readability, and rich ecosystem of libraries. It allows you to write code that is both simple to understand and powerful enough to handle complex data problems. The line <code>future_value = principal * (1 + rate) ** years</code> reads almost like english. The language itself is easy to pick up, but its true strength lies in the tools built around it: libraries like NumPy for numerical computing, pandas for data manipulation, matplotlib and seaborn for visualization, and scikit-learn for machine learning.</p>
+<p>On top of this, Python is widely used in both academia and industry, meaning the skills learned are directly transferable to real-world applications. In acturial-specific applications, Python excels at tasks including risk modeling and Monte Carlo simulations, pricing algorithms and GLMs (Generalized Linear Models), mortality and morbidity analysis, regulatory reporting automation, and portfolio optimization. Major insurance companies and consulting firms use Python for predictive modeling, automated reserving calculations, capital modeling (Solvency II compliance), and customer analytics and pricing.</p>
+<p>Its open-source community also ensures continuous improvement, extensive documentation, and a wealth of resources to support learners at every stage. In short, Python is not just a programming language—it is a gateway to the broader data science ecosystem.</p>
+<p>Let’s start with a simple example to see Python in action:</p>
+<div class="cell">
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBUaGlzIGlzIGEgY29tbWVudCAtIFB5dGhvbiBpZ25vcmVzIGV2ZXJ5dGhpbmcgYWZ0ZXIgdGhlICMgc3ltYm9sXG4jIExldCdzIGNhbGN1bGF0ZSBjb21wb3VuZCBpbnRlcmVzdCBmb3IgYWN0dWFyaWFsIGFuYWx5c2lzXG5cbnByaW5jaXBhbCA9IDEwMDAwMCAgIyBJbml0aWFsIGludmVzdG1lbnQgYW1vdW50IGluIGRvbGxzXG5yYXRlID0gMC4wNSAgICAgICAgIyA1JSBhbm51YWwgaW50ZXJlc3QgcmF0ZVxueWVhcnMgPSAxMCAgICAgICAgICMgTnVtYmVyIG9mIHllYXJzXG5cbiMgQ2FsY3VsYXRlIGZ1dHVyZSB2YWx1ZSB1c2luZyB0aGUgY29tcG91bmQgaW50ZXJlc3QgZm9ybXVsYVxuZnV0dXJlX3ZhbHVlID0gcHJpbmNpcGFsICogKDEgKyByYXRlKSAqKiB5ZWFyc1xuXG4jIERpc3BsYXkgdGhlIHJlc3VsdCBpbiBhIG5pY2UgZm9ybWF0XG5wcmludChmXCJGdXR1cmUgVmFsdWU6ICR7ZnV0dXJlX3ZhbHVlOiwuMmZ9XCIpIn0=
+</script>
+</div>
+</div>
+<p><strong>What just happened?</strong> We stored numbers in variables, performed a calculation, and displayed the result. The <code>print()</code> function shows our answer, and the <code>f"..."</code> creates formatted text that combines text with variable values.</p>
+</section>
+<section id="basics-comments-and-whitespace" class="level2">
+<h2 class="anchored" data-anchor-id="basics-comments-and-whitespace">Basics: Comments and Whitespace</h2>
+<p>Before we dive into data types, let’s understand two fundamental aspects of Python for every code you will ever write.</p>
+<section id="comments-explaining-your-code" class="level3">
+<h3 class="anchored" data-anchor-id="comments-explaining-your-code">Comments: Explaining Your Code</h3>
+<p>Comments are notes you write for yourself and others. Python ignores everything after a <code>#</code> symbol on a line.</p>
+<div class="cell">
+<div>
+<div id="pyodide-2" class="exercise-cell">
+
+</div>
+<script type="pyodide-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBUaGlzIGlzIGEgY29tbWVudCAtIFB5dGhvbiBjb21wbGV0ZWx5IGlnbm9yZXMgdGhpcyBsaW5lXG5wcmVtaXVtID0gMTIwMCAgIyBUaGlzIGlzIGFsc28gYSBjb21tZW50LCBleHBsYWluaW5nIHdoYXQgMTIwMCByZXByZXNlbnRzXG4jIFlvdSBjYW4gd3JpdGUgbXVsdGlwbGUgbGluZXMgb2YgY29tbWVudHNcbiMgdG8gZXhwbGFpbiBjb21wbGV4IGNhbGN1bGF0aW9uc1xuXG4jIENhbGN1bGF0ZSBhbm51YWwgcHJlbWl1bSB3aXRoIGRpc2NvdW50XG5iYXNlX3ByZW1pdW0gPSAxMDAwXG5kaXNjb3VudCA9IDAuMSAgIyAxMCUgZGlzY291bnQgZm9yIGdvb2QgZHJpdmVyc1xuZmluYWxfcHJlbWl1bSA9IGJhc2VfcHJlbWl1bSAqICgxIC0gZGlzY291bnQpXG5wcmludChmXCJGaW5hbCBwcmVtaXVtOiAke2ZpbmFsX3ByZW1pdW19XCIpIn0=
+</script>
+</div>
+</div>
+<p><strong>Why use comments?</strong> Imagine returning to your code 6 months later - comments help you remember what each calculation does!</p>
+</section>
+<section id="whitespace-pythons-unique-feature" class="level3">
+<h3 class="anchored" data-anchor-id="whitespace-pythons-unique-feature">Whitespace: Python’s Unique Feature</h3>
+<p>Unlike some other programming languages where you can organize code however you want, Python uses <strong>indentation</strong> (spaces or tabs) to group related code together. Think of it like organizing related items by grouping them visually.</p>
+<div class="cell">
+<div>
+<div id="pyodide-3" class="exercise-cell">
+
+</div>
+<script type="pyodide-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBQeXRob24gdXNlcyBpbmRlbnRhdGlvbiB0byBzaG93IHdoaWNoIGNvZGUgYmVsb25ncyB0b2dldGhlclxuYWdlID0gMjVcbmRyaXZpbmdfcmVjb3JkID0gXCJjbGVhblwiXG5pZiBhZ2UgPCAzMDpcbiAgICBwcmludChcIllvdW5nIGRyaXZlclwiKSAgIyBUaGlzIGxpbmUgaXMgaW5kZW50ZWQgLSBpdCBiZWxvbmdzIHRvIHRoZSBcImlmIGFnZSBpcyBsZXNzIHRoYW4gMzBcIlxuICAgIHByaW50KFwiSGlnaGVyIHByZW1pdW0gYXBwbGllc1wiKSAgIyBUaGlzIHRvb1xuICAgIGlmIGRyaXZpbmdfcmVjb3JkID09IFwiY2xlYW5cIjogIyBUaGlzIHRvb1xuICAgICAgICBwcmludChcIkNsZWFuIHJlY29yZCBnaXZlcyBkaXNjb3VudFwiKSAgIyBEb3VibGUgaW5kZW50YXRpb24gLSBpdCBiZWxvbmdzIHRvIHRoZSBcImlmIGRyaXZpbmcgcmVjb3JkIGlzIGNsZWFuXCJcbnByaW50KFwiUmlzayBhc3Nlc3NtZW50IGNvbXBsZXRlXCIpICAjIFRoaXMgbGluZSBpcyBub3QgaW5kZW50ZWQgLSBpdCBydW5zIHJlZ2FyZGxlc3MifQ==
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Python is very strict about indentation. All lines at the same “level” must be indented the same amount.</p>
+</div>
+</div>
+</section>
+<section id="line-continuation-handling-long-formulas" class="level3">
+<h3 class="anchored" data-anchor-id="line-continuation-handling-long-formulas">Line Continuation: Handling Long Formulas</h3>
+<p>Sometimes you need to write long calculations. Python gives you ways to split them across multiple lines:</p>
+<div class="cell">
+<div>
+<div id="pyodide-4" class="exercise-cell">
+
+</div>
+<script type="pyodide-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBSZWNvbW1lbmRlZCBNZXRob2Q6IFVzZSBwYXJlbnRoZXNlcyBcbmJhc2VfcHJlbWl1bSA9IDEwMDBcbmFkbWluaXN0cmF0aW9uX2ZlZSA9IDUwXG5yaXNrX2FkanVzdG1lbnQgPSAxNTBcbnJlZ3VsYXRvcnlfc3VyY2hhcmdlID0gMjVcblxuIyBBbHRlcm5hdGl2ZWx5LCBpbnN0ZWFkIG9mIHBhcmVudGhlc2VzLCB1c2UgYmFja3NsYXNoKFxcKSBhdCB0aGUgZW5kIG9mIHRoZSBsaW5lICBcbnRvdGFsX3ByZW1pdW0gPSAoYmFzZV9wcmVtaXVtICsgXG4gICAgICAgICAgICAgICAgYWRtaW5pc3RyYXRpb25fZmVlICsgXG4gICAgICAgICAgICAgICAgcmlza19hZGp1c3RtZW50ICsgXG4gICAgICAgICAgICAgICAgcmVndWxhdG9yeV9zdXJjaGFyZ2UpXG5cbnByaW50KGZcIlRvdGFsIHByZW1pdW06ICR7dG90YWxfcHJlbWl1bX1cIikifQ==
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="data-types" class="level2">
+<h2 class="anchored" data-anchor-id="data-types">Data Types</h2>
+<p>Now let’s explore Python’s building blocks, namely its data types. Here’s a comprehensive overview of Python’s core data types:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 14%">
+<col style="width: 16%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Object Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Mutable?</th>
+<th>Everyday Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Numbers</strong></td>
+<td>Whole numbers, decimals</td>
+<td><code>42</code>, <code>3.14</code>, <code>2+3j</code></td>
+<td>No</td>
+<td>Calculator numbers</td>
+</tr>
+<tr class="even">
+<td><strong>Strings</strong></td>
+<td>Text data</td>
+<td><code>'Actuary'</code>, <code>"Risk"</code></td>
+<td>No</td>
+<td>Written words</td>
+</tr>
+<tr class="odd">
+<td><strong>Lists</strong></td>
+<td>Ordered collections</td>
+<td><code>[1, 2, 3]</code></td>
+<td>Yes</td>
+<td>Shopping lists</td>
+</tr>
+<tr class="even">
+<td><strong>Dictionaries</strong></td>
+<td>Key-value pairs</td>
+<td><code>{'name': 'John'}</code></td>
+<td>Yes</td>
+<td>Phone book entries</td>
+</tr>
+<tr class="odd">
+<td><strong>Tuples</strong></td>
+<td>Unchangeable lists</td>
+<td><code>(1, 2, 3)</code></td>
+<td>No</td>
+<td>Fixed coordinates</td>
+</tr>
+<tr class="even">
+<td><strong>I/O</strong></td>
+<td>External data</td>
+<td><code>open('data.csv')</code></td>
+<td>-</td>
+<td>Computer files</td>
+</tr>
+<tr class="odd">
+<td><strong>Sets</strong></td>
+<td>Unique collections</td>
+<td><code>{1, 2, 3}</code></td>
+<td>Yes</td>
+<td>Collection of unique items</td>
+</tr>
+<tr class="even">
+<td><strong>Booleans</strong></td>
+<td>True/False</td>
+<td><code>True</code>, <code>False</code></td>
+<td>No</td>
+<td>Yes/No answers</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What does “Mutable” mean?</strong></p>
+<ul>
+<li><strong>Mutable = Changeable</strong>: Like a draft document you can edit</li>
+<li><strong>Immutable = Unchangeable</strong>: Like a printed document, you can’t modify it, only replace it</li>
+</ul>
+<section id="numbers-the-foundation-of-actuarial-work" class="level3">
+<h3 class="anchored" data-anchor-id="numbers-the-foundation-of-actuarial-work">Numbers: The Foundation of Actuarial Work</h3>
+<p>Numbers in Python work intuitively and provide great precision for calculations.</p>
+<section id="types-of-numbers" class="level4">
+<h4 class="anchored" data-anchor-id="types-of-numbers">Types of Numbers</h4>
+<p>Python supports several types of numbers:</p>
+<ul>
+<li><strong>Integers</strong> (numbers without a fractional part)</li>
+<li><strong>Floating-point numbers</strong> (numbers with decimal points)</li>
+<li><strong>Complex numbers</strong> (advanced math with imaginary parts)</li>
+</ul>
+<div class="cell">
+<div>
+<div id="pyodide-5" class="exercise-cell">
+
+</div>
+<script type="pyodide-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBJbnRlZ2VycyAod2hvbGUgbnVtYmVycykgLSBmb3IgY291bnRpbmcgYW5kIGluZGV4aW5nXG5wb2xpY3lfY291bnQgPSAxNTAwXG5cbnByaW50KGZcIldlIGhhdmUge3BvbGljeV9jb3VudH0gcG9saWNpZXNcIikifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-6" class="exercise-cell">
+
+</div>
+<script type="pyodide-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBGbG9hdGluZy1wb2ludCBudW1iZXJzIChkZWNpbWFscykgLSBmb3IgcHJlY2lzZSBtZWFzdXJlbWVudHNcbnByZW1pdW1fcmF0ZSA9IDAuMDEyNSAgXG5cbnByaW50KGZcIlByZW1pdW0gcmF0ZToge3ByZW1pdW1fcmF0ZX1cIikifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-7" class="exercise-cell">
+
+</div>
+<script type="pyodide-7-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDb21wbGV4IG51bWJlcnMgKGFkdmFuY2VkIG1hdGgpIC0gbm90IGNvbW1vbmx5IHVzZWQgaW4gYmFzaWMgYWN0dWFyaWFsIHdvcmtcbiMgQ3JlYXRlIGNvbXBsZXggbnVtYmVycyBieSBqdXN0IGFkZGluZyBhIGogdG8gdGhlIGVuZCBvZiB0aGUgbnVtYmVyXG5jb21wbGV4X251bWJlciA9IDIgKyAzalxucHJpbnQoZlwiQ29tcGxleCBudW1iZXI6IHtjb21wbGV4X251bWJlcn1cIilcbnByaW50KGZcIlJlYWwgcGFydDoge2NvbXBsZXhfbnVtYmVyLnJlYWx9XCIpXG5wcmludChmXCJJbWFnaW5hcnkgcGFydDoge2NvbXBsZXhfbnVtYmVyLmltYWd9XCIpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="basic-arithmetic-operations" class="level4">
+<h4 class="anchored" data-anchor-id="basic-arithmetic-operations">Basic Arithmetic Operations</h4>
+<p>Python supports all standard arithmetic operations. Here’s a comprehensive reference:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 15%">
+<col style="width: 25%">
+<col style="width: 19%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Operator</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Example</strong></th>
+<th><strong>Result</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>+</code></td>
+<td>Addition</td>
+<td>Adds two numbers</td>
+<td><code>5 + 3</code></td>
+<td><code>8</code></td>
+</tr>
+<tr class="even">
+<td><code>-</code></td>
+<td>Subtraction</td>
+<td>Subtracts second number from first</td>
+<td><code>5 - 3</code></td>
+<td><code>2</code></td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Multiplication</td>
+<td>Multiplies two numbers</td>
+<td><code>5 * 3</code></td>
+<td><code>15</code></td>
+</tr>
+<tr class="even">
+<td><code>/</code></td>
+<td>Division</td>
+<td>Divides first number by second (returns float)</td>
+<td><code>5 / 2</code></td>
+<td><code>2.5</code></td>
+</tr>
+<tr class="odd">
+<td><code>//</code></td>
+<td>Floor Division</td>
+<td>Divides and rounds down to nearest integer</td>
+<td><code>5 // 2</code></td>
+<td><code>2</code></td>
+</tr>
+<tr class="even">
+<td><code>%</code></td>
+<td>Modulus</td>
+<td>Returns remainder after division</td>
+<td><code>5 % 2</code></td>
+<td><code>1</code></td>
+</tr>
+<tr class="odd">
+<td><code>**</code></td>
+<td>Exponentiation</td>
+<td>Raises first number to power of second</td>
+<td><code>5 ** 2</code></td>
+<td><code>25</code></td>
+</tr>
+</tbody>
+</table>
+<p>Here is how you can perform basic arithmetic operations in Python:</p>
+<div class="cell">
+<div>
+<div id="pyodide-8" class="exercise-cell">
+
+</div>
+<script type="pyodide-8-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYmFzZV9wcmVtaXVtID0gMTAwMFxuZGlzY291bnRfcmF0ZSA9IDAuMTVcbnN1cmNoYXJnZSA9IDIwMFxuXG4jIEFkZGl0aW9uIGFuZCBzdWJ0cmFjdGlvblxudG90YWxfYmVmb3JlX2Rpc2NvdW50ID0gYmFzZV9wcmVtaXVtICsgc3VyY2hhcmdlXG5wcmludChmXCJCZWZvcmUgZGlzY291bnQ6ICR7dG90YWxfYmVmb3JlX2Rpc2NvdW50fVwiKVxuXG4jIE11bHRpcGxpY2F0aW9uIGFuZCBkaXZpc2lvbiAgXG5kaXNjb3VudF9hbW91bnQgPSBiYXNlX3ByZW1pdW0gKiBkaXNjb3VudF9yYXRlXG5tb250aGx5X3ByZW1pdW0gPSBiYXNlX3ByZW1pdW0gLy8gMTIgIyBGbG9vciBkaXZpc2lvblxucHJpbnQoZlwiRGlzY291bnQgYW1vdW50OiAke2Rpc2NvdW50X2Ftb3VudH1cIilcbnByaW50KGZcIk1vbnRobHkgcHJlbWl1bSAoZmxvb3IgZGl2aXNpb24pOiAke21vbnRobHlfcHJlbWl1bX1cIilcblxuIyBQb3dlciBvcGVyYXRpb25zIChleHBvbmVudGlhdGlvbilcbmNvbXBvdW5kX2ZhY3RvciA9ICgxICsgMC4wNSkgKiogMTAgXG5wcmludChmXCJDb21wb3VuZCBmYWN0b3I6IHtjb21wb3VuZF9mYWN0b3J9XCIpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="working-with-numerical-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="working-with-numerical-libraries">Working with Numerical Libraries</h4>
+<p>You can also use Python’s built-in libraries to perform mathematical functions such as square root and logarithm.</p>
+<div class="cell">
+<div>
+<div id="pyodide-9" class="exercise-cell">
+
+</div>
+<script type="pyodide-9-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBJbXBvcnQgbWF0aCBtb2R1bGVcbmltcG9ydCBtYXRoXG5cbnByaW50KGZcIlBpOiB7bWF0aC5waTouNmZ9XCIpXG5wcmludChmXCJTcXVhcmUgcm9vdCBvZiAxNjoge21hdGguc3FydCgxNil9XCIpXG5wcmludChmXCJOYXR1cmFsIGxvZyBvZiAxMDoge21hdGgubG9nKDEwKTouNGZ9XCIpIn0=
+</script>
+</div>
+</div>
+<p>Random number generation is crucial for actuarial work. We use it for Monte Carlo simulations to model uncertain events like claim frequencies, generate synthetic datasets for testing models, sample from populations for analysis, and create scenarios for stress testing. Python’s <code>random</code> module provides the tools we need for these applications.</p>
+<div class="cell">
+<div>
+<div id="pyodide-10" class="exercise-cell">
+
+</div>
+<script type="pyodide-10-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBJbXBvcnQgcmFuZG9tIG1vZHVsZVxuaW1wb3J0IHJhbmRvbVxuXG4jIFJhbmRvbSBudW1iZXJzIGZvciBzaW11bGF0aW9uc1xucmFuZG9tLnNlZWQoNDIpICAjIFNldCBzZWVkIGZvciByZXByb2R1Y2libGUgcmVzdWx0c1xucmFuZG9tX2NsYWltID0gcmFuZG9tLnVuaWZvcm0oMTAwMCwgNTAwMDApICAjIFJhbmRvbSBjbGFpbSBiZXR3ZWVuICQxSyBhbmQgJDUwS1xucHJpbnQoZlwiU2ltdWxhdGVkIGNsYWltIGFtb3VudDogJHtyYW5kb21fY2xhaW06LjJmfVwiKVxuXG4jIFJhbmRvbSBzZWxlY3Rpb24gKHVzZWZ1bCBmb3Igc2FtcGxpbmcpXG5yaXNrX2NhdGVnb3JpZXMgPSBbJ0xvdycsICdNZWRpdW0nLCAnSGlnaCddXG5yYW5kb21fcmlzayA9IHJhbmRvbS5jaG9pY2Uocmlza19jYXRlZ29yaWVzKVxucHJpbnQoZlwiUmFuZG9tIHJpc2sgY2F0ZWdvcnk6IHtyYW5kb21fcmlza31cIikifQ==
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="strings-working-with-text-data" class="level3">
+<h3 class="anchored" data-anchor-id="strings-working-with-text-data">Strings: Working with Text Data</h3>
+<p>Strings in Python handle text data such as names, addresses, policy numbers, descriptions, etc. They’re incredibly powerful for processing textual information.</p>
+<p>Strings are sequences of individual characters, maintaining their order from left to right.</p>
+<section id="creating-strings" class="level4">
+<h4 class="anchored" data-anchor-id="creating-strings">Creating Strings</h4>
+<p>There are different ways that you can create a string. Note that a string can span one or more lines.</p>
+<div class="cell">
+<div>
+<div id="pyodide-11" class="exercise-cell">
+
+</div>
+<script type="pyodide-11-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBEaWZmZXJlbnQgd2F5cyB0byBjcmVhdGUgc3RyaW5ncyAoZm9yIHN0b3JpbmcgdGV4dCBkYXRhKVxuY29tcGFueV9uYW1lID0gJ1BydWRlbnRpYWwgSW5zdXJhbmNlJ1xucG9saWN5X3R5cGUgPSBcIkF1dG8gSW5zdXJhbmNlXCJcbnJpc2tfY2F0ZWdvcnkgPSAnJydIaWdoIFJpc2tcbk11bHRpLWxpbmUgdGV4dCBwb3NzaWJsZScnJyAgIyBUcmlwbGUgcXVvdGVzIGZvciBtdWx0aXBsZSBsaW5lc1xuXG5wcmludChmXCJDb21wYW55OiB7Y29tcGFueV9uYW1lfVwiKVxucHJpbnQoZlwiUG9saWN5IHR5cGU6IHtwb2xpY3lfdHlwZX1cIilcbnByaW50KGZcIlJpc2sgY2F0ZWdvcnk6IHtyaXNrX2NhdGVnb3J5fVwiKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="string-length-and-basic-properties" class="level4">
+<h4 class="anchored" data-anchor-id="string-length-and-basic-properties">String Length and Basic Properties</h4>
+<p>Understanding string length is fundamental when working with data in Python. Many real-world tasks—such as validating user input, formatting output, or processing data files—require you to know how many characters are in a string. For example, policy numbers or names might need to meet specific length requirements.</p>
+<div class="cell">
+<div>
+<div id="pyodide-12" class="exercise-cell">
+
+</div>
+<script type="pyodide-12-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBGaW5kaW5nIHN0cmluZyBsZW5ndGggKHVzZWZ1bCBmb3IgZGF0YSB2YWxpZGF0aW9uKVxucG9saWN5X251bWJlciA9ICdQT0wgMjAyNCAwMDEyMzQnXG5cbnByaW50KGZcIkxlbmd0aCBvZiAne3BvbGljeV9udW1iZXJ9Jzoge2xlbihwb2xpY3lfbnVtYmVyKX0gY2hhcmFjdGVyc1wiKSJ9
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Spaces count as characters too
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you use <code>len()</code> on a string, every character—including spaces, punctuation, and special symbols—is counted. For example, <code>'John Smith'</code> has 10 characters: 9 letters plus 1</p>
+</div>
+</div>
+</section>
+</section>
+<section id="lists-ordered-collections-of-data" class="level3">
+<h3 class="anchored" data-anchor-id="lists-ordered-collections-of-data">Lists: Ordered Collections of Data</h3>
+<p>Lists are one of Python’s most versatile and commonly used data types. Think of a list as a container that holds multiple items in a specific order, like a shopping list, a roster of names, or a sequence of measurements.</p>
+<p><strong>Key characteristics of lists:</strong></p>
+<ul>
+<li><strong>Ordered</strong>: Items maintain their position from left to right</li>
+<li><strong>Mutable</strong>: You can change, add, or remove items after creation</li>
+<li><strong>Flexible</strong>: Can store any data type (numbers, text, even other lists)</li>
+<li><strong>Indexed</strong>: Each item has a numbered position starting from 0</li>
+</ul>
+<p>Lists are perfect for actuarial work because they naturally represent collections of related data: premium amounts over time, policy numbers, claim values, or customer information.</p>
+<section id="creating-lists" class="level4">
+<h4 class="anchored" data-anchor-id="creating-lists">Creating Lists</h4>
+<div class="cell">
+<div>
+<div id="pyodide-13" class="exercise-cell">
+
+</div>
+<script type="pyodide-13-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDcmVhdGluZyBsaXN0XG5wcmVtaXVtcyA9IFsxMjAwLCAxMzUwLCAxMTgwLCAxNDIwXSAjIExpc3Qgb2YgSW50ZWdlcnNcbnBvbGljeV90eXBlcyA9IFsnQXV0bycsICdIb21lJywgJ0xpZmUnXSAgIyBMaXN0IG9mIFN0cmluZ3Ncbm1peGVkX2RhdGEgPSBbNDIsICdKb2huIFNtaXRoJywgMTI1MC41MF0gICAgICAjIExpc3RzIGNhbiBob2xkIGRpZmZlcmVudCBkYXRhIHR5cGVzXG5cbnByaW50KGZcIk1vbnRobHkgcHJlbWl1bXM6IHtwcmVtaXVtc31cIilcbnByaW50KGZcIlBvbGljeSB0eXBlczoge3BvbGljeV90eXBlc31cIilcbnByaW50KGZcIk1peGVkIGRhdGEgZXhhbXBsZToge21peGVkX2RhdGF9XCIpXG5cbiMgQ2hlY2sgbGlzdCBsZW5ndGhcbnByaW50KGZcIk51bWJlciBvZiBtb250aHM6IHtsZW4ocHJlbWl1bXMpfVwiKSJ9
+</script>
+</div>
+</div>
+<p><strong>What makes lists special?</strong> They can hold any type of data, can grow or shrink, and maintain order, perfect for various applications.</p>
+</section>
+<section id="list-indexing-and-slicing" class="level4">
+<h4 class="anchored" data-anchor-id="list-indexing-and-slicing">List Indexing and Slicing</h4>
+<p>Every item in a list has a position called an <strong>index</strong>. Understanding indexing is crucial because it’s how you retrieve specific pieces of information from your data collections.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In Python, indexes start from 0, not 1. That means the first item is position 0, the second item is position 1, and so on. Negative indexes count from the end.</p>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-14" class="exercise-cell">
+
+</div>
+<script type="pyodide-14-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQocHJlbWl1bXNbMF0pICAgIyBmaXJzdCBpdGVtIOKGkiAxMjAwXG5wcmludChwcmVtaXVtc1stMV0pICAjIGxhc3QgaXRlbSDihpIgMTQyMCJ9
+</script>
+</div>
+</div>
+<p>You can sub-lists from the original list, in an operation called ‘slicing’:</p>
+<div class="cell">
+<div>
+<div id="pyodide-15" class="exercise-cell">
+
+</div>
+<script type="pyodide-15-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQocHJlbWl1bXNbMTozXSkgICAjIFsxMzUwLCAxMTgwXSDihpIgaXRlbXMgYXQgaW5kZXggMSBhbmQgMiJ9
+</script>
+</div>
+</div>
+</section>
+<section id="modifying-lists-adding-removing-and-changing-data" class="level4">
+<h4 class="anchored" data-anchor-id="modifying-lists-adding-removing-and-changing-data">Modifying Lists: Adding, Removing, and Changing Data</h4>
+<p>Unlike strings, lists can be modified after creation:</p>
+<div class="cell">
+<div>
+<div id="pyodide-16" class="exercise-cell">
+
+</div>
+<script type="pyodide-16-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBBZGRpbmcgbmV3IHByZW1pdW0gYW1vdW50c1xucHJlbWl1bXMuYXBwZW5kKDE1MDApICAjIEFkZCBhIG5ldyBpdGVtIHRvIHRoZSBlbmRcbnByZW1pdW1zLmluc2VydCgxLCAxMDAwKSAgIyBJbnNlcnQgYXQgc3BlY2lmaWMgcG9zaXRpb25cblxuIyBSZW1vdmluZyBwcmVtaXVtc1xucmVtb3ZlZF9wcmVtaXVtID0gcHJlbWl1bXMucG9wKCkgICMgUmVtb3ZlIGFuZCByZXR1cm4gbGFzdCBpdGVtXG5wcmVtaXVtcy5yZW1vdmUoMTAwMCkgICMgUmVtb3ZlIHNwZWNpZmljIGl0ZW0gYnkgdmFsdWVcblxuIyBNb2RpZnlpbmcgZXhpc3RpbmcgZWxlbWVudHNcbnByZW1pdW1zWzBdID0gMTI1MCAgIyBDaGFuZ2UgZmlyc3QgZWxlbWVudCJ9
+</script>
+</div>
+</div>
+<p>Try your hand at printing the results!</p>
+</section>
+<section id="other-useful-list-operations" class="level4">
+<h4 class="anchored" data-anchor-id="other-useful-list-operations">Other Useful List Operations</h4>
+<p>Some of the other list manipulations that may come in handy include:</p>
+<ul>
+<li>Combine: <code>[1,2] + [3,4] → [1,2,3,4]</code></li>
+<li>Repeat: <code>['A','B'] * 2 → ['A','B','A','B']</code></li>
+<li>Sort: <code>premiums.sort() → [1180,1200,1350,1420,1500]</code></li>
+</ul>
+</section>
+</section>
+<section id="dictionaries-key-value-data-storage" class="level3">
+<h3 class="anchored" data-anchor-id="dictionaries-key-value-data-storage">Dictionaries: Key-Value Data Storage</h3>
+<p>A dictionary in Python is like a small database or a labeled lookup table. Each piece of information is stored as a key–value pair:</p>
+<ul>
+<li>The key is a unique identifier (like a label or name).</li>
+<li>The value is the data associated with that key.</li>
+</ul>
+<p>Unlike lists (where you look up items by their numeric position), dictionaries let you access data directly by name. This makes them powerful for representing real-world data, such as policies, customers, or claim records.</p>
+<p>Think of a dictionary as a filing cabinet: the keys are labels on the folders, and the values are the documents inside.</p>
+<p>Dictionaries are very flexible — values can be numbers, strings, lists, or even other dictionaries. Keys must be unique and cannot change once created (they are immutable types like strings or numbers).</p>
+<section id="creating-dictionaries" class="level4">
+<h4 class="anchored" data-anchor-id="creating-dictionaries">Creating Dictionaries</h4>
+<p>You can create a dictionary in Python using curly braces <code>{}</code> with key–value pairs separated by colons. Each key must be unique and immutable (like a string or number), and values can be any data type.</p>
+<p>Here are some common ways to create dictionaries:</p>
+<div class="cell">
+<div>
+<div id="pyodide-17" class="exercise-cell">
+
+</div>
+<script type="pyodide-17-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicG9saWN5ID0ge1xuICAgICdpZCc6ICdBVVRPLTAwMScsXG4gICAgJ3ByZW1pdW0nOiAxMjUwLjUwLFxuICAgICdjb3ZlcmFnZSc6IDUwMDAwMFxufVxuXG4jIEFjY2VzcyB2YWx1ZXMgdXNpbmcga2V5c1xucHJpbnQoXCJQb2xpY3kgSUQ6XCIsIHBvbGljeVsnaWQnXSlcbnByaW50KFwiQ292ZXJhZ2U6XCIsIHBvbGljeVsnY292ZXJhZ2UnXSkifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="updating-and-adding-information" class="level4">
+<h4 class="anchored" data-anchor-id="updating-and-adding-information">Updating and Adding Information</h4>
+<p>Dictionaries can grow as you add more data, or be updated as circumstances change:</p>
+<div class="cell">
+<div>
+<div id="pyodide-18" class="exercise-cell">
+
+</div>
+<script type="pyodide-18-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBBZGQgbmV3IGtleeKAk3ZhbHVlIHBhaXJcbnBvbGljeVsnZGVkdWN0aWJsZSddID0gMTAwMFxuXG4jIFVwZGF0ZSBleGlzdGluZyB2YWx1ZVxucG9saWN5WydwcmVtaXVtJ10gPSAxMzAwXG5cbnByaW50KHBvbGljeSkifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="safe-access" class="level4">
+<h4 class="anchored" data-anchor-id="safe-access">Safe Access</h4>
+<p>If you ask for a key that does not exist, Python will give an error. To avoid this, use .get() with a default value:</p>
+<div class="cell">
+<div>
+<div id="pyodide-19" class="exercise-cell">
+
+</div>
+<script type="pyodide-19-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQocG9saWN5LmdldCgnY2xhaW1zJywgJ05vIGNsYWltcyByZWNvcmRlZCcpKSJ9
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>When to use dictionaries?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>When your data has meaningful labels.</li>
+<li>When you want fast access to specific fields (e.g., by policy number).</li>
+<li>When your data structure should mirror “records” in the real world.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="tuples-immutable-sequences" class="level3">
+<h3 class="anchored" data-anchor-id="tuples-immutable-sequences">Tuples: Immutable Sequences</h3>
+<p>A tuple is very similar to a list: it is an ordered collection of items, and each item has an index (starting at 0). However, unlike lists, tuples are immutable. Once you create a tuple, you cannot change it — you cannot add new elements, remove existing ones, or update values.</p>
+<p>This immutability makes tuples perfect for storing information that should remain constant, like fixed coordinates. By using tuples, you can prevent accidental changes to your data, which can be very helpful when working with fixed business rules or actuarial constants.</p>
+<section id="creating-tuples" class="level4">
+<h4 class="anchored" data-anchor-id="creating-tuples">Creating Tuples</h4>
+<p>Tuples are created by placing items inside parentheses <code>()</code>, separated by commas. You can also create a tuple without parentheses, just by separating values with commas. For a single-item tuple, include a trailing comma.</p>
+<div class="cell">
+<div>
+<div id="pyodide-20" class="exercise-cell">
+
+</div>
+<script type="pyodide-20-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDcmVhdGluZyB0dXBsZXMgKHBhcmVudGhlc2VzIGluc3RlYWQgb2Ygc3F1YXJlIGJyYWNrZXRzKVxuY292ZXJhZ2VfbGltaXRzID0gKDI1MDAwLCA1MDAwMCwgMTAwMDAwLCAyNTAwMDApXG5cbnByaW50KFwiTG93ZXN0IGNvdmVyYWdlOlwiLCBjb3ZlcmFnZV9saW1pdHNbMF0pICAgIyBpbmRleCAwIOKGkiAyNTAwMFxucHJpbnQoXCJIaWdoZXN0IGNvdmVyYWdlOlwiLCBjb3ZlcmFnZV9saW1pdHNbLTFdKSAjIGxhc3QgaW5kZXgg4oaSIDI1MDAwMCJ9
+</script>
+</div>
+</div>
+</section>
+<section id="tuple-immutability" class="level4">
+<h4 class="anchored" data-anchor-id="tuple-immutability">Tuple Immutability</h4>
+<p>Remember that because tuples are immutable, any attemp at modifying their content will result in an error.</p>
+<div class="cell">
+<div>
+<div id="pyodide-21" class="exercise-cell">
+
+</div>
+<script type="pyodide-21-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBUaGlzIHdvdWxkIGNhdXNlIGFuIGVycm9yOlxuIyBjb3ZlcmFnZV9saW1pdHNbMF0gPSAzMDAwMFxuXG4jIEluc3RlYWQsIGNyZWF0ZSBhIG5ldyB0dXBsZSBpZiB5b3Ugd2FudCBjaGFuZ2VzXG5uZXdfbGltaXRzID0gKDMwMDAwLCkgKyBjb3ZlcmFnZV9saW1pdHNbMTpdXG5wcmludChcIlVwZGF0ZWQgY292ZXJhZ2UgbGltaXRzOlwiLCBuZXdfbGltaXRzKSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="assign-vars" class="level3">
+<h3 class="anchored" data-anchor-id="assign-vars">Assigning variables in Python</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/python_passing_values.webp" class="img-fluid figure-img"></p>
+<figcaption>Pass by reference vs.&nbsp;pass by value</figcaption>
+</figure>
+</div>
+<p>For those of you new to Python, there’s an important difference between some other programming languages like R when assiging variables. In Python, when you assign a variable to another variable, you are creating a reference to the same object in memory, so any changes made to one variable will be reflected in the other variable as well. This is demonostrated in the example below:</p>
+<div class="cell">
+<div>
+<div id="pyodide-22" class="exercise-cell">
+
+</div>
+<script type="pyodide-22-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSA9IFsxLCAyLCAzXVxuYiA9IGFcbnByaW50KGEsIGIpXG5iWzBdID0gNCAjIHdlIG9ubHkgY2hhbmdlIGBiYFxucHJpbnQoYSwgYikgIyB0aGUgdmFyaWFibGUgYGFgIGFsc28gY2hhbmdlZCB1bmxpa2UgaG93IFIgdHJlYXRzIHRoZSB2YXJpYWJsZSJ9
+</script>
+</div>
+</div>
+<p>To create a separate copy of the object, you need to use the <code>.copy()</code> method (python way of saying a function).</p>
+<div class="cell">
+<div>
+<div id="pyodide-23" class="exercise-cell">
+
+</div>
+<script type="pyodide-23-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSA9IFsxLCAyLCAzXVxuYiA9IGEuY29weSgpICMgY3JlYXRlIGEgc2VwYXJhdGUgY29weSBvZiB0aGUgbGlzdFxucHJpbnQoYSwgYilcbmJbMF0gPSA0ICMgbW9kaWZ5IG9ubHkgYGJgXG5wcmludChhLCBiKSAjIHZhcmlhYmxlIGBhYCBkb2VzIG5vdCBjaGFuZ2UifQ==
+</script>
+</div>
+</div>
+<p>In some other programming languages, the assignment creates a copy by default, so you don’t need to use a <code>.copy()</code> method. Any changes you make to one variable will not affect the other variable, because they are separate copies of the same object.</p>
+</section>
+</section>
+<section id="control-flow-and-functions" class="level2">
+<h2 class="anchored" data-anchor-id="control-flow-and-functions">Control Flow and Functions</h2>
+<section id="why-control-flow-matters" class="level3">
+<h3 class="anchored" data-anchor-id="why-control-flow-matters">Why Control Flow Matters</h3>
+<p>In Python, control flow lets us tell the computer how to make decisions and repeat tasks. Without control flow, programs would just run line by line without any flexibility. For example:</p>
+<ul>
+<li><p>“If the claim amount is above 10,000, flag for review.”</p></li>
+<li><p>“Repeat the calculation for each policy in the dataset.”</p></li>
+</ul>
+<p>Python provides several control flow tools: <strong>if/else statements</strong>, <strong>loops</strong>, and <strong>functions</strong>.</p>
+</section>
+<section id="if-statements-making-decisions" class="level3">
+<h3 class="anchored" data-anchor-id="if-statements-making-decisions">If Statements: Making Decisions</h3>
+<p>The <code>if</code> statement lets your program choose between different paths based on conditions. Conditions are expressions that evaluate to <code>True</code> or <code>False</code>.</p>
+<p>In other words, an <code>if</code> statement asks a question: “Is this condition true?”</p>
+<ul>
+<li>If it’s true, Python runs the indented block of code.</li>
+<li>If it’s false, Python skips it and moves on.</li>
+</ul>
+<p>The <code>else</code> part catches all cases where the condition is not true, and <code>elif</code> (short for “else if”) lets you check multiple conditions in sequence.</p>
+<div class="cell">
+<div>
+<div id="pyodide-24" class="exercise-cell">
+
+</div>
+<script type="pyodide-24-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBFeGFtcGxlOiBDaGVja2luZyBjbGFpbSBzaXplXG5jbGFpbV9hbW91bnQgPSAxMjAwMFxuXG5pZiBjbGFpbV9hbW91bnQgPiAxMDAwMDpcbiAgICBwcmludChcIkZsYWcgZm9yIG1hbnVhbCByZXZpZXcuXCIpXG5lbHNlOlxuICAgIHByaW50KFwiQXV0by1hcHByb3ZlIGNsYWltLlwiKSJ9
+</script>
+</div>
+</div>
+<p>Here, Python first checks if the claim is greater than 10,000. Since it is, the first block runs and the program stops checking further.</p>
+<p>You can also chain conditions using <code>elif</code>:</p>
+<div class="cell">
+<div>
+<div id="pyodide-25" class="exercise-cell">
+
+</div>
+<script type="pyodide-25-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBSaXNrIGxldmVsIGJhc2VkIG9uIHByZW1pdW0gYW1vdW50XG5wcmVtaXVtID0gMjUwMFxuXG5pZiBwcmVtaXVtID4gNTAwMDpcbiAgICBwcmludChcIkhpZ2ggcHJlbWl1bSBwb2xpY3lcIilcbmVsaWYgcHJlbWl1bSA+IDIwMDA6XG4gICAgcHJpbnQoXCJNZWRpdW0gcHJlbWl1bSBwb2xpY3lcIilcbmVsc2U6XG4gICAgcHJpbnQoXCJMb3cgcHJlbWl1bSBwb2xpY3lcIikifQ==
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Imporant points about if statements
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Conditions are checked in order. As soon as one is true, the rest are ignored.</li>
+<li>Indentation (spacing) matters: Python uses it to know what code belongs to each condition.</li>
+<li>You can use comparison operators like &gt;, &lt;, == (equals), and logical operators like and, or, not to build more complex conditions.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="loops-repeating-tasks" class="level3">
+<h3 class="anchored" data-anchor-id="loops-repeating-tasks">Loops: Repeating Tasks</h3>
+<p>Loops allow you to perform the same action many times without rewriting code. In data science, loops are useful for iterating over datasets, applying calculations to multiple values, or simulating outcomes.</p>
+<section id="for-loops-looping-over-a-sequence" class="level4">
+<h4 class="anchored" data-anchor-id="for-loops-looping-over-a-sequence">For Loops (looping over a sequence)</h4>
+<p>A <code>for</code> loop is used when you want to repeat something for each item in a sequence (like a list or range of numbers).</p>
+<div class="cell">
+<div>
+<div id="pyodide-26" class="exercise-cell">
+
+</div>
+<script type="pyodide-26-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDYWxjdWxhdGUgdG90YWwgY292ZXJhZ2UgZnJvbSBtdWx0aXBsZSBwb2xpY2llc1xuY292ZXJhZ2VzID0gWzUwMDAwLCA3NTAwMCwgMTIwMDAwXVxuXG50b3RhbCA9IDBcbmZvciBjIGluIGNvdmVyYWdlczpcbiAgICB0b3RhbCArPSBjXG4gICAgcHJpbnQoZlwiQWRkZWQge2N9LCBydW5uaW5nIHRvdGFsID0ge3RvdGFsfVwiKVxuXG5wcmludChmXCJGaW5hbCB0b3RhbCBjb3ZlcmFnZToge3RvdGFsfVwiKSJ9
+</script>
+</div>
+</div>
+<p>Here, the loop runs once for each item in <code>coverages</code>. Each time, the variable <code>c</code> takes on the next value in the list.</p>
+</section>
+<section id="while-loops-looping-until-a-condition-is-false" class="level4">
+<h4 class="anchored" data-anchor-id="while-loops-looping-until-a-condition-is-false">While Loops (looping until a condition is false)</h4>
+<p>A <code>while</code> loop repeats as long as a condition is true. This is useful when you don’t know in advance how many times you need to repeat something — only that you want to stop when a condition is met.</p>
+<div class="cell">
+<div>
+<div id="pyodide-27" class="exercise-cell">
+
+</div>
+<script type="pyodide-27-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBTaW11bGF0ZSBwYXlpbmcgZG93biBhIGxvYW5cbmJhbGFuY2UgPSAxMDAwXG5wYXltZW50ID0gMjAwXG5cbndoaWxlIGJhbGFuY2UgPiAwOlxuICAgIHByaW50KGZcIlBheWluZyAyMDAsIHJlbWFpbmluZyBiYWxhbmNlID0ge2JhbGFuY2UgLSBwYXltZW50fVwiKVxuICAgIGJhbGFuY2UgLT0gcGF5bWVudCJ9
+</script>
+</div>
+</div>
+<p>Here, the loop continues until <code>balance</code> is no longer greater than 0.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Which to use when?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Use <code>for</code> when you know how many items you need to process.</li>
+<li>Use <code>while</code> when you want to continue until a condition changes.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Caution: Infinite Loops
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the condition never becomes false, a <code>while</code> loop can run forever (an “infinite loop”).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="logical-operators-in-python" class="level3">
+<h3 class="anchored" data-anchor-id="logical-operators-in-python">Logical Operators in Python</h3>
+<p>Logical operators are essential for building conditions in control flow statements. Here is a table summarizing the logical operators in Python:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 38%">
+<col style="width: 31%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Operator</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Example</strong></th>
+<th><strong>Result</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>and</code></td>
+<td>Logical AND: True if both operands are true</td>
+<td><code>True and False</code></td>
+<td><code>False</code></td>
+</tr>
+<tr class="even">
+<td><code>or</code></td>
+<td>Logical OR: True if at least one operand is true</td>
+<td><code>True or False</code></td>
+<td><code>True</code></td>
+</tr>
+<tr class="odd">
+<td><code>not</code></td>
+<td>Logical NOT: Inverts the truth value</td>
+<td><code>not True</code></td>
+<td><code>False</code></td>
+</tr>
+<tr class="even">
+<td><code>==</code></td>
+<td>Equal to: True if both operands are equal</td>
+<td><code>5 == 5</code></td>
+<td><code>True</code></td>
+</tr>
+<tr class="odd">
+<td><code>!=</code></td>
+<td>Not equal to: True if operands are not equal</td>
+<td><code>5 != 3</code></td>
+<td><code>True</code></td>
+</tr>
+<tr class="even">
+<td><code>&gt;</code></td>
+<td>Greater than: True if left operand is greater</td>
+<td><code>5 &gt; 3</code></td>
+<td><code>True</code></td>
+</tr>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>Less than: True if left operand is smaller</td>
+<td><code>3 &lt; 5</code></td>
+<td><code>True</code></td>
+</tr>
+<tr class="even">
+<td><code>&gt;=</code></td>
+<td>Greater than or equal to</td>
+<td><code>5 &gt;= 5</code></td>
+<td><code>True</code></td>
+</tr>
+<tr class="odd">
+<td><code>&lt;=</code></td>
+<td>Less than or equal to</td>
+<td><code>3 &lt;= 5</code></td>
+<td><code>True</code></td>
+</tr>
+</tbody>
+</table>
+<p>These operators are commonly used in <code>if</code>, <code>elif</code>, and <code>while</code> statements to control the flow of a program.</p>
+</section>
+<section id="functions-reusable-blocks-of-code" class="level3">
+<h3 class="anchored" data-anchor-id="functions-reusable-blocks-of-code">Functions: Reusable Blocks of Code</h3>
+<p>Functions let you bundle code into reusable pieces. Instead of rewriting the same logic multiple times, you define a function once and call it whenever needed. This makes code shorter, cleaner, and easier to debug.</p>
+<p>A function has three main parts:</p>
+<ul>
+<li><strong>Name</strong>: how you refer to it later.</li>
+<li><strong>Parameters</strong>: inputs you provide.</li>
+<li><strong>Return value</strong>: the output the function gives back.</li>
+</ul>
+<div class="cell">
+<div>
+<div id="pyodide-28" class="exercise-cell">
+
+</div>
+<script type="pyodide-28-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBEZWZpbmUgYSBmdW5jdGlvblxuZGVmIGNhbGN1bGF0ZV9wcmVtaXVtKGJhc2UsIHJpc2tfZmFjdG9yKTpcbiAgICBwcmVtaXVtID0gYmFzZSAqIHJpc2tfZmFjdG9yXG4gICAgcmV0dXJuIHByZW1pdW1cblxuIyBVc2UgdGhlIGZ1bmN0aW9uXG5hdXRvX3ByZW1pdW0gPSBjYWxjdWxhdGVfcHJlbWl1bSgxMDAwLCAxLjIpXG5saWZlX3ByZW1pdW0gPSBjYWxjdWxhdGVfcHJlbWl1bSgyMDAwLCAxLjUpXG5cbnByaW50KGZcIkF1dG8gcHJlbWl1bToge2F1dG9fcHJlbWl1bX1cIilcbnByaW50KGZcIkxpZmUgcHJlbWl1bToge2xpZmVfcHJlbWl1bX1cIikifQ==
+</script>
+</div>
+</div>
+<section id="parameters-and-defaults" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-and-defaults">Parameters and Defaults</h4>
+<p>Functions can have <strong>default parameters</strong>, which are used if you don’t provide a value.</p>
+<div class="cell">
+<div>
+<div id="pyodide-29" class="exercise-cell">
+
+</div>
+<script type="pyodide-29-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGNhbGN1bGF0ZV9kaXNjb3VudGVkX3ByZW1pdW0oYmFzZSwgZGlzY291bnQ9MC4xKTpcbiAgICByZXR1cm4gYmFzZSAqICgxIC0gZGlzY291bnQpXG5cbnByaW50KGNhbGN1bGF0ZV9kaXNjb3VudGVkX3ByZW1pdW0oMTAwMCkpICAgICAgICAjIFVzZXMgZGVmYXVsdCAxMCUgZGlzY291bnRcbnByaW50KGNhbGN1bGF0ZV9kaXNjb3VudGVkX3ByZW1pdW0oMTAwMCwgMC4yKSkgICAjIE92ZXJyaWRlIHdpdGggMjAlIGRpc2NvdW50In0=
+</script>
+</div>
+</div>
+</section>
+<section id="scope-local-vs.-global-variables" class="level4">
+<h4 class="anchored" data-anchor-id="scope-local-vs.-global-variables">Scope: Local vs.&nbsp;Global Variables</h4>
+<p>Variables created inside a function only exist while the function is running. This is called <strong>local scope</strong>. Variables outside are in <strong>global scope</strong>.</p>
+<div class="cell">
+<div>
+<div id="pyodide-30" class="exercise-cell">
+
+</div>
+<script type="pyodide-30-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGV4YW1wbGUoKTpcbiAgICB4ID0gMTAgICMgTG9jYWwgdG8gdGhlIGZ1bmN0aW9uXG4gICAgcmV0dXJuIHhcblxucHJpbnQoZXhhbXBsZSgpKSAgIyBXb3Jrc1xuIyBwcmludCh4KSAgICAgICAgIyBFcnJvcjogeCBub3QgZGVmaW5lZCBvdXRzaWRlIHRoZSBmdW5jdGlvbiJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="error-handling-with-tryexcept" class="level3">
+<h3 class="anchored" data-anchor-id="error-handling-with-tryexcept">Error Handling with try/except</h3>
+<p>In Python, you can use <code>try</code> and <code>except</code> blocks to handle errors gracefully. This is useful when you want your program to continue running even if something goes wrong.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Key Points:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The <code>try</code> block contains the code that might raise an error.</li>
+<li>The <code>except</code> block contains the code to handle the error.</li>
+<li>You can specify the type of error to catch specific exceptions.</li>
+</ul>
+</div>
+</div>
+<p>A common error in Python is the “list index out of range” error. This happens when you try to access an index that does not exist in the list. You can use a generic <code>except</code> block to catch any error:</p>
+<div class="cell">
+<div>
+<div id="pyodide-31" class="exercise-cell">
+
+</div>
+<script type="pyodide-31-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibXlfbGlzdCA9IFsxMCwgMjAsIDMwXVxuXG50cnk6XG4gICAgIyBBdHRlbXB0IHRvIGFjY2VzcyBhbiBpbmRleCB0aGF0IGRvZXNuJ3QgZXhpc3RcbiAgICBwcmludChteV9saXN0WzVdKVxuZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOiAjIyBPciB1c2UgYGV4Y2VwdCBJbmRleEVycm9yYCBzcGVjaWZpY2FsbHlcbiAgICBwcmludChcIkVycm9yOiBMaXN0IGluZGV4IG91dCBvZiByYW5nZS5cIilcblxucHJpbnQoXCJQcm9ncmFtIGNvbnRpbnVlcy4uLlwiKSJ9
+</script>
+</div>
+</div>
+<p>Avoid this by always check the length of the list using <code>len()</code> before accessing an index. You can also use a <code>try/except</code> block to handle the error gracefully.</p>
+</section>
+<section id="putting-it-all-together" class="level3">
+<h3 class="anchored" data-anchor-id="putting-it-all-together">Putting It All Together</h3>
+<p>Functions and control flow often work hand-in-hand:</p>
+<div class="cell">
+<div>
+<div id="pyodide-32" class="exercise-cell">
+
+</div>
+<script type="pyodide-32-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGNsYXNzaWZ5X2NsYWltKGFtb3VudCk6XG4gICAgaWYgYW1vdW50ID4gMTAwMDA6XG4gICAgICAgIHJldHVybiBcIkhpZ2ggdmFsdWVcIlxuICAgIGVsaWYgYW1vdW50ID4gNTAwMDpcbiAgICAgICAgcmV0dXJuIFwiTWVkaXVtIHZhbHVlXCJcbiAgICBlbHNlOlxuICAgICAgICByZXR1cm4gXCJMb3cgdmFsdWVcIlxuXG4jIEFkZGVkIGFuIGludmFsaWQgZW50cnkgZm9yIGVycm9yIGNhdGNoaW5nIGRlbW9uc3RyYXRpb25cbmNsYWltcyA9IFsyMDAwLCA2MDAwLCAxNTAwMCwgXCJudWxsXCJdICBcblxuZm9yIGNsYWltIGluIGNsYWltczpcbiAgICB0cnk6XG4gICAgICAgIGNhdGVnb3J5ID0gY2xhc3NpZnlfY2xhaW0oY2xhaW0pXG4gICAgICAgIHByaW50KGZcIkNsYWltIHtjbGFpbX06IHtjYXRlZ29yeX1cIilcbiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6XG4gICAgICAgIHByaW50KGZcIkVycm9yIHByb2Nlc3NpbmcgY2xhaW0ge2NsYWltfToge2V9XCIpXG4gICAgcHJpbnQoXCJDbGFpbXMgY2xhc3NpZmllZFwiKSJ9
+</script>
+</div>
+</div>
+<p>Here, the function decides the category of each claim, and the loop applies it to all claims in the list.</p>
+</section>
+</section>
+<section id="classes" class="level2">
+<h2 class="anchored" data-anchor-id="classes">Classes</h2>
+<section id="brief-introduction-to-classes" class="level3">
+<h3 class="anchored" data-anchor-id="brief-introduction-to-classes">Brief Introduction to Classes</h3>
+<p>So far, we have worked with Python’s built-in data types like lists, dictionaries, and strings. But in real-world applications, especially in data science, we often need to represent more complex objects — like a customer, a policy, or a claim. A class allows us to bundle data (attributes) and behavior (methods) together into a single structure.</p>
+<p>A class is like a blueprint for creating objects. Each object created from a class is called an instance, and it can hold its own unique values while still sharing the same structure and functions defined by the class.</p>
+<p>This helps organize code, avoid repetition, and model real-world concepts more naturally.</p>
+<p>Take a look at the example class created for an insurance policy below:</p>
+<div class="cell">
+<div>
+<div id="pyodide-33" class="exercise-cell">
+
+</div>
+<script type="pyodide-33-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBEZWZpbmUgYSBjbGFzcyB0byByZXByZXNlbnQgYW4gaW5zdXJhbmNlIHBvbGljeVxuY2xhc3MgUG9saWN5OlxuICAgIGRlZiBfX2luaXRfXyhzZWxmLCBwb2xpY3lfaWQsIHByZW1pdW0sIGNvdmVyYWdlKTpcbiAgICAgICAgIyBBdHRyaWJ1dGVzIChkYXRhKVxuICAgICAgICBzZWxmLnBvbGljeV9pZCA9IHBvbGljeV9pZFxuICAgICAgICBzZWxmLnByZW1pdW0gPSBwcmVtaXVtXG4gICAgICAgIHNlbGYuY292ZXJhZ2UgPSBjb3ZlcmFnZVxuXG4gICAgIyBNZXRob2QgKGJlaGF2aW9yKVxuICAgIGRlZiBzdW1tYXJ5KHNlbGYpOlxuICAgICAgICByZXR1cm4gZlwiUG9saWN5IHtzZWxmLnBvbGljeV9pZH06IFByZW1pdW0gJHtzZWxmLnByZW1pdW19LCBDb3ZlcmFnZSAke3NlbGYuY292ZXJhZ2V9XCIifQ==
+</script>
+</div>
+</div>
+<p>You can create and use objects of the class in order to suit your coding needs:</p>
+<div class="cell">
+<div>
+<div id="pyodide-34" class="exercise-cell">
+
+</div>
+<script type="pyodide-34-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDcmVhdGUgdHdvIGRpZmZlcmVudCBwb2xpY3kgb2JqZWN0c1xucG9saWN5MSA9IFBvbGljeShcIkFVVE8tMDAxXCIsIDEyMDAsIDUwMDAwKVxucG9saWN5MiA9IFBvbGljeShcIkhPTUUtMTIzXCIsIDE4MDAsIDI1MDAwMClcblxuIyBBY2Nlc3MgYXR0cmlidXRlc1xucHJpbnQocG9saWN5MS5wcmVtaXVtKSAgICMgMTIwMFxucHJpbnQocG9saWN5Mi5jb3ZlcmFnZSkgICMgMjUwMDAwXG5cbiMgVXNlIG1ldGhvZHNcbnByaW50KHBvbGljeTEuc3VtbWFyeSgpKVxucHJpbnQocG9saWN5Mi5zdW1tYXJ5KCkpIn0=
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each object (<code>policy1</code>, <code>policy2</code>) is independent, with its own attribute values, but both share the same structure defined in the <code>Policy</code> class.</p>
+</div>
+</div>
+</section>
+<section id="what-is-init-in-a-class" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-init-in-a-class">What is <strong>init</strong> in a Class?</h3>
+<p>The <code>__init__</code> method is a special function in Python classes. It runs automatically when you create an object from the class. Its main job is to set up the object’s attributes with the values you provide.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><code>__init__</code> is like a setup function for your object.</li>
+<li>It always takes <code>self</code> as the first parameter, which refers to the object being created.</li>
+<li>You can add more parameters to pass values for the object’s attributes.</li>
+</ul>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="pyodide-35" class="exercise-cell">
+
+</div>
+<script type="pyodide-35-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY2xhc3MgUG9saWN5OlxuICAgIGRlZiBfX2luaXRfXyhzZWxmLCBwb2xpY3lfaWQsIHByZW1pdW0sIGNvdmVyYWdlKTpcbiAgICAgICAgc2VsZi5wb2xpY3lfaWQgPSBwb2xpY3lfaWRcbiAgICAgICAgc2VsZi5wcmVtaXVtID0gcHJlbWl1bVxuICAgICAgICBzZWxmLmNvdmVyYWdlID0gY292ZXJhZ2VcblxuIyBDcmVhdGUgYW4gb2JqZWN0IG9mIHRoZSBjbGFzc1xucG9saWN5ID0gUG9saWN5KFwiQVVUTy0wMDFcIiwgMTIwMCwgNTAwMDApXG5cbiMgQWNjZXNzIHRoZSBvYmplY3QncyBhdHRyaWJ1dGVzXG5wcmludChwb2xpY3kucG9saWN5X2lkKSAgIyBPdXRwdXQ6IEFVVE8tMDAxXG5wcmludChwb2xpY3kucHJlbWl1bSkgICAgIyBPdXRwdXQ6IDEyMDBcbnByaW50KHBvbGljeS5jb3ZlcmFnZSkgICAjIE91dHB1dDogNTAwMDAifQ==
+</script>
+</div>
+</div>
+<p><strong>Why Use <code>__init__</code>?</strong></p>
+<ul>
+<li>It ensures the object is ready to use right after creation.</li>
+<li>It allows you to set initial values for the object’s attributes.</li>
+</ul>
+</section>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<ol type="1">
+<li><strong>Python’s simplicity</strong> makes it ideal for actuaries transitioning to programming</li>
+<li><strong>Rich data types</strong> (lists, dictionaries) naturally represent data</li>
+<li><strong>Control flow</strong> implements rules and decision logic</li>
+<li><strong>Functions</strong> allow you to create reusable calculations</li>
+<li><strong>Classes</strong> help model real-world entities</li>
+</ol>
+<hr>
+<p><em>Remember: The goal isn’t to memorize syntax, but to understand how Python’s building blocks can solve actuarial problems efficiently and clearly.</em></p>
+</section>
+<section id="bonus-advanced-strings" class="level2">
+<h2 class="anchored" data-anchor-id="bonus-advanced-strings">Bonus: Advanced Strings</h2>
+<section id="indexing-accessing-individual-characters" class="level4">
+<h4 class="anchored" data-anchor-id="indexing-accessing-individual-characters">Indexing: Accessing Individual Characters</h4>
+<p>Just as we learned for lists, each character in a string has a position number, called an <strong>index</strong>. Remeber that in Python, <strong>indexes start at 0, not 1</strong>. This is called <em>zero-based indexing</em>. You can also use <em>negative indexing</em> to count from the end of the string.</p>
+<div class="cell">
+<div>
+<div id="pyodide-36" class="exercise-cell">
+
+</div>
+<script type="pyodide-36-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBTdHJpbmcgaW5kZXhpbmcgKGFjY2Vzc2luZyBzcGVjaWZpYyBjaGFyYWN0ZXJzIGJ5IHBvc2l0aW9uKVxucmlza19jb2RlID0gJ01MRScgICMgTWF4aW11bSBMaWtlbGlob29kIEVzdGltYXRvclxucG9saWN5X2lkID0gJ0FVVE8tMjAyNC0xMjM0NTYnXG5cbiMgQWNjZXNzIGluZGl2aWR1YWwgY2hhcmFjdGVycyAoMC1iYXNlZCBpbmRleGluZylcbnByaW50KGZcIkZpcnN0IGNoYXJhY3RlciBvZiAne3Jpc2tfY29kZX0nOiB7cmlza19jb2RlWzBdfVwiKVxucHJpbnQoZlwiU2Vjb25kIGNoYXJhY3Rlcjoge3Jpc2tfY29kZVsxXX1cIilcbnByaW50KGZcIlRoaXJkIGNoYXJhY3Rlcjoge3Jpc2tfY29kZVsyXX1cIilcblxuIyBOZWdhdGl2ZSBpbmRleGluZyAoY291bnRpbmcgZnJvbSB0aGUgZW5kKVxucHJpbnQoZlwiTGFzdCBjaGFyYWN0ZXI6IHtyaXNrX2NvZGVbLTFdfVwiKVxucHJpbnQoZlwiU2Vjb25kIHRvIGxhc3Q6IHtyaXNrX2NvZGVbLTJdfVwiKVxuXG4jIEFjY2VzcyBjaGFyYWN0ZXJzIGZyb20gbG9uZ2VyIHN0cmluZ3NcbnByaW50KGZcIkZpcnN0IGNoYXJhY3RlciBvZiBwb2xpY3k6IHtwb2xpY3lfaWRbMF19XCIpXG5wcmludChmXCJZZWFyIHBhcnQgc3RhcnRzIGF0IHBvc2l0aW9uIDU6IHtwb2xpY3lfaWRbNTo5XX1cIikifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="out-of-range-errors" class="level4">
+<h4 class="anchored" data-anchor-id="out-of-range-errors">Out of Range Errors</h4>
+<p>If you try to access a position that does not exist, Python will raise an error.</p>
+<div class="cell">
+<div>
+<div id="pyodide-37" class="exercise-cell">
+
+</div>
+<script type="pyodide-37-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2hvcnRfY29kZSA9ICdNTEUnXG5wcmludChmXCJUaGlzIHdvcmtzOiB7c2hvcnRfY29kZVsyXX1cIikgICMgUG9zaXRpb24gMiBleGlzdHNcblxuIyBUaGlzIHdpbGwgY2F1c2UgYW4gZXJyb3IgKHVuY29tbWVudCB0byBzZWUpOlxuIyBwcmludChzaG9ydF9jb2RlWzVdKSAgIyBQb3NpdGlvbiA1IGRvZXNuJ3QgZXhpc3QgaW4gYSAzLWNoYXJhY3RlciBzdHJpbmcifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="slicing-extracting-substrings" class="level4">
+<h4 class="anchored" data-anchor-id="slicing-extracting-substrings">Slicing: Extracting Substrings</h4>
+<p>Slicing lets you take a range of characters from a string. You specify a start and end index, and Python gives you everything in between. The start is inclusive, but the end is exclusive.</p>
+<div class="cell">
+<div>
+<div id="pyodide-38" class="exercise-cell">
+
+</div>
+<script type="pyodide-38-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBTbGljaW5nIHN0cmluZ3MgKGV4dHJhY3RpbmcgcG9ydGlvbnMgb2YgdGV4dClcbmZ1bGxfcG9saWN5ID0gJ0FVVE8tMjAyNC1QUkVNSVVNLTAwMTIzNCdcblxuIyBCYXNpYyBzbGljaW5nOiBbc3RhcnQ6ZW5kXSAoZW5kIHBvc2l0aW9uIG5vdCBpbmNsdWRlZClcbnByb2R1Y3RfbGluZSA9IGZ1bGxfcG9saWN5WzA6NF0gICAgICAjIENoYXJhY3RlcnMgMCwxLDIsM1xueWVhciA9IGZ1bGxfcG9saWN5WzU6OV0gICAgICAgICAgICAgICMgQ2hhcmFjdGVycyA1LDYsNyw4XG5wb2xpY3lfbnVtYmVyID0gZnVsbF9wb2xpY3lbLTY6XSAgICAgIyBMYXN0IDYgY2hhcmFjdGVyc1xuXG5wcmludChmXCJQcm9kdWN0IGxpbmU6IHtwcm9kdWN0X2xpbmV9XCIpXG5wcmludChmXCJZZWFyOiB7eWVhcn1cIilcbnByaW50KGZcIlBvbGljeSBudW1iZXI6IHtwb2xpY3lfbnVtYmVyfVwiKVxuXG4jIE1vcmUgc2xpY2luZyBleGFtcGxlc1xuZXN0aW1hdG9yID0gJ01heGltdW0gTGlrZWxpaG9vZCBFc3RpbWF0b3InXG5wcmludChmXCJFdmVyeXRoaW5nIGFmdGVyIHBvc2l0aW9uIDg6IHtlc3RpbWF0b3JbODpdfVwiKVxucHJpbnQoZlwiRXZlcnl0aGluZyBiZWZvcmUgcG9zaXRpb24gNzoge2VzdGltYXRvcls6N119XCIpXG5wcmludChmXCJFdmVyeXRoaW5nIGV4Y2VwdCBsYXN0IGNoYXJhY3Rlcjoge2VzdGltYXRvcls6LTFdfVwiKVxucHJpbnQoZlwiQ29tcGxldGUgY29weToge2VzdGltYXRvcls6XX1cIikifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="string-operations-combining-and-repeating" class="level4">
+<h4 class="anchored" data-anchor-id="string-operations-combining-and-repeating">String Operations: Combining and Repeating</h4>
+<p>You can combine strings together (concatenation) or repeat them multiple times. This is useful for creating formatted outputs or repeated patterns.</p>
+<div class="cell">
+<div>
+<div id="pyodide-39" class="exercise-cell">
+
+</div>
+<script type="pyodide-39-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBTdHJpbmcgY29uY2F0ZW5hdGlvbiAoY29tYmluaW5nIHRleHQgcGllY2VzKVxuZmlyc3RfbmFtZSA9ICdKb2huJ1xubGFzdF9uYW1lID0gJ1NtaXRoJ1xuZnVsbF9uYW1lID0gZmlyc3RfbmFtZSArICcgJyArIGxhc3RfbmFtZVxucHJpbnQoZlwiRnVsbCBuYW1lOiB7ZnVsbF9uYW1lfVwiKVxuXG4jIEFkZGluZyBkZXNjcmlwdGl2ZSB0ZXh0XG5yaXNrX2xldmVsID0gJ0hpZ2gnXG5kZXNjcmlwdGlvbiA9IHJpc2tfbGV2ZWwgKyAnIHJpc2sgY3VzdG9tZXIgcmVxdWlyZXMgYWRkaXRpb25hbCByZXZpZXcuJ1xucHJpbnQoZGVzY3JpcHRpb24pXG5cbiMgU3RyaW5nIHJlcGV0aXRpb24gKHVzZWZ1bCBmb3IgZm9ybWF0dGluZylcbnNlcGFyYXRvciA9ICctJyAqIDQwICAjIENyZWF0ZXMgNDAgZGFzaGVzXG5wcmludChzZXBhcmF0b3IpXG5wcmludCgnUE9MSUNZIFNVTU1BUlknKVxucHJpbnQoc2VwYXJhdG9yKVxuXG4jIFJlcGVhdGluZyBwYXR0ZXJuc1xuY29kZV9wYXR0ZXJuID0gJ0FCQycgKiAzXG5wcmludChmXCJSZXBlYXRlZCBwYXR0ZXJuOiB7Y29kZV9wYXR0ZXJufVwiKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="immutability-strings-cannot-be-changed" class="level4">
+<h4 class="anchored" data-anchor-id="immutability-strings-cannot-be-changed">Immutability: Strings Cannot Be Changed</h4>
+<p>Unlike lists, strings cannot be modified after creation. If you want to “change” a string, you must build a new one.</p>
+<div class="cell">
+<div>
+<div id="pyodide-40" class="exercise-cell">
+
+</div>
+<script type="pyodide-40-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBTdHJpbmdzIGNhbm5vdCBiZSBtb2RpZmllZCBkaXJlY3RseVxucG9saWN5X2NvZGUgPSAnTUxFJ1xucHJpbnQoZlwiT3JpZ2luYWw6IHtwb2xpY3lfY29kZX1cIilcblxuIyBUaGlzIHdvdWxkIGNhdXNlIGFuIGVycm9yICh1bmNvbW1lbnQgdG8gc2VlKTpcbiMgcG9saWN5X2NvZGVbMV0gPSAnWCcgICMgQ2Fubm90IGNoYW5nZSBpbmRpdmlkdWFsIGNoYXJhY3RlcnNcblxuIyBJbnN0ZWFkLCBjcmVhdGUgYSBuZXcgc3RyaW5nXG5uZXdfY29kZSA9IHBvbGljeV9jb2RlWzBdICsgJ1gnICsgcG9saWN5X2NvZGVbMl0gICMgUmVwbGFjZSBtaWRkbGUgY2hhcmFjdGVyXG5wcmludChmXCJOZXcgY29kZToge25ld19jb2RlfVwiKVxucHJpbnQoZlwiT3JpZ2luYWwgdW5jaGFuZ2VkOiB7cG9saWN5X2NvZGV9XCIpICAjIE9yaWdpbmFsIGlzIHN0aWxsIHRoZSBzYW1lIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="useful-string-methods" class="level4">
+<h4 class="anchored" data-anchor-id="useful-string-methods">Useful String Methods</h4>
+<p>Strings have many built-in methods that make them powerful for text cleaning, transformation, and validation. Below are some examples:</p>
+<div class="cell">
+<div>
+<div id="pyodide-41" class="exercise-cell">
+
+</div>
+<script type="pyodide-41-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBTdHJpbmcgbWV0aG9kcyBmb3IgZGF0YSBjbGVhbmluZyBhbmQgcHJvY2Vzc2luZ1xubWVzc3lfbmFtZSA9ICcgIFNNSVRILCBKT0hOIERPRSAgJ1xucG9saWN5X3R5cGVzID0gJ0F1dG8sSG9tZSxMaWZlLEhlYWx0aCdcblxuIyBDbGVhbmluZyB1cCB0ZXh0XG5jbGVhbl9uYW1lID0gbWVzc3lfbmFtZS5zdHJpcCgpICAjIFJlbW92ZSBsZWFkaW5nL3RyYWlsaW5nIHNwYWNlc1xudGl0bGVfbmFtZSA9IGNsZWFuX25hbWUudGl0bGUoKSAgIyBQcm9wZXIgY2FzZVxubG93ZXJfbmFtZSA9IGNsZWFuX25hbWUubG93ZXIoKSAgIyBBbGwgbG93ZXJjYXNlXG51cHBlcl9uYW1lID0gY2xlYW5fbmFtZS51cHBlcigpICAjIEFsbCB1cHBlcmNhc2VcblxucHJpbnQoZlwiT3JpZ2luYWw6ICd7bWVzc3lfbmFtZX0nXCIpXG5wcmludChmXCJDbGVhbmVkOiAne2NsZWFuX25hbWV9J1wiKVxucHJpbnQoZlwiVGl0bGUgY2FzZTogJ3t0aXRsZV9uYW1lfSdcIilcbnByaW50KGZcIkxvd2VyIGNhc2U6ICd7bG93ZXJfbmFtZX0nXCIpXG5wcmludChmXCJVcHBlciBjYXNlOiAne3VwcGVyX25hbWV9J1wiKVxuXG4jIFNwbGl0dGluZyBzdHJpbmdzIChicmVha2luZyB0ZXh0IGludG8gcGllY2VzKVxucG9saWN5X2xpc3QgPSBwb2xpY3lfdHlwZXMuc3BsaXQoJywnKSAgIyBTcGxpdCBvbiBjb21tYVxucHJpbnQoZlwiUG9saWN5IHR5cGVzOiB7cG9saWN5X2xpc3R9XCIpXG5cbiMgRmluZGluZyBhbmQgcmVwbGFjaW5nIHRleHRcbmRlc2NyaXB0aW9uID0gJ01heGltdW0gTGlrZWxpaG9vZCBFc3RpbWF0b3InXG5wb3NpdGlvbiA9IGRlc2NyaXB0aW9uLmZpbmQoJ0xpa2VsaWhvb2QnKSAgIyBGaW5kIHBvc2l0aW9uIG9mIHN1YnN0cmluZ1xucHJpbnQoZlwiJ0xpa2VsaWhvb2QnIHN0YXJ0cyBhdCBwb3NpdGlvbjoge3Bvc2l0aW9ufVwiKVxuXG5uZXdfZGVzY3JpcHRpb24gPSBkZXNjcmlwdGlvbi5yZXBsYWNlKCdNYXhpbXVtIExpa2VsaWhvb2QnLCAnTWV0aG9kIG9mIE1vbWVudHMnKVxucHJpbnQoZlwiTW9kaWZpZWQ6IHtuZXdfZGVzY3JpcHRpb259XCIpXG5cbiMgVGVzdGluZyBzdHJpbmcgY29udGVudFxucG9saWN5X251bSA9ICcxMjM0NTYnXG5wb2xpY3lfYWxwaGEgPSAnQUJDMTIzJ1xuXG5wcmludChmXCIne3BvbGljeV9udW19JyBpcyBhbGwgZGlnaXRzOiB7cG9saWN5X251bS5pc2RpZ2l0KCl9XCIpXG5wcmludChmXCIne3BvbGljeV9hbHBoYX0nIGlzIGFsbCBkaWdpdHM6IHtwb2xpY3lfYWxwaGEuaXNkaWdpdCgpfVwiKVxucHJpbnQoZlwiJ3twb2xpY3lfYWxwaGF9JyBpcyBhbHBoYW51bWVyaWM6IHtwb2xpY3lfYWxwaGEuaXNhbG51bSgpfVwiKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="more-string-formatting-format-text-output" class="level4">
+<h4 class="anchored" data-anchor-id="more-string-formatting-format-text-output">More String Formatting: Format Text Output</h4>
+<p>String formatting is essential for creating readable reports. Modern Python uses f-strings, which allow you to embed variables directly inside text.</p>
+<div class="cell">
+<div>
+<div id="pyodide-42" class="exercise-cell">
+
+</div>
+<script type="pyodide-42-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBNb2Rlcm4gc3RyaW5nIGZvcm1hdHRpbmcgKGNyZWF0aW5nIGZvcm1hdHRlZCB0ZXh0IG91dHB1dClcbnBvbGljeV9pZCA9ICdBVVRPMTIzJ1xucHJlbWl1bSA9IDEyMzQuNTY3XG5jdXN0b21lciA9ICdKb2huIFNtaXRoJ1xuY292ZXJhZ2UgPSA1MDAwMDBcblxuIyBGLXN0cmluZyBmb3JtYXR0aW5nIChtb2Rlcm4gUHl0aG9uIHdheSlcbnN1bW1hcnkgPSBmXCJQb2xpY3kge3BvbGljeV9pZH0gZm9yIHtjdXN0b21lcn06ICR7cHJlbWl1bTosLjJmfSBwcmVtaXVtLCAke2NvdmVyYWdlOix9IGNvdmVyYWdlXCJcbnByaW50KHN1bW1hcnkpXG5cbiMgRGlmZmVyZW50IGZvcm1hdHRpbmcgb3B0aW9uc1xucHJpbnQoZlwiUHJlbWl1bSB3aXRoIDMgZGVjaW1hbHM6ICR7cHJlbWl1bTouM2Z9XCIpXG5wcmludChmXCJQcmVtaXVtIGFzIHBlcmNlbnRhZ2U6IHtwcmVtaXVtLzEwMDouMiV9XCIpXG5wcmludChmXCJMYXJnZSBudW1iZXIgZm9ybWF0dGluZzoge2NvdmVyYWdlOix9XCIpXG5cbiMgTXVsdGktbGluZSBmb3JtYXR0ZWQgc3RyaW5nc1xucmVwb3J0ID0gZlwiXCJcIlxuUE9MSUNZIFJFUE9SVFxuPT09PT09PT09PT09PVxuQ3VzdG9tZXI6IHtjdXN0b21lcn1cblBvbGljeSBJRDoge3BvbGljeV9pZH1cblByZW1pdW06ICR7cHJlbWl1bTosLjJmfVxuQ292ZXJhZ2U6ICR7Y292ZXJhZ2U6LH1cblwiXCJcIlxucHJpbnQocmVwb3J0KSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="getting-help-with-string-methods" class="level4">
+<h4 class="anchored" data-anchor-id="getting-help-with-string-methods">Getting Help with String Methods</h4>
+<p>In general, there are two different types of operations in Python:</p>
+<ul>
+<li><strong>Built-in functions or expressions</strong> (e.g.&nbsp;<code>len(string_1)</code> and <code>string_1[0]</code>)</li>
+<li><strong>Type-specific operations (methods)</strong> (e.g.&nbsp;<code>string_1.lower()</code> and <code>string_1.isdigit()</code>)</li>
+</ul>
+<p>You can discover available methods with <code>dir()</code> and get detailed explanations with <code>help()</code>.</p>
+<div class="cell">
+<div>
+<div id="pyodide-43" class="exercise-cell">
+
+</div>
+<script type="pyodide-43-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2FtcGxlX3N0cmluZyA9ICdleGFtcGxlJ1xuXG4jIEdldCBsaXN0IG9mIGFsbCBhdmFpbGFibGUgbWV0aG9kcyAobG90cyBvZiBvdXRwdXQhKVxubWV0aG9kcyA9IGRpcihzYW1wbGVfc3RyaW5nKVxucHJpbnQoZlwiTnVtYmVyIG9mIHN0cmluZyBtZXRob2RzIGF2YWlsYWJsZToge2xlbihtZXRob2RzKX1cIilcbnByaW50KGZcIlNvbWUgbWV0aG9kczoge21ldGhvZHNbLTEwOl19XCIpICAjIFNob3cgbGFzdCAxMCBtZXRob2RzXG5cbiMgR2V0IGhlbHAgb24gc3BlY2lmaWMgbWV0aG9kcyAodW5jb21tZW50IHRvIHNlZSBkZXRhaWxlZCBoZWxwKTpcbiMgaGVscChzYW1wbGVfc3RyaW5nLnNwbGl0KVxuIyBoZWxwKHN0ci5yZXBsYWNlKSJ9
+</script>
+</div>
+</div>
+
+
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yNy4wL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIiwibWF0cGxvdGxpYiIsIm51bXB5Iiwic2VhYm9ybiIsInBhbmRhcyIsInNjaXB5Il19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTQzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfNDMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTQzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNDMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV80MyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfNDMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfNDIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTQyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNDItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV80MiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfNDIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQxIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfNDEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTQxLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNDEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV80MSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfNDEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfNDAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTQwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNDAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV80MCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfNDAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTM5IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzkgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTM5LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzktY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zOSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTM4IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzggPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTM4LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zOCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTM3IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzcgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTM3LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzctY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zNyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTM2IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzYgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTM2LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzYtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zNiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTM1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTM1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTM0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTM0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTMzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTMyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMxIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTMxLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMzAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTMwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMzAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8zMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMzAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI5IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjkgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI5LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjktY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yOSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI4IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjggPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI4LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yOCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI3IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjcgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI3LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjctY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI2IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjYgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI2LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjYtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIxIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIxLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE5IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTkgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE5LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTktY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xOSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE4IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTggPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE4LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xOCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE3IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTcgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE3LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTctY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE2IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTYgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE2LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTYtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTExIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTExLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../lectures";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../lectures/overview.html" class="pagination-link" aria-label="Course Overview">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Course Overview</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../lectures/numpy.html" class="pagination-link" aria-label="Introduction to NumPy">
+        <span class="nav-page-text">Introduction to NumPy</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2025, <a href="https://iliaazizi.com/">Ilia Azizi</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with 🤍 and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

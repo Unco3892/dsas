@@ -1,0 +1,2804 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="pipeline_files/libs/clipboard/clipboard.min.js"></script>
+<script src="pipeline_files/libs/quarto-html/tabby.min.js"></script>
+<script src="pipeline_files/libs/quarto-html/popper.min.js"></script>
+<script src="pipeline_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="pipeline_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="pipeline_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="pipeline_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="pipeline_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="pipeline_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script src="pipeline_files/libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="pipeline_files/libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="pipeline_files/libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
+
+  <meta name="author" content="Ilia Azizi">
+  <meta name="dcterms.date" content="2025-10-21">
+  <title>Data Science Pipeline</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="pipeline_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="pipeline_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="pipeline_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="auxiliary/styles/ml_slides.css">
+  <link rel="stylesheet" href="auxiliary/styles/flow.scss">
+  <link href="pipeline_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="pipeline_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="pipeline_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="pipeline_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="pipeline_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="pipeline_files/libs/revealjs/plugin/reveal-quiz/quiz.css" rel="stylesheet">
+  <link href="pipeline_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="pipeline_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="pipeline_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <script src="pipeline_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="pipeline_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="pipeline_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+  <style>
+  /* Button styles for reveal.js - adapted from custom.css */
+  .btn {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 6px !important;
+    transition: all 0.3s ease;
+  }
+
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 6px !important;
+  }
+
+  /* Light mode button styles */
+  .btn-outline-secondary {
+    color: var(--bs-secondary, #6c757d) !important;
+    border-color: var(--bs-secondary, #6c757d) !important;
+    background-color: transparent;
+  }
+  .btn-outline-secondary:hover {
+    color: white !important;
+    background-color: var(--bs-secondary, #6c757d) !important;
+    border-color: var(--bs-secondary, #6c757d) !important;
+  }
+
+  .btn-outline-danger {
+    color: var(--bs-danger, #dc3545) !important;
+    border-color: var(--bs-danger, #dc3545) !important;
+    background-color: transparent;
+  }
+  .btn-outline-danger:hover {
+    color: white !important;
+    background-color: var(--bs-danger, #dc3545) !important;
+    border-color: var(--bs-danger, #dc3545) !important;
+  }
+
+  .btn-outline-warning {
+    color: #f39c12 !important;
+    border-color: #f39c12 !important;
+    background-color: transparent;
+  }
+  .btn-outline-warning:hover {
+    color: white !important;
+    background-color: #f39c12 !important;
+    border-color: #f39c12 !important;
+  }
+
+  .btn-outline-success {
+    color: var(--bs-success, #198754) !important;
+    border-color: var(--bs-success, #198754) !important;
+    background-color: transparent;
+  }
+  .btn-outline-success:hover {
+    color: white !important;
+    background-color: var(--bs-success, #198754) !important;
+    border-color: var(--bs-success, #198754) !important;
+  }
+
+  .btn-outline-primary {
+    color: var(--bs-primary, #0d6efd) !important;
+    border-color: var(--bs-primary, #0d6efd) !important;
+    background-color: transparent;
+  }
+  .btn-outline-primary:hover {
+    color: white !important;
+    background-color: var(--bs-primary, #0d6efd) !important;
+    border-color: var(--bs-primary, #0d6efd) !important;
+  }
+
+  /* Custom button icons */
+  .btn-jupyter::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 2px;
+    background-image: url('auxiliary/styles/jupyter_logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: text-bottom;
+  }
+
+  .btn-colab::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 1px;
+    margin-bottom: -1px;
+    background-image: url('auxiliary/styles/colab_logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: text-bottom;
+  }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Data Science Pipeline</h1>
+  <p class="subtitle">MScAS 2025 - DSAS Lecture 5</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Ilia Azizi 
+</div>
+</div>
+</div>
+
+  <p class="date">2025-10-21</p>
+</section>
+<section id="from-theory-to-practice" class="slide level2">
+<h2>From Theory to Practice</h2>
+<div style="font-size: 60%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Course Overview</strong></p>
+</div>
+<div class="callout-content">
+<p>You’ve learned Python, NumPy, Pandas, and Visualization. Today we apply these tools to real actuarial problems using a complete data science workflow.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 55%;">
+<p><strong>What we’ll cover:</strong></p>
+<ol type="1">
+<li><strong>The Data Science Workflow</strong> - Complete pipeline from data acquisition to communication</li>
+<li><strong>Case Study: Health Insurance EDA</strong> - Brief exploratory data analysis example</li>
+<li><strong>Case Study: Interest Rate Analysis</strong> - Dimensionality reduction with PCA</li>
+</ol>
+</div>
+<div style="font-size: 55%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Everything today applies directly to your course project (due November 12th)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-data-science-workflow" class="slide level2">
+<h2>The Data Science Workflow</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Overview</a></li><li><a href="#tabset-1-2">Data Quality</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    %% Main linear flow
+    Acquire --&gt; Tidy
+    Tidy --&gt; Transform
+    
+    %% Circular connections between Transform, Visualize, and Model
+    Transform &lt;--&gt; Visualize
+    Visualize &lt;--&gt; Model
+    Model &lt;--&gt; Transform
+    
+    %% Final connections to Communicate
+    %% Visualize --&gt; Communicate
+    Model --&gt; Communicate
+    
+    %% Styling for clean appearance
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,font-family:Arial,font-size:14px
+    
+    class Acquire,Tidy,Transform,Visualize,Model,Communicate default
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div style="font-size: 45%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 36%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>What it means</th>
+<th>Actuarial example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Acquire</strong></td>
+<td>Get data from external/internal sources</td>
+<td>Download claims data from database or regulator website</td>
+</tr>
+<tr class="even">
+<td><strong>Tidy</strong></td>
+<td>Clean, format, handle missing values</td>
+<td>Fix date formats, remove duplicates, handle NaN values</td>
+</tr>
+<tr class="odd">
+<td><strong>Transform</strong></td>
+<td>Create new variables, normalize</td>
+<td>Calculate BMI categories, create age bands</td>
+</tr>
+<tr class="even">
+<td><strong>Visualize</strong></td>
+<td>Explore patterns, spot issues</td>
+<td>Histograms of claims, scatter plots of age vs.&nbsp;premium</td>
+</tr>
+<tr class="odd">
+<td><strong>Model</strong></td>
+<td>Apply statistical/ML methods</td>
+<td>Fit GLM, perform PCA, cluster risk groups</td>
+</tr>
+<tr class="even">
+<td><strong>Communicate</strong></td>
+<td>Share findings with stakeholders</td>
+<td>Write report, create presentation, explain insights</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="font-size: 60%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>It’s Iterative, Not Linear</strong></p>
+</div>
+<div class="callout-content">
+<p>Data science is messy. You’ll loop through these steps multiple times before completing your analysis.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div style="font-size: 55%;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Garbage In, Garbage Out (GIGO)</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Bad data</strong> + <strong>good analysis</strong> = <strong>worthless results</strong></p>
+<p>The foundation of any project is data quality. Don’t skip the cleaning step!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="font-size: 50%;">
+<p><strong>Signs of Bad Data:</strong></p>
+<ul>
+<li>Unknown/untrusted source</li>
+<li>Many missing values (&gt;20%)</li>
+<li>Implausible values (age = -5)</li>
+<li>Inconsistent formats</li>
+<li>Duplicates</li>
+<li>No documentation</li>
+</ul>
+</div><div class="column" style="font-size: 50%;">
+<p><strong>Signs of Good Data:</strong></p>
+<ul>
+<li>Trusted source (regulator, internal)</li>
+<li>Complete records</li>
+<li>Validated values</li>
+<li>Consistent formatting</li>
+<li>Unique records</li>
+<li>Clear data dictionary</li>
+</ul>
+</div></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pop-quiz" class="slide level2 quiz-question">
+<h2>Pop Quiz</h2>
+<p>Data scientists spend <strong>80% of time on data wrangling, 20% on modeling</strong>. Why does this persist despite automations?</p>
+<ul>
+<li>Modern libraries have solved most data preparation challenges</li>
+<li><span class="correct">GIGO: Model sophistication cannot compensate for poor data quality; it requires domain-specific human judgment</span></li>
+<li>Data scientists lack proper training in efficient preprocessing</li>
+<li>Companies create complicated pipelines to justify larger teams</li>
+</ul>
+</section>
+<section id="case-study-i-health-insurance" class="slide level2">
+<h2>Case Study I: Health Insurance</h2>
+<div style="font-size: 60%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Scenario</strong></p>
+</div>
+<div class="callout-content">
+<p>You’re the <strong>appointed actuary</strong> of a US health insurer. Before estimating technical provisions, you need to conduct an <strong>EDA</strong> of the portfolio.</p>
+<p><strong>Dataset</strong>: <code>healthinsurance.csv</code> with 1,338 clients</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 60%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong><strong>Your mission</strong></strong></p>
+</div>
+<div class="callout-content">
+<p>Discover patterns and relationships to understand the portfolio’s risk profile</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 55%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>age</code></td>
+<td>Age of primary beneficiary (years)</td>
+</tr>
+<tr class="even">
+<td><code>sex</code></td>
+<td>Gender: male or female</td>
+</tr>
+<tr class="odd">
+<td><code>bmi</code></td>
+<td>Body Mass Index</td>
+</tr>
+<tr class="even">
+<td><code>children</code></td>
+<td>Number of dependents covered</td>
+</tr>
+<tr class="odd">
+<td><code>smoker</code></td>
+<td>Smoking status: yes or no</td>
+</tr>
+<tr class="even">
+<td><code>region</code></td>
+<td>US region: northeast, northwest, southeast, southwest</td>
+</tr>
+<tr class="odd">
+<td><code>charges</code></td>
+<td>Annual medical costs billed ($)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="eda-steps" class="slide level2 scrollable">
+<h2>EDA Steps</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">1. Load &amp; Inspect</a></li><li><a href="#tabset-2-2">2. Summary Stats</a></li><li><a href="#tabset-2-3">3. Scatter Matrix</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="cell">
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IHBhbmRhcyBhcyBwZFxuaW1wb3J0IG51bXB5IGFzIG5wXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5pbXBvcnQgc2VhYm9ybiBhcyBzbnNcblxuZGF0YSA9IHBkLnJlYWRfY3N2KCdoZWFsdGhpbnN1cmFuY2UuY3N2JylcbnByaW50KFwiU2hhcGU6XCIsIGRhdGEuc2hhcGUsIFwiXFxuXCIpXG5wcmludChkYXRhLmhlYWQoKSlcbnByaW50KFwiXFxuRGF0YSB0eXBlczpcXG5cIiwgZGF0YS5kdHlwZXMpXG5wcmludChcIlxcbk1pc3NpbmcgdmFsdWVzOlwiLCBkYXRhLmlzbnVsbCgpLnN1bSgpLnN1bSgpKSJ9
+</script>
+</div>
+</div>
+<div style="font-size: 55%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Overview</strong></p>
+</div>
+<div class="callout-content">
+<p>1,338 clients × 7 variables | No missing values | Ready to analyze!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2">
+<div class="cell">
+<div>
+<div id="pyodide-2" class="exercise-cell">
+
+</div>
+<script type="pyodide-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoZGF0YS5kZXNjcmliZSgpKSJ9
+</script>
+</div>
+</div>
+<div style="font-size: 55%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key findings</strong></p>
+</div>
+<div class="callout-content">
+<p>Age 18-64 | BMI mean=30.7 (overweight) | Charges: very significant range $1K-$64K!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-3">
+<div style="font-size: 50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Load data for visualization</span></span>
+<span id="cb1-2"><a href=""></a>data <span class="op">=</span> pd.read_csv(<span class="st">'healthinsurance.csv'</span>)</span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a><span class="co"># Create scatter matrix with custom layout</span></span>
+<span id="cb1-5"><a href=""></a>variables <span class="op">=</span> [<span class="st">'age'</span>, <span class="st">'bmi'</span>, <span class="st">'children'</span>, <span class="st">'charges'</span>]</span>
+<span id="cb1-6"><a href=""></a>n_vars <span class="op">=</span> <span class="bu">len</span>(variables)</span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a>fig, axes <span class="op">=</span> plt.subplots(n_vars, n_vars, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">8</span>))</span>
+<span id="cb1-9"><a href=""></a></span>
+<span id="cb1-10"><a href=""></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_vars):</span>
+<span id="cb1-11"><a href=""></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_vars):</span>
+<span id="cb1-12"><a href=""></a>        ax <span class="op">=</span> axes[i, j]</span>
+<span id="cb1-13"><a href=""></a>        </span>
+<span id="cb1-14"><a href=""></a>        <span class="cf">if</span> i <span class="op">==</span> j:  <span class="co"># Diagonal: univariate distributions</span></span>
+<span id="cb1-15"><a href=""></a>            ax.hist(data[variables[i]], bins<span class="op">=</span><span class="dv">20</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, color<span class="op">=</span><span class="st">'steelblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb1-16"><a href=""></a>            ax.set_ylabel(<span class="st">'Frequency'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-17"><a href=""></a>        <span class="cf">elif</span> i <span class="op">&gt;</span> j:  <span class="co"># Lower triangle: bivariate scatter plots</span></span>
+<span id="cb1-18"><a href=""></a>            ax.scatter(data[variables[j]], data[variables[i]], alpha<span class="op">=</span><span class="fl">0.4</span>, s<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">'navy'</span>)</span>
+<span id="cb1-19"><a href=""></a>            ax.set_xlabel(variables[j] <span class="cf">if</span> i <span class="op">==</span> n_vars<span class="op">-</span><span class="dv">1</span> <span class="cf">else</span> <span class="st">''</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb1-20"><a href=""></a>            ax.set_ylabel(variables[i] <span class="cf">if</span> j <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">''</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb1-21"><a href=""></a>        <span class="cf">else</span>:  <span class="co"># Upper triangle: hide</span></span>
+<span id="cb1-22"><a href=""></a>            ax.axis(<span class="st">'off'</span>)</span>
+<span id="cb1-23"><a href=""></a></span>
+<span id="cb1-24"><a href=""></a><span class="co"># Add labels to leftmost column and bottom row</span></span>
+<span id="cb1-25"><a href=""></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_vars):</span>
+<span id="cb1-26"><a href=""></a>    axes[i, <span class="dv">0</span>].set_ylabel(variables[i], fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-27"><a href=""></a>    axes[n_vars<span class="op">-</span><span class="dv">1</span>, i].set_xlabel(variables[i], fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-28"><a href=""></a></span>
+<span id="cb1-29"><a href=""></a>plt.suptitle(<span class="st">"Scatter Matrix: Looking for Relationships</span><span class="ch">\n</span><span class="st">(Diagonal = Univariate | Lower Triangle = Bivariate)"</span>, </span>
+<span id="cb1-30"><a href=""></a>             fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">0.995</span>)</span>
+<span id="cb1-31"><a href=""></a>plt.tight_layout()</span>
+<span id="cb1-32"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-7-1.png" width="1056"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Suspicious pattern spotted!</strong> Age vs.&nbsp;Charges shows <strong>3 distinct groups</strong> → not random scatter!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="diving-deeper-risk-factors" class="slide level2 scrollable">
+<h2>Diving Deeper: Risk Factors</h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Age Distribution</a></li><li><a href="#tabset-3-2">Smoking Effect</a></li><li><a href="#tabset-3-3">BMI Categories</a></li><li><a href="#tabset-3-4">Combined Risk Factors</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<div style="font-size: 50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">4.5</span>))</span>
+<span id="cb2-2"><a href=""></a></span>
+<span id="cb2-3"><a href=""></a><span class="co"># Histogram of age</span></span>
+<span id="cb2-4"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].hist(data[<span class="st">'age'</span>], bins<span class="op">=</span><span class="dv">47</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, alpha<span class="op">=</span><span class="fl">0.75</span>, color<span class="op">=</span><span class="st">'steelblue'</span>)</span>
+<span id="cb2-5"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_title(<span class="st">"Age Distribution"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-6"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Age (years)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb2-7"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Frequency"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb2-8"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb2-9"><a href=""></a></span>
+<span id="cb2-10"><a href=""></a><span class="co"># Scatter plot: Age vs Charges</span></span>
+<span id="cb2-11"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].scatter(data[<span class="st">'age'</span>], data[<span class="st">'charges'</span>], alpha<span class="op">=</span><span class="fl">0.5</span>, s<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'coral'</span>, edgecolors<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb2-12"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].set_title(<span class="st">"Age vs. Annual Charges"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-13"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Age (years)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb2-14"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Charges ($)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb2-15"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb2-16"><a href=""></a></span>
+<span id="cb2-17"><a href=""></a>plt.tight_layout()</span>
+<span id="cb2-18"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-8-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-8-3.png" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 55%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Observations</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>Age</strong>: Nearly uniform distribution (except spike at 18-19 years)</li>
+<li><strong>Charges</strong>: Clear <strong>3-tier structure</strong> → low, medium, and high-cost groups! What explains this?</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2">
+<div style="font-size: 50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Calculate percentages</span></span>
+<span id="cb3-2"><a href=""></a>smoker_counts <span class="op">=</span> data.groupby(<span class="st">'smoker'</span>).size()</span>
+<span id="cb3-3"><a href=""></a>total <span class="op">=</span> <span class="bu">len</span>(data)</span>
+<span id="cb3-4"><a href=""></a>pct_smoker <span class="op">=</span> (smoker_counts[<span class="st">'yes'</span>] <span class="op">/</span> total) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb3-5"><a href=""></a>pct_nonsmoker <span class="op">=</span> (smoker_counts[<span class="st">'no'</span>] <span class="op">/</span> total) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb3-6"><a href=""></a></span>
+<span id="cb3-7"><a href=""></a><span class="co"># Create scatter plot</span></span>
+<span id="cb3-8"><a href=""></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">4.5</span>))</span>
+<span id="cb3-9"><a href=""></a></span>
+<span id="cb3-10"><a href=""></a>colors <span class="op">=</span> {<span class="st">'yes'</span>: <span class="st">'orange'</span>, <span class="st">'no'</span>: <span class="st">'purple'</span>}</span>
+<span id="cb3-11"><a href=""></a><span class="cf">for</span> smoker_status <span class="kw">in</span> [<span class="st">'yes'</span>, <span class="st">'no'</span>]:</span>
+<span id="cb3-12"><a href=""></a>    mask <span class="op">=</span> data[<span class="st">'smoker'</span>] <span class="op">==</span> smoker_status</span>
+<span id="cb3-13"><a href=""></a>    label <span class="op">=</span> <span class="ss">f"Smoker (</span><span class="sc">{</span>pct_smoker<span class="sc">:.1f}</span><span class="ss">%)"</span> <span class="cf">if</span> smoker_status <span class="op">==</span> <span class="st">'yes'</span> <span class="cf">else</span> <span class="ss">f"Non-smoker (</span><span class="sc">{</span>pct_nonsmoker<span class="sc">:.1f}</span><span class="ss">%)"</span></span>
+<span id="cb3-14"><a href=""></a>    _ <span class="op">=</span> ax.scatter(data.loc[mask, <span class="st">'age'</span>], </span>
+<span id="cb3-15"><a href=""></a>                   data.loc[mask, <span class="st">'charges'</span>],</span>
+<span id="cb3-16"><a href=""></a>                   c<span class="op">=</span>colors[smoker_status],</span>
+<span id="cb3-17"><a href=""></a>                   label<span class="op">=</span>label,</span>
+<span id="cb3-18"><a href=""></a>                   alpha<span class="op">=</span><span class="fl">0.6</span>, s<span class="op">=</span><span class="dv">35</span>, edgecolors<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb3-19"><a href=""></a></span>
+<span id="cb3-20"><a href=""></a>_ <span class="op">=</span> ax.set_title(<span class="st">"Age vs. Charges (by Smoking Status)"</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb3-21"><a href=""></a>_ <span class="op">=</span> ax.set_xlabel(<span class="st">"Age (years)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb3-22"><a href=""></a>_ <span class="op">=</span> ax.set_ylabel(<span class="st">"Charges ($)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb3-23"><a href=""></a>_ <span class="op">=</span> ax.legend(fontsize<span class="op">=</span><span class="dv">10</span>, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb3-24"><a href=""></a>_ <span class="op">=</span> ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb3-25"><a href=""></a></span>
+<span id="cb3-26"><a href=""></a>plt.tight_layout()</span>
+<span id="cb3-27"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-9-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-9-5.png" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 55%;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Major finding</strong>: Smokers (orange) have dramatically higher charges than non-smokers (purple) across all ages!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-3">
+<div style="font-size: 50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># --- Setup Labels ---</span></span>
+<span id="cb4-2"><a href=""></a><span class="co"># 1. Define short labels for the data column and dictionary keys</span></span>
+<span id="cb4-3"><a href=""></a>short_labels <span class="op">=</span> [<span class="st">'Underweight'</span>, <span class="st">'Healthy'</span>, <span class="st">'Overweight'</span>, <span class="st">'Obesity'</span>, <span class="st">'Severe Obesity'</span>]</span>
+<span id="cb4-4"><a href=""></a></span>
+<span id="cb4-5"><a href=""></a><span class="co"># 2. Define the long, descriptive labels you want in the legend</span></span>
+<span id="cb4-6"><a href=""></a>long_labels <span class="op">=</span> [<span class="st">'Underweight: BMI &lt; 18.5'</span>, </span>
+<span id="cb4-7"><a href=""></a>               <span class="st">'Healthy: 18.5 ≤ BMI &lt; 25'</span>, </span>
+<span id="cb4-8"><a href=""></a>               <span class="st">'Overweight: 25 ≤ BMI &lt; 30'</span>, </span>
+<span id="cb4-9"><a href=""></a>               <span class="st">'Obesity: 30 ≤ BMI &lt; 40'</span>, </span>
+<span id="cb4-10"><a href=""></a>               <span class="st">'Severe Obesity: BMI ≥ 40'</span>]</span>
+<span id="cb4-11"><a href=""></a></span>
+<span id="cb4-12"><a href=""></a><span class="co"># 3. Create a "map" to link them</span></span>
+<span id="cb4-13"><a href=""></a>label_map <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(short_labels, long_labels))</span>
+<span id="cb4-14"><a href=""></a></span>
+<span id="cb4-15"><a href=""></a><span class="co"># 4. Define your colors using the SHORT labels</span></span>
+<span id="cb4-16"><a href=""></a>colors_bmi <span class="op">=</span> {<span class="st">'Underweight'</span>: <span class="st">'lightblue'</span>, </span>
+<span id="cb4-17"><a href=""></a>              <span class="st">'Healthy'</span>: <span class="st">'green'</span>, </span>
+<span id="cb4-18"><a href=""></a>              <span class="st">'Overweight'</span>: <span class="st">'yellow'</span>, </span>
+<span id="cb4-19"><a href=""></a>              <span class="st">'Obesity'</span>: <span class="st">'orange'</span>, </span>
+<span id="cb4-20"><a href=""></a>              <span class="st">'Severe Obesity'</span>: <span class="st">'red'</span>}</span>
+<span id="cb4-21"><a href=""></a></span>
+<span id="cb4-22"><a href=""></a><span class="co"># --- Create BMI categories ---</span></span>
+<span id="cb4-23"><a href=""></a><span class="co"># Use the SHORT labels to create the data column</span></span>
+<span id="cb4-24"><a href=""></a>data[<span class="st">'NHS_BMI'</span>] <span class="op">=</span> pd.cut(data[<span class="st">'bmi'</span>], </span>
+<span id="cb4-25"><a href=""></a>                         bins<span class="op">=</span>[<span class="dv">0</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">100</span>],</span>
+<span id="cb4-26"><a href=""></a>                         labels<span class="op">=</span>short_labels)</span>
+<span id="cb4-27"><a href=""></a></span>
+<span id="cb4-28"><a href=""></a><span class="co"># --- Visualization ---</span></span>
+<span id="cb4-29"><a href=""></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">4.5</span>))</span>
+<span id="cb4-30"><a href=""></a></span>
+<span id="cb4-31"><a href=""></a><span class="co"># Loop through the SHORT labels in REVERSE order (highest to lowest BMI)</span></span>
+<span id="cb4-32"><a href=""></a><span class="cf">for</span> bmi_cat <span class="kw">in</span> <span class="bu">reversed</span>(short_labels):</span>
+<span id="cb4-33"><a href=""></a>    mask <span class="op">=</span> data[<span class="st">'NHS_BMI'</span>] <span class="op">==</span> bmi_cat</span>
+<span id="cb4-34"><a href=""></a>    </span>
+<span id="cb4-35"><a href=""></a>    <span class="co"># Skip if this category has no data (prevents errors)</span></span>
+<span id="cb4-36"><a href=""></a>    <span class="cf">if</span> <span class="kw">not</span> mask.<span class="bu">any</span>():</span>
+<span id="cb4-37"><a href=""></a>        <span class="cf">continue</span></span>
+<span id="cb4-38"><a href=""></a>    </span>
+<span id="cb4-39"><a href=""></a>    _ <span class="op">=</span> ax.scatter(data.loc[mask, <span class="st">'age'</span>], </span>
+<span id="cb4-40"><a href=""></a>                   data.loc[mask, <span class="st">'charges'</span>],</span>
+<span id="cb4-41"><a href=""></a>                   c<span class="op">=</span>colors_bmi[bmi_cat],       <span class="co"># Uses the short label (e.g., 'Overweight')</span></span>
+<span id="cb4-42"><a href=""></a>                   label<span class="op">=</span>label_map[bmi_cat],  <span class="co"># Uses the map to get the long label (e.g., 'Overweight: 25 ≤ BMI &lt; 30')</span></span>
+<span id="cb4-43"><a href=""></a>                   alpha<span class="op">=</span><span class="fl">0.6</span>, s<span class="op">=</span><span class="dv">30</span>, edgecolors<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb4-44"><a href=""></a></span>
+<span id="cb4-45"><a href=""></a>_ <span class="op">=</span> ax.set_title(<span class="st">"Age vs. Charges (by BMI Category)"</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb4-46"><a href=""></a>_ <span class="op">=</span> ax.set_xlabel(<span class="st">"Age (years)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-47"><a href=""></a>_ <span class="op">=</span> ax.set_ylabel(<span class="st">"Charges ($)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-48"><a href=""></a>_ <span class="op">=</span> ax.legend(fontsize<span class="op">=</span><span class="dv">9</span>, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb4-49"><a href=""></a>_ <span class="op">=</span> ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb4-50"><a href=""></a></span>
+<span id="cb4-51"><a href=""></a>plt.tight_layout()</span>
+<span id="cb4-52"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-10-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-10-7.png" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Insight</strong>: Higher BMI categories (especially severe obesity) cluster in the high-charge regions</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-4">
+<div style="font-size: 50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Create combined category</span></span>
+<span id="cb5-2"><a href=""></a>data[<span class="st">'BMI_Smoker'</span>] <span class="op">=</span> <span class="st">'BMI &lt; 40, Non-smoker'</span></span>
+<span id="cb5-3"><a href=""></a>data.loc[(data[<span class="st">'bmi'</span>] <span class="op">&gt;=</span> <span class="dv">40</span>) <span class="op">&amp;</span> (data[<span class="st">'smoker'</span>] <span class="op">==</span> <span class="st">'no'</span>), <span class="st">'BMI_Smoker'</span>] <span class="op">=</span> <span class="st">'BMI ≥ 40, Non-smoker'</span></span>
+<span id="cb5-4"><a href=""></a>data.loc[(data[<span class="st">'bmi'</span>] <span class="op">&lt;</span> <span class="dv">40</span>) <span class="op">&amp;</span> (data[<span class="st">'smoker'</span>] <span class="op">==</span> <span class="st">'yes'</span>), <span class="st">'BMI_Smoker'</span>] <span class="op">=</span> <span class="st">'BMI &lt; 40, Smoker'</span></span>
+<span id="cb5-5"><a href=""></a>data.loc[(data[<span class="st">'bmi'</span>] <span class="op">&gt;=</span> <span class="dv">40</span>) <span class="op">&amp;</span> (data[<span class="st">'smoker'</span>] <span class="op">==</span> <span class="st">'yes'</span>), <span class="st">'BMI_Smoker'</span>] <span class="op">=</span> <span class="st">'BMI ≥ 40, Smoker'</span></span>
+<span id="cb5-6"><a href=""></a></span>
+<span id="cb5-7"><a href=""></a><span class="co"># Visualization</span></span>
+<span id="cb5-8"><a href=""></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">4.5</span>))</span>
+<span id="cb5-9"><a href=""></a></span>
+<span id="cb5-10"><a href=""></a><span class="co"># Define colors and order from highest to lowest risk</span></span>
+<span id="cb5-11"><a href=""></a>colors_combined <span class="op">=</span> {</span>
+<span id="cb5-12"><a href=""></a>    <span class="st">'BMI ≥ 40, Smoker'</span>: <span class="st">'red'</span>,</span>
+<span id="cb5-13"><a href=""></a>    <span class="st">'BMI &lt; 40, Smoker'</span>: <span class="st">'orange'</span>,</span>
+<span id="cb5-14"><a href=""></a>    <span class="st">'BMI ≥ 40, Non-smoker'</span>: <span class="st">'purple'</span>,</span>
+<span id="cb5-15"><a href=""></a>    <span class="st">'BMI &lt; 40, Non-smoker'</span>: <span class="st">'blue'</span></span>
+<span id="cb5-16"><a href=""></a>}</span>
+<span id="cb5-17"><a href=""></a></span>
+<span id="cb5-18"><a href=""></a><span class="cf">for</span> category <span class="kw">in</span> colors_combined.keys():</span>
+<span id="cb5-19"><a href=""></a>    mask <span class="op">=</span> data[<span class="st">'BMI_Smoker'</span>] <span class="op">==</span> category</span>
+<span id="cb5-20"><a href=""></a>    _ <span class="op">=</span> ax.scatter(data.loc[mask, <span class="st">'age'</span>], </span>
+<span id="cb5-21"><a href=""></a>              data.loc[mask, <span class="st">'charges'</span>],</span>
+<span id="cb5-22"><a href=""></a>              c<span class="op">=</span>colors_combined[category],</span>
+<span id="cb5-23"><a href=""></a>              label<span class="op">=</span>category,</span>
+<span id="cb5-24"><a href=""></a>              alpha<span class="op">=</span><span class="fl">0.7</span>, s<span class="op">=</span><span class="dv">40</span>, edgecolors<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb5-25"><a href=""></a></span>
+<span id="cb5-26"><a href=""></a>_ <span class="op">=</span> ax.set_title(<span class="st">"Age vs. Charges (Combined Risk Factors)"</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb5-27"><a href=""></a>_ <span class="op">=</span> ax.set_xlabel(<span class="st">"Age (years)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb5-28"><a href=""></a>_ <span class="op">=</span> ax.set_ylabel(<span class="st">"Charges ($)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb5-29"><a href=""></a>_ <span class="op">=</span> ax.legend(fontsize<span class="op">=</span><span class="dv">9</span>, loc<span class="op">=</span><span class="st">'upper left'</span>, framealpha<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb5-30"><a href=""></a>_ <span class="op">=</span> ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb5-31"><a href=""></a></span>
+<span id="cb5-32"><a href=""></a>plt.tight_layout()</span>
+<span id="cb5-33"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-11-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-11-9.png" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 55%;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Critical finding</strong>: High BMI (≥40) + Smoking (red points) = <strong>highest charges</strong> regardless of age!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pop-quiz-1" class="slide level2 quiz-question">
+<h2>🤔 Pop Quiz</h2>
+<p>Based on the visualizations, which group likely has the HIGHEST average charges?</p>
+<ul>
+<li>Young non-smokers with healthy BMI</li>
+<li>Elderly non-smokers with high BMI</li>
+<li><span class="correct">Elderly smokers with severe obesity</span></li>
+<li>Middle-aged non-smokers with children</li>
+</ul>
+</section>
+<section id="case-study-i-eda-key-takeaways" class="slide level2">
+<h2>Case Study I: EDA Key Takeaways</h2>
+<div style="font-size: 65%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What We Discovered Through EDA</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><strong>3-tier charge structure</strong> driven by risk factors</li>
+<li><strong>Smoking</strong> is the strongest predictor of high charges</li>
+<li><strong>High BMI (≥40)</strong> amplifies the smoking effect</li>
+<li><strong>Age</strong> matters, but <strong>lifestyle</strong> matters more</li>
+<li><strong>Combination effects</strong> are more important than individual factors</li>
+</ol>
+<p><strong>For the insurer</strong>: Risk-based pricing should heavily weight smoking status and BMI!</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 55%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The EDA Process</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>✅ Load data</li>
+<li>✅ Check quality</li>
+<li>✅ Summary stats</li>
+<li>✅ Visualize patterns</li>
+<li>✅ Investigate anomalies</li>
+<li>✅ Draw insights</li>
+</ul>
+<p><strong>This is very similar to what you’ll do for your project!</strong></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="case-study-ii-interest-rate-analysis" class="slide level2">
+<h2>Case Study II: Interest Rate Analysis</h2>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Data</a></li><li><a href="#tabset-4-2">Yield Curves</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<div style="font-size: 50%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Swiss National Bank Yield Data</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Scenario</strong>: Analyzing Swiss government bond yields for risk management.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 45%;">
+<p>
+<strong>Dataset shape:</strong> 329 observations × 14 variables
+</p>
+<table class="dataframe table table-sm table-striped">
+<thead>
+<tr style="text-align: center;">
+<th>
+date
+</th>
+<th>
+1M
+</th>
+<th>
+2M
+</th>
+<th>
+3M
+</th>
+<th>
+6M
+</th>
+<th>
+1J
+</th>
+<th>
+2J
+</th>
+<th>
+3J
+</th>
+<th>
+4J
+</th>
+<th>
+5J
+</th>
+<th>
+6J
+</th>
+<th>
+7J
+</th>
+<th>
+8J
+</th>
+<th>
+9J
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+1997-12
+</td>
+<td>
+1.658
+</td>
+<td>
+1.883
+</td>
+<td>
+2.136
+</td>
+<td>
+2.384
+</td>
+<td>
+2.614
+</td>
+<td>
+2.821
+</td>
+<td>
+3.006
+</td>
+<td>
+3.171
+</td>
+<td>
+3.316
+</td>
+<td>
+3.445
+</td>
+<td>
+3.903
+</td>
+<td>
+4.167
+</td>
+<td>
+4.445
+</td>
+</tr>
+<tr>
+<td>
+1998-01
+</td>
+<td>
+1.407
+</td>
+<td>
+1.583
+</td>
+<td>
+1.809
+</td>
+<td>
+2.039
+</td>
+<td>
+2.256
+</td>
+<td>
+2.455
+</td>
+<td>
+2.636
+</td>
+<td>
+2.801
+</td>
+<td>
+2.949
+</td>
+<td>
+3.084
+</td>
+<td>
+3.593
+</td>
+<td>
+3.917
+</td>
+<td>
+4.284
+</td>
+</tr>
+<tr>
+<td>
+1998-02
+</td>
+<td>
+1.128
+</td>
+<td>
+1.369
+</td>
+<td>
+1.619
+</td>
+<td>
+1.860
+</td>
+<td>
+2.084
+</td>
+<td>
+2.291
+</td>
+<td>
+2.481
+</td>
+<td>
+2.656
+</td>
+<td>
+2.816
+</td>
+<td>
+2.964
+</td>
+<td>
+3.543
+</td>
+<td>
+3.936
+</td>
+<td>
+4.408
+</td>
+</tr>
+<tr>
+<td>
+1998-03
+</td>
+<td>
+1.568
+</td>
+<td>
+1.758
+</td>
+<td>
+1.946
+</td>
+<td>
+2.131
+</td>
+<td>
+2.313
+</td>
+<td>
+2.488
+</td>
+<td>
+2.657
+</td>
+<td>
+2.817
+</td>
+<td>
+2.968
+</td>
+<td>
+3.109
+</td>
+<td>
+3.680
+</td>
+<td>
+4.065
+</td>
+<td>
+4.510
+</td>
+</tr>
+<tr>
+<td>
+1998-04
+</td>
+<td>
+1.715
+</td>
+<td>
+1.981
+</td>
+<td>
+2.205
+</td>
+<td>
+2.403
+</td>
+<td>
+2.585
+</td>
+<td>
+2.756
+</td>
+<td>
+2.916
+</td>
+<td>
+3.068
+</td>
+<td>
+3.211
+</td>
+<td>
+3.344
+</td>
+<td>
+3.888
+</td>
+<td>
+4.255
+</td>
+<td>
+4.677
+</td>
+</tr>
+<tr>
+<td>
+1998-05
+</td>
+<td>
+1.720
+</td>
+<td>
+1.921
+</td>
+<td>
+2.111
+</td>
+<td>
+2.291
+</td>
+<td>
+2.461
+</td>
+<td>
+2.622
+</td>
+<td>
+2.773
+</td>
+<td>
+2.916
+</td>
+<td>
+3.051
+</td>
+<td>
+3.179
+</td>
+<td>
+3.722
+</td>
+<td>
+4.137
+</td>
+<td>
+4.712
+</td>
+</tr>
+<tr>
+<td>
+1998-06
+</td>
+<td>
+2.117
+</td>
+<td>
+2.216
+</td>
+<td>
+2.333
+</td>
+<td>
+2.466
+</td>
+<td>
+2.608
+</td>
+<td>
+2.754
+</td>
+<td>
+2.899
+</td>
+<td>
+3.041
+</td>
+<td>
+3.178
+</td>
+<td>
+3.308
+</td>
+<td>
+3.851
+</td>
+<td>
+4.228
+</td>
+<td>
+4.674
+</td>
+</tr>
+<tr>
+<td>
+1998-07
+</td>
+<td>
+1.982
+</td>
+<td>
+2.067
+</td>
+<td>
+2.198
+</td>
+<td>
+2.347
+</td>
+<td>
+2.499
+</td>
+<td>
+2.649
+</td>
+<td>
+2.794
+</td>
+<td>
+2.932
+</td>
+<td>
+3.064
+</td>
+<td>
+3.190
+</td>
+<td>
+3.722
+</td>
+<td>
+4.120
+</td>
+<td>
+4.641
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="font-size: 50%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Column naming</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>J</strong> = <em>Jahre</em> (years), <strong>M</strong> = <em>Monate</em> (months) so <code>1J</code> = 1-year, <code>2J</code> = 2-year and <code>1M</code> = 1-month, <code>6M</code> = 6-month</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2">
+<div style="font-size: 50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Plot yield curves over time</span></span>
+<span id="cb6-2"><a href=""></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb6-3"><a href=""></a>months <span class="op">=</span> [<span class="bu">str</span>(i) <span class="op">+</span> <span class="st">"-01"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2011</span>, <span class="dv">2026</span>)]  <span class="co"># Every year, January</span></span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="cf">for</span> month <span class="kw">in</span> months:</span>
+<span id="cb6-6"><a href=""></a>    <span class="cf">if</span> month <span class="kw">in</span> df[<span class="st">'date'</span>].values:</span>
+<span id="cb6-7"><a href=""></a>        yields <span class="op">=</span> df.loc[df[<span class="st">'date'</span>] <span class="op">==</span> month, df.columns[<span class="dv">1</span>:]].values.flatten()</span>
+<span id="cb6-8"><a href=""></a>        _ <span class="op">=</span> ax.plot(maturities, yields, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">4</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span>month)</span>
+<span id="cb6-9"><a href=""></a></span>
+<span id="cb6-10"><a href=""></a>_ <span class="op">=</span> ax.set_title(<span class="st">"Swiss Government Bond Yield Curves (End of January, 2011-2025)"</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb6-11"><a href=""></a>_ <span class="op">=</span> ax.set_xlabel(<span class="st">"Maturity (years)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb6-12"><a href=""></a>_ <span class="op">=</span> ax.set_ylabel(<span class="st">"Yield (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb6-13"><a href=""></a>_ <span class="op">=</span> ax.legend(fontsize<span class="op">=</span><span class="dv">7</span>, loc<span class="op">=</span><span class="st">'center left'</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.5</span>))</span>
+<span id="cb6-14"><a href=""></a>_ <span class="op">=</span> ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb6-15"><a href=""></a>plt.tight_layout()</span>
+<span id="cb6-16"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-13-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-13-11.png" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pop-quiz-2" class="slide level2 quiz-question">
+<h2>🤔 Pop Quiz</h2>
+<p>Looking at the dataset shape, we have <strong>329 observations</strong>. What does each observation represent?</p>
+<ul>
+<li>A different bond maturity (1Y, 2Y, 3Y, etc.)</li>
+<li>A different type of Swiss government bond</li>
+<li><span class="correct">A different month (monthly data from ~1997 to 2024)</span></li>
+<li>A different country’s yield curve</li>
+</ul>
+</section>
+<section id="the-correlation-problem" class="slide level2">
+<h2>The Correlation Problem</h2>
+<div style="font-size: 50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb7-2"><a href=""></a></span>
+<span id="cb7-3"><a href=""></a><span class="co"># Scatter plot: 1Y vs 2Y yields</span></span>
+<span id="cb7-4"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].scatter(df[<span class="st">'1J'</span>], df[<span class="st">'2J'</span>], alpha<span class="op">=</span><span class="fl">0.5</span>, s<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'steelblue'</span>, edgecolors<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb7-5"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_title(<span class="st">"1-Year vs. 2-Year Yields"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb7-6"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_xlabel(<span class="st">"1-Year Yield (%)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb7-7"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"2-Year Yield (%)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb7-8"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb7-9"><a href=""></a></span>
+<span id="cb7-10"><a href=""></a><span class="co"># Correlation heatmap</span></span>
+<span id="cb7-11"><a href=""></a>corr <span class="op">=</span> df.iloc[:, <span class="dv">5</span>:].corr()  <span class="co"># Use only yearly maturities for clarity</span></span>
+<span id="cb7-12"><a href=""></a>_ <span class="op">=</span> sns.heatmap(corr, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>, cmap<span class="op">=</span><span class="st">"RdYlGn"</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>], </span>
+<span id="cb7-13"><a href=""></a>            cbar_kws<span class="op">=</span>{<span class="st">'shrink'</span>: <span class="fl">0.8</span>, <span class="st">'pad'</span>: <span class="fl">0.02</span>}, vmin<span class="op">=</span><span class="fl">0.8</span>, vmax<span class="op">=</span><span class="dv">1</span>, </span>
+<span id="cb7-14"><a href=""></a>            annot_kws<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">8</span>})</span>
+<span id="cb7-15"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].set_title(<span class="st">"Correlation Matrix (Yields)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb7-16"><a href=""></a></span>
+<span id="cb7-17"><a href=""></a>plt.tight_layout(pad<span class="op">=</span><span class="fl">2.0</span>)</span>
+<span id="cb7-18"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-14-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-14-13.png" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 55%;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Problem</strong>: All yields are <strong>highly correlated</strong> (0.90-0.99)! We have <strong>redundant information</strong> across many maturities (1M, 2M, 3M, 6M, 1Y, 2Y, …, 9Y).</p>
+<p><strong>Solution</strong>: Use <strong>Principal Component Analysis (PCA)</strong> to find the key patterns and reduce to just a <strong>few key variables</strong>!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-pca" class="slide level2">
+<h2>What is PCA?</h2>
+<div style="font-size: 55%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Principal Component Analysis: Dimensionality Reduction</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Goal</strong>: Transform correlated variables into a smaller set of <strong>uncorrelated</strong> components that capture most of the variation.</p>
+<p><strong>Key idea</strong>: Find new axes (principal components) that explain maximum variance in the data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="font-size: 50%;">
+<p><strong>Before PCA:</strong></p>
+<ul>
+<li>+10 variables</li>
+<li>All correlated (0.90-0.99)</li>
+<li>Redundant information</li>
+<li>Hard to visualize</li>
+</ul>
+</div><div class="column" style="font-size: 50%;">
+<p><strong>After PCA:</strong></p>
+<ul>
+<li>2-3 principal components</li>
+<li>Uncorrelated by design</li>
+<li>99% of variance retained</li>
+<li>Easy to interpret &amp; visualize</li>
+</ul>
+</div></div>
+<div style="font-size: 55%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Analogy</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>An insurer tracks +20 variables for each claim: age, gender, job type, car brand, engine size, annual mileage, parking type, claims history, etc.</p></li>
+<li><p>After analysis, you discover that <strong>3 key factors</strong> explain most claims:</p>
+<ol type="1">
+<li><strong>driver experience</strong> (age + claims history),</li>
+<li><strong>vehicle risk</strong> (car brand + engine size), and</li>
+<li><strong>exposure</strong> (annual mileage + parking type).</li>
+</ol></li>
+<li><p>PCA does exactly this—it finds the few combined factors that capture (almost) all the risk!</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pca-steps" class="slide level2 scrollable">
+<h2>PCA: Steps</h2>
+<div class="panel-tabset">
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Overview</a></li><li><a href="#tabset-5-2">1. Normalize</a></li><li><a href="#tabset-5-3">2. Compute PCs</a></li><li><a href="#tabset-5-4">3. Interpret</a></li><li><a href="#tabset-5-5">4. Reconstruct</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1">
+<div style="font-size: 50%;">
+<p><strong>Step 1: Normalize Data</strong></p>
+<ul>
+<li>Convert all variables to same scale (mean=0, std=1)</li>
+<li>Formula: <span class="math inline">\(z_{ij} = \frac{x_{ij} - \mu_j}{\sigma_j}\)</span></li>
+</ul>
+<p><strong>Step 2: Compute Principal Components</strong></p>
+<ul>
+<li>Calculate covariance matrix: <span class="math inline">\(\mathbf{\Sigma} = \frac{1}{n-1}\mathbf{X}^T\mathbf{X}\)</span></li>
+<li>Find eigenvectors &amp; eigenvalues: <span class="math inline">\(\mathbf{\Sigma} \mathbf{v}_k = \lambda_k \mathbf{v}_k\)</span>
+<ul>
+<li><span class="math inline">\(\mathbf{v}_k\)</span>&nbsp;&nbsp;are <strong>eigenvectors</strong> representing the directions of principal components (the “weights”)</li>
+<li><span class="math inline">\(\lambda_k\)</span>&nbsp;&nbsp;are <strong>eigenvalues</strong>, showing the variance explained by each component</li>
+</ul></li>
+<li>Sort by eigenvalues (largest = most variance explained)</li>
+</ul>
+<p><strong>Step 3: Interpret Components</strong></p>
+<ul>
+<li>PC1 (largest <span class="math inline">\(\lambda_1\)</span>&nbsp;): Captures most variance → “Level”</li>
+<li>PC2 (second <span class="math inline">\(\lambda_2\)</span>&nbsp;): Next most variance → “Slope” etc.</li>
+</ul>
+<p><strong>Step 4: Transform &amp; Reconstruct</strong></p>
+<ul>
+<li>Project data: <span class="math inline">\(\mathbf{Z} = \mathbf{X} \cdot \mathbf{V}\)</span> &nbsp; &nbsp; (PC scores)</li>
+<li>Reconstruct: <span class="math inline">\(\hat{\mathbf{X}} = \mathbf{Z}_K \cdot \mathbf{V}_K^T\)</span>&nbsp; &nbsp; &nbsp;(using top K components)</li>
+</ul>
+</div>
+<div style="font-size: 50%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key Insights</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>Total variance</strong>: First few components (K=2-3) typically capture 95-99% of total variance!</li>
+<li><strong>Implementation</strong>: In practice, we can use <code>sklearn.decomposition.PCA</code> from scikit-learn.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-2">
+<div style="font-size: 50%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why Normalize?</strong></p>
+</div>
+<div class="callout-content">
+<p>Variables with different scales would dominate PCA. <strong>Standardization</strong> ensures equal contribution, giving each variable mean = 0 and std = 1.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="cell">
+<div>
+<div id="pyodide-3" class="exercise-cell">
+
+</div>
+<script type="pyodide-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IHBhbmRhcyBhcyBwZFxuaW1wb3J0IG51bXB5IGFzIG5wXG5cbiMgTG9hZCBkYXRhXG5kZiA9IHBkLnJlYWRfY3N2KCdzbmJfZGF0YS5jc3YnLCBza2lwcm93cz0xNilcbmlmIGRmLnNoYXBlWzFdID09IDE0OlxuICAgIGRmLmNvbHVtbnMgPSBucC5hcHBlbmQoXCJkYXRlXCIsIFtcIjFNXCIsIFwiMk1cIiwgXCIzTVwiLCBcIjZNXCIsIFwiMUpcIiwgXCIySlwiLCBcIjNKXCIsIFwiNEpcIiwgXCI1SlwiLCBcIjZKXCIsIFwiN0pcIiwgXCI4SlwiLCBcIjlKXCJdKVxuZWxzZTpcbiAgICBkZi5jb2x1bW5zID0gbnAuYXBwZW5kKFwiZGF0ZVwiLCBbXCIxTVwiLCBcIjJNXCIsIFwiM01cIiwgXCI2TVwiLCBcIjFKXCIsIFwiMkpcIiwgXCIzSlwiLCBcIjRKXCIsIFwiNUpcIiwgXCI2SlwiLCBcIjdKXCIsIFwiOEpcIiwgXCI5SlwiLCBcIjEwSlwiXSlcbmRmID0gZGYuZHJvcG5hKClcblxuIyBOb3JtYWxpemUgdGhlIGRhdGFcbmRmX3lpZWxkcyA9IGRmLmlsb2NbOiwgMTpdICAjIFNlbGVjdCBBTEwgMTMgeWllbGQgY29sdW1ucyBpbml0aWFsbHlcbnByaW50KGZcIvCfk4ogT3JpZ2luYWwgZGF0YSBzaGFwZToge2RmX3lpZWxkcy5zaGFwZX0gKDMyOSBtb250aHMgw5cgMTMgbWF0dXJpdGllcylcIilcbnByaW50KFwiICAgQ29sdW1uczpcIiwgbGlzdChkZl95aWVsZHMuY29sdW1ucykpXG5cbiMgRm9yIFBDQSwgd2UnbGwgdXNlIG9ubHkgdGhlIDkgeWVhcmx5IG1hdHVyaXRpZXMgdG8ga2VlcCBpdCBzaW1wbGVyXG5kZl95aWVsZHNfcGNhID0gZGYuaWxvY1s6LCA1Ol0ucmVzZXRfaW5kZXgoZHJvcD1UcnVlKSAgIyBPbmx5IDFZIHRocm91Z2ggOVksIHJlc2V0IGluZGV4XG5wcmludChmXCJcXG7wn5OKIFBDQSBpbnB1dCBzaGFwZToge2RmX3lpZWxkc19wY2Euc2hhcGV9ICgzMjkgbW9udGhzIMOXIDkgeWVhcmx5IG1hdHVyaXRpZXMpXCIpXG5wcmludChcIiAgIENvbHVtbnM6XCIsIGxpc3QoZGZfeWllbGRzX3BjYS5jb2x1bW5zKSlcblxucHJpbnQoXCJcXG5cIiArIFwiIFwiKjMwKVxucHJpbnQoXCLimqDvuI8gTk9URTogV2UgZXhjbHVkZSBtb250aGx5IG1hdHVyaXRpZXMgKDFNLCAyTSwgM00sIDZNKSBmcm9tIFBDQSBmb3IgRWR1Y2F0aW9uYWwgY2xhcml0eeKaoO+4j1wiKVxuXG5tZWFuID0gZGZfeWllbGRzX3BjYS5tZWFuKClcbnN0ZCA9IGRmX3lpZWxkc19wY2Euc3RkKClcbmRmX25vcm0gPSAoZGZfeWllbGRzX3BjYSAtIG1lYW4pIC8gc3RkXG5cbnByaW50KFwiXFxuXCIgKyBcIj1cIio2MClcbnByaW50KFwiT3JpZ2luYWwgZGF0YSAoZmlyc3QgMyBkYXRlcywgc2hvd2luZyAxWS01WSk6XCIpXG5wcmludChkZl95aWVsZHNfcGNhLmlsb2NbOjMsIDo1XS50b19zdHJpbmcoKSlcbnByaW50KFwiXFxuTm9ybWFsaXplZCBkYXRhIChtZWFuPTAsIHN0ZD0xLCBzaG93aW5nIDFZLTVZKTpcIilcbnByaW50KGRmX25vcm0uaWxvY1s6MywgOjVdLnJvdW5kKDMpLnRvX3N0cmluZygpKVxucHJpbnQoXCJcXG5WZXJpZmljYXRpb24gLSBlYWNoIGNvbHVtbiBub3JtYWxpemVkIGluZGVwZW5kZW50bHk6XCIpXG5wcmludChmXCJNZWFuIOKJiCB7ZGZfbm9ybS5tZWFuKCkubWF4KCk6LjEwZn0gKHNob3VsZCBiZSB+MClcIilcbnByaW50KGZcIlN0ZCAg4omIIHtkZl9ub3JtLnN0ZCgpLm1lYW4oKTouM2Z9IChzaG91bGQgYmUgMS4wKVwiKSJ9
+</script>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-3">
+<div style="font-size: 50%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Finding Principal Components</strong></p>
+</div>
+<div class="callout-content">
+<p>Compute the covariance matrix, find its eigenvectors (PC directions) and eigenvalues (variance explained), then sort by importance.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="cell">
+<div>
+<div id="pyodide-4" class="exercise-cell">
+
+</div>
+<script type="pyodide-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDb21wdXRlIGNvdmFyaWFuY2UgbWF0cml4IGFuZCBpdHMgZWlnZW52ZWN0b3JzXG5jb3ZfbWF0cml4ID0gZGZfbm9ybS5jb3YoKVxucHJpbnQoZlwi8J+TiiBDb3ZhcmlhbmNlIG1hdHJpeCBzaGFwZToge2Nvdl9tYXRyaXguc2hhcGV9ICg5w5c5LCBzeW1tZXRyaWMpXCIpXG5cbmVpZ2VuX3ZhbHVlcywgZWlnZW5fdmVjdG9ycyA9IG5wLmxpbmFsZy5laWcoY292X21hdHJpeClcblxuIyBTb3J0IGJ5IGltcG9ydGFuY2UgKGRlc2NlbmRpbmcpXG5zb3J0ZWRfaWR4ID0gbnAuYXJnc29ydChlaWdlbl92YWx1ZXMpWzo6LTFdXG5laWdlbl92YWx1ZXMgPSBlaWdlbl92YWx1ZXNbc29ydGVkX2lkeF1cbmVpZ2VuX3ZlY3RvcnMgPSBlaWdlbl92ZWN0b3JzWzosIHNvcnRlZF9pZHhdXG5cbnByaW50KGZcIlxcbvCfk4ogRWlnZW52ZWN0b3JzICh3ZWlnaHRzKSBtYXRyaXggc2hhcGU6IHtlaWdlbl92ZWN0b3JzLnNoYXBlfVwiKVxucHJpbnQoXCIgICBFYWNoIENPTFVNTiA9IG9uZSBQQydzIHdlaWdodHMgYWNyb3NzIGFsbCA5IG1hdHVyaXRpZXNcIilcbnByaW50KFwiICAgRWFjaCBST1cgPSBvbmUgbWF0dXJpdHkncyB3ZWlnaHRzIGFjcm9zcyBhbGwgOSBQQ3NcIilcblxucHJpbnQoXCJcXG5cIiArIFwiPVwiKjYwKVxucHJpbnQoXCLwn5OLIEVJR0VOVkFMVUVTICYgVkFSSUFOQ0UgRVhQTEFJTkVEIChUd28tQ29sdW1uIEZvcm1hdCk6XCIpXG5wcmludChcIi1cIiAqIDYwKVxuZWlnZW5fdGFibGUgPSBwZC5EYXRhRnJhbWUoe1xuICAgICdDb21wb25lbnQnOiBbZidQQ3tpKzF9JyBmb3IgaSBpbiByYW5nZSg5KV0sXG4gICAgJ0VpZ2VudmFsdWUgKM67KSc6IG5wLnJvdW5kKGVpZ2VuX3ZhbHVlcywgMyksXG4gICAgJ1ZhcmlhbmNlICUnOiBucC5yb3VuZCgxMDAgKiBlaWdlbl92YWx1ZXMgLyBlaWdlbl92YWx1ZXMuc3VtKCksIDIpLFxuICAgICdDdW11bGF0aXZlICUnOiBucC5yb3VuZCgxMDAgKiBucC5jdW1zdW0oZWlnZW5fdmFsdWVzKSAvIGVpZ2VuX3ZhbHVlcy5zdW0oKSwgMilcbn0pXG5wcmludChlaWdlbl90YWJsZS50b19zdHJpbmcoaW5kZXg9RmFsc2UpKVxucHJpbnQoZlwiXFxu8J+SoSBGaXJzdCAzIFBDcyBjYXB0dXJlOiB7MTAwICogc3VtKGVpZ2VuX3ZhbHVlc1s6M10pIC8gc3VtKGVpZ2VuX3ZhbHVlcyk6LjJmfSUgb2YgdG90YWwgdmFyaWFuY2UhXCIpXG5cbnByaW50KFwiXFxuXCIgKyBcIj1cIio2MClcblxucHJpbnQoXCJcXG5cIiArIFwiPVwiKjYwKVxucHJpbnQoXCLwn5OLIFdFSUdIVFMgTUFUUklYIC0gQUxMIFBDcyAoY29sdW1ucykgw5cgQWxsIDkgbWF0dXJpdGllcyAocm93cyk6XCIpXG53ZWlnaHRzX2RmID0gcGQuRGF0YUZyYW1lKFxuICAgIGVpZ2VuX3ZlY3RvcnMsXG4gICAgaW5kZXg9W2Yne2l9WScgZm9yIGkgaW4gcmFuZ2UoMSwgMTApXSxcbiAgICBjb2x1bW5zPVsnUEMxJywgJ1BDMicsICdQQzMnLCAnUEM0JywgJ1BDNScsICdQQzYnLCAnUEM3JywgJ1BDOCcsICdQQzknXVxuKVxucHJpbnQod2VpZ2h0c19kZi5yb3VuZCgzKSlcbnByaW50KFwiXFxu8J+SoSBLZXkgaW5zaWdodDogVGhlc2Ugd2VpZ2h0cyBtdWx0aXBseSBQQyBzY29yZXMgdG8gcmVjb25zdHJ1Y3QgeWllbGRzIVwiKVxucHJpbnQoXCIgICBFeGFtcGxlOiBZaWVsZFszWV0gPSBQQzFfc2NvcmUgw5cgMC4zMzEgKyBQQzJfc2NvcmUgw5cgMC40NDMgKyBQQzNfc2NvcmUgw5cgMC41NDNcIikifQ==
+</script>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Key insight</strong>: First 3 components explain <strong>&gt;99%</strong> of variation! We can safely ignore the rest.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-4">
+<div style="font-size: 50%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Understanding “Weights”</strong></p>
+</div>
+<div class="callout-content">
+<p>The <strong>weights</strong> (eigenvector values) tell us <strong>how much each maturity contributes</strong> when a principal component changes:</p>
+<ul>
+<li>Each yield curve = weighted combination of PC1 + PC2 + PC3</li>
+<li><strong>Weights</strong> = the multipliers for each maturity when that component is “activated”</li>
+<li>Example: If PC1 = 2.0 and 1Y weight = 0.33, then PC1 contributes <strong>2.0 × 0.33 = 0.66%</strong> to the 1Y yield</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Prepare data</span></span>
+<span id="cb8-2"><a href=""></a>df_yields <span class="op">=</span> df.iloc[:, <span class="dv">5</span>:]  <span class="co"># Use only yearly maturities</span></span>
+<span id="cb8-3"><a href=""></a>mean <span class="op">=</span> df_yields.mean()</span>
+<span id="cb8-4"><a href=""></a>std <span class="op">=</span> df_yields.std()</span>
+<span id="cb8-5"><a href=""></a>df_norm <span class="op">=</span> (df_yields <span class="op">-</span> mean) <span class="op">/</span> std</span>
+<span id="cb8-6"><a href=""></a></span>
+<span id="cb8-7"><a href=""></a><span class="co"># Compute PCA</span></span>
+<span id="cb8-8"><a href=""></a>cov_matrix <span class="op">=</span> df_norm.cov()</span>
+<span id="cb8-9"><a href=""></a>eigen_values, eigen_vectors <span class="op">=</span> np.linalg.eig(cov_matrix)</span>
+<span id="cb8-10"><a href=""></a>sorted_idx <span class="op">=</span> np.argsort(eigen_values)[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb8-11"><a href=""></a>eigen_vectors <span class="op">=</span> eigen_vectors[:, sorted_idx]</span>
+<span id="cb8-12"><a href=""></a></span>
+<span id="cb8-13"><a href=""></a><span class="co"># Get first 3 PCs - make maturities list dynamic based on actual data</span></span>
+<span id="cb8-14"><a href=""></a>maturities <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(df_yields.columns) <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb8-15"><a href=""></a>pc1 <span class="op">=</span> eigen_vectors[:, <span class="dv">0</span>]</span>
+<span id="cb8-16"><a href=""></a>pc2 <span class="op">=</span> eigen_vectors[:, <span class="dv">1</span>]</span>
+<span id="cb8-17"><a href=""></a>pc3 <span class="op">=</span> eigen_vectors[:, <span class="dv">2</span>]</span>
+<span id="cb8-18"><a href=""></a></span>
+<span id="cb8-19"><a href=""></a><span class="co"># Print actual weights for PC1 to show they're approximately equal</span></span>
+<span id="cb8-20"><a href=""></a><span class="bu">print</span>(<span class="st">"PC1 weights (1Y-9Y):"</span>, np.<span class="bu">round</span>(pc1, <span class="dv">3</span>))</span>
+<span id="cb8-21"><a href=""></a><span class="bu">print</span>(<span class="st">"Theoretical equal weight for 9 variables:"</span>, np.<span class="bu">round</span>(<span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">9</span>), <span class="dv">3</span>))</span>
+<span id="cb8-22"><a href=""></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Verification - Each PC is normalized to length 1:"</span>)</span>
+<span id="cb8-23"><a href=""></a><span class="bu">print</span>(<span class="ss">f"PC1 norm: </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>norm(pc1)<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb8-24"><a href=""></a><span class="bu">print</span>(<span class="ss">f"PC2 norm: </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>norm(pc2)<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb8-25"><a href=""></a><span class="bu">print</span>(<span class="ss">f"PC3 norm: </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>norm(pc3)<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb8-26"><a href=""></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Cross-PC sum for 1Y maturity (NOT constrained to 1):"</span>)</span>
+<span id="cb8-27"><a href=""></a><span class="bu">print</span>(<span class="ss">f"PC1[1Y] + PC2[1Y] + PC3[1Y] = </span><span class="sc">{</span>pc1[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss"> + </span><span class="sc">{</span>pc2[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss"> + </span><span class="sc">{</span>pc3[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss"> = </span><span class="sc">{</span>pc1[<span class="dv">0</span>] <span class="op">+</span> pc2[<span class="dv">0</span>] <span class="op">+</span> pc3[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb8-28"><a href=""></a></span>
+<span id="cb8-29"><a href=""></a><span class="co"># Example reconstruction for first observation</span></span>
+<span id="cb8-30"><a href=""></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Example: Reconstructing 1Y yield for first date:"</span>)</span>
+<span id="cb8-31"><a href=""></a>pc_scores <span class="op">=</span> df_norm.dot(eigen_vectors)</span>
+<span id="cb8-32"><a href=""></a>first_date_1y_norm <span class="op">=</span> pc_scores.iloc[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">*</span> pc1[<span class="dv">0</span>] <span class="op">+</span> pc_scores.iloc[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">*</span> pc2[<span class="dv">0</span>] <span class="op">+</span> pc_scores.iloc[<span class="dv">0</span>, <span class="dv">2</span>] <span class="op">*</span> pc3[<span class="dv">0</span>]</span>
+<span id="cb8-33"><a href=""></a>first_date_1y_actual <span class="op">=</span> df_norm.iloc[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb8-34"><a href=""></a><span class="bu">print</span>(<span class="ss">f"  PC1_score × PC1_weight[1Y] + PC2_score × PC2_weight[1Y] + PC3_score × PC3_weight[1Y]"</span>)</span>
+<span id="cb8-35"><a href=""></a><span class="bu">print</span>(<span class="ss">f"  = </span><span class="sc">{</span>pc_scores<span class="sc">.</span>iloc[<span class="dv">0</span>, <span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss"> × </span><span class="sc">{</span>pc1[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss"> + </span><span class="sc">{</span>pc_scores<span class="sc">.</span>iloc[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss"> × </span><span class="sc">{</span>pc2[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss"> + </span><span class="sc">{</span>pc_scores<span class="sc">.</span>iloc[<span class="dv">0</span>, <span class="dv">2</span>]<span class="sc">:.3f}</span><span class="ss"> × </span><span class="sc">{</span>pc3[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb8-36"><a href=""></a><span class="bu">print</span>(<span class="ss">f"  = </span><span class="sc">{</span>first_date_1y_norm<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb8-37"><a href=""></a><span class="bu">print</span>(<span class="ss">f"  Actual normalized 1Y yield: </span><span class="sc">{</span>first_date_1y_actual<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb8-38"><a href=""></a><span class="bu">print</span>(<span class="ss">f"  Match: </span><span class="sc">{</span>np<span class="sc">.</span>isclose(first_date_1y_norm, first_date_1y_actual)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-39"><a href=""></a></span>
+<span id="cb8-40"><a href=""></a><span class="co"># Plot</span></span>
+<span id="cb8-41"><a href=""></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">3</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-42"><a href=""></a></span>
+<span id="cb8-43"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].plot(maturities, pc1, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>, markersize<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">'#0173B2'</span>)</span>
+<span id="cb8-44"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-45"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_title(<span class="st">"PC1: Level Shift"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-46"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Maturity (years)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-47"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Weight"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-48"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb8-49"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">0</span>].text(<span class="dv">5</span>, <span class="bu">max</span>(pc1)<span class="op">*</span><span class="fl">1.25</span>, <span class="st">"Almost constant</span><span class="ch">\n</span><span class="st">→ shifts curve up/down"</span>, </span>
+<span id="cb8-50"><a href=""></a>             ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">'round'</span>, facecolor<span class="op">=</span><span class="st">'wheat'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>))</span>
+<span id="cb8-51"><a href=""></a></span>
+<span id="cb8-52"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].plot(maturities, pc2, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>, markersize<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">'#E69F00'</span>)</span>
+<span id="cb8-53"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-54"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].set_title(<span class="st">"PC2: Slope/Tilt"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-55"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Maturity (years)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-56"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb8-57"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">1</span>].text(<span class="dv">5</span>, <span class="bu">max</span>(pc2)<span class="op">*</span><span class="fl">0.95</span>, <span class="st">"Linear trend</span><span class="ch">\n</span><span class="st">→ tilts curve"</span>, </span>
+<span id="cb8-58"><a href=""></a>             ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">'round'</span>, facecolor<span class="op">=</span><span class="st">'wheat'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>))</span>
+<span id="cb8-59"><a href=""></a></span>
+<span id="cb8-60"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">2</span>].plot(maturities, pc3, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>, markersize<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">'#CC79A7'</span>)</span>
+<span id="cb8-61"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">2</span>].axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-62"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">2</span>].set_title(<span class="st">"PC3: Curvature"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-63"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">2</span>].set_xlabel(<span class="st">"Maturity (years)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-64"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">2</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb8-65"><a href=""></a>_ <span class="op">=</span> axes[<span class="dv">2</span>].text(<span class="dv">5</span>, <span class="bu">max</span>(pc3)<span class="op">*</span><span class="fl">0.78</span>, <span class="st">"U-shape</span><span class="ch">\n</span><span class="st">→ bends curve"</span>, </span>
+<span id="cb8-66"><a href=""></a>             ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">'round'</span>, facecolor<span class="op">=</span><span class="st">'wheat'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>))</span>
+<span id="cb8-67"><a href=""></a></span>
+<span id="cb8-68"><a href=""></a>plt.tight_layout()</span>
+<span id="cb8-69"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-17-15.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-17-15.png" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What Do These Components Actually Mean?</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>PC1: Level Shift</strong> (~98.44% of variance)</p>
+<ul>
+<li><strong>Weights</strong>: All maturities ≈ 0.33 (almost equal and positive)</li>
+<li><strong>Interpretation</strong>: All yields move together by the same amount</li>
+<li>When PC1 score increases by 1 → <strong>ALL rates shift up by ~0.33% in parallel</strong></li>
+<li><strong>Real example</strong>: Central bank raises policy rate → entire curve moves up together (inflation shock)</li>
+</ul>
+<p><strong>PC2: Slope/Tilt</strong> (~1.46% of variance)</p>
+<ul>
+<li><strong>Weights</strong>: Short-term: positive (+0.4) | Long-term: negative (-0.6)<br>
+</li>
+<li><strong>Interpretation</strong>: Short and long rates move in opposite directions</li>
+<li>When PC2 score increases → short rates ↑ &amp; long rates ↓ → curve <strong>flattens</strong></li>
+<li><strong>Real example</strong>: Recession fears → long rates drop (expect rate cuts), short rates stay high</li>
+</ul>
+<p><strong>PC3: Curvature</strong> (~0.09% of variance)</p>
+<ul>
+<li><strong>Weights</strong>: Ends: positive | Middle (4-6Y): negative</li>
+<li><strong>Interpretation</strong>: Middle maturities move opposite to short/long ends</li>
+<li>When PC3 score increases → middle bends down, ends bend up → <strong>humped curve</strong></li>
+<li><strong>Real example</strong>: Expect rates to rise then fall → medium-term rates peak</li>
+</ul>
+<p><strong>In simple terms</strong>: PC1 score = “How high is the curve?”, PC2 score = “How steep?”, PC3 score = “How curved?”</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-5">
+<div style="font-size: 50%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Transform &amp; Reconstruct</strong></p>
+</div>
+<div class="callout-content">
+<p>Project the normalized data onto principal components, then reconstruct using only the top K components.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Transform data to PC space</span></span>
+<span id="cb9-2"><a href=""></a>PC_scores <span class="op">=</span> df_norm.dot(eigen_vectors)</span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co"># Select some random bond dates to track consistently</span></span>
+<span id="cb9-5"><a href=""></a>np.random.seed(<span class="dv">1</span>)</span>
+<span id="cb9-6"><a href=""></a>sample_indices <span class="op">=</span> np.random.choice(<span class="bu">len</span>(df_norm), size<span class="op">=</span><span class="dv">8</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-7"><a href=""></a>sample_indices <span class="op">=</span> <span class="bu">sorted</span>(sample_indices)</span>
+<span id="cb9-8"><a href=""></a></span>
+<span id="cb9-9"><a href=""></a><span class="co"># Use only the 9 yearly maturities that match our PCA dimensions</span></span>
+<span id="cb9-10"><a href=""></a>maturities <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>))  <span class="co"># 1Y through 9Y to match the 9 columns we used for PCA</span></span>
+<span id="cb9-11"><a href=""></a></span>
+<span id="cb9-12"><a href=""></a><span class="co"># Create 3 panels: 1 Component, 2 Components, Original</span></span>
+<span id="cb9-13"><a href=""></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="fl">4.5</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-14"><a href=""></a></span>
+<span id="cb9-15"><a href=""></a>colors <span class="op">=</span> plt.cm.tab10(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="bu">len</span>(sample_indices)))</span>
+<span id="cb9-16"><a href=""></a></span>
+<span id="cb9-17"><a href=""></a><span class="co"># Store all data for consistent y-axis scaling</span></span>
+<span id="cb9-18"><a href=""></a>all_data <span class="op">=</span> []</span>
+<span id="cb9-19"><a href=""></a></span>
+<span id="cb9-20"><a href=""></a><span class="co"># Panel 1: Reconstruction with 1 component</span></span>
+<span id="cb9-21"><a href=""></a>reconstructed_1 <span class="op">=</span> PC_scores.iloc[:, :<span class="dv">1</span>].dot(eigen_vectors[:, :<span class="dv">1</span>].T)</span>
+<span id="cb9-22"><a href=""></a>reconstructed_1_denorm <span class="op">=</span> reconstructed_1 <span class="op">*</span> std.values <span class="op">+</span> mean.values</span>
+<span id="cb9-23"><a href=""></a>all_data.extend(reconstructed_1_denorm.values.flatten())</span>
+<span id="cb9-24"><a href=""></a></span>
+<span id="cb9-25"><a href=""></a><span class="cf">for</span> idx, sample_idx <span class="kw">in</span> <span class="bu">enumerate</span>(sample_indices):</span>
+<span id="cb9-26"><a href=""></a>    date_label <span class="op">=</span> df[<span class="st">'date'</span>].iloc[sample_idx]</span>
+<span id="cb9-27"><a href=""></a>    axes[<span class="dv">0</span>].plot(maturities, reconstructed_1_denorm.iloc[sample_idx], </span>
+<span id="cb9-28"><a href=""></a>                alpha<span class="op">=</span><span class="fl">0.7</span>, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span>colors[idx], label<span class="op">=</span>date_label)</span>
+<span id="cb9-29"><a href=""></a></span>
+<span id="cb9-30"><a href=""></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Using 1 Component"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb9-31"><a href=""></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Maturity (years)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb9-32"><a href=""></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Yield (%)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb9-33"><a href=""></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb9-34"><a href=""></a></span>
+<span id="cb9-35"><a href=""></a><span class="co"># Panel 2: Reconstruction with 2 components</span></span>
+<span id="cb9-36"><a href=""></a>reconstructed_2 <span class="op">=</span> PC_scores.iloc[:, :<span class="dv">2</span>].dot(eigen_vectors[:, :<span class="dv">2</span>].T)</span>
+<span id="cb9-37"><a href=""></a>reconstructed_2_denorm <span class="op">=</span> reconstructed_2 <span class="op">*</span> std.values <span class="op">+</span> mean.values</span>
+<span id="cb9-38"><a href=""></a>all_data.extend(reconstructed_2_denorm.values.flatten())</span>
+<span id="cb9-39"><a href=""></a></span>
+<span id="cb9-40"><a href=""></a><span class="cf">for</span> idx, sample_idx <span class="kw">in</span> <span class="bu">enumerate</span>(sample_indices):</span>
+<span id="cb9-41"><a href=""></a>    axes[<span class="dv">1</span>].plot(maturities, reconstructed_2_denorm.iloc[sample_idx], </span>
+<span id="cb9-42"><a href=""></a>                alpha<span class="op">=</span><span class="fl">0.7</span>, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span>colors[idx])</span>
+<span id="cb9-43"><a href=""></a></span>
+<span id="cb9-44"><a href=""></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Using 2 Components"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb9-45"><a href=""></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Maturity (years)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb9-46"><a href=""></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb9-47"><a href=""></a></span>
+<span id="cb9-48"><a href=""></a><span class="co"># Panel 3: Original data</span></span>
+<span id="cb9-49"><a href=""></a><span class="cf">for</span> idx, sample_idx <span class="kw">in</span> <span class="bu">enumerate</span>(sample_indices):</span>
+<span id="cb9-50"><a href=""></a>    original <span class="op">=</span> df_yields.iloc[sample_idx].values</span>
+<span id="cb9-51"><a href=""></a>    all_data.extend(original)</span>
+<span id="cb9-52"><a href=""></a>    axes[<span class="dv">2</span>].plot(maturities, original, </span>
+<span id="cb9-53"><a href=""></a>                alpha<span class="op">=</span><span class="fl">0.7</span>, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span>colors[idx])</span>
+<span id="cb9-54"><a href=""></a></span>
+<span id="cb9-55"><a href=""></a>axes[<span class="dv">2</span>].set_title(<span class="st">"Original Data"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb9-56"><a href=""></a>axes[<span class="dv">2</span>].set_xlabel(<span class="st">"Maturity (years)"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb9-57"><a href=""></a>axes[<span class="dv">2</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb9-58"><a href=""></a></span>
+<span id="cb9-59"><a href=""></a><span class="co"># Set consistent y-axis limits across all panels</span></span>
+<span id="cb9-60"><a href=""></a>y_min, y_max <span class="op">=</span> <span class="bu">min</span>(all_data), <span class="bu">max</span>(all_data)</span>
+<span id="cb9-61"><a href=""></a>y_margin <span class="op">=</span> (y_max <span class="op">-</span> y_min) <span class="op">*</span> <span class="fl">0.05</span></span>
+<span id="cb9-62"><a href=""></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb9-63"><a href=""></a>    ax.set_ylim(y_min <span class="op">-</span> y_margin, y_max <span class="op">+</span> y_margin)</span>
+<span id="cb9-64"><a href=""></a></span>
+<span id="cb9-65"><a href=""></a><span class="co"># Add overall title</span></span>
+<span id="cb9-66"><a href=""></a>fig.suptitle(<span class="st">'Yield Curve Reconstruction Quality'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">0.98</span>)</span>
+<span id="cb9-67"><a href=""></a></span>
+<span id="cb9-68"><a href=""></a><span class="co"># Add legend to the first panel only with 2 rows (horizontal layout)</span></span>
+<span id="cb9-69"><a href=""></a>axes[<span class="dv">0</span>].legend(title<span class="op">=</span><span class="st">'Sample Dates'</span>, fontsize<span class="op">=</span><span class="dv">7</span>, loc<span class="op">=</span><span class="st">'upper left'</span>, framealpha<span class="op">=</span><span class="fl">0.9</span>, ncol<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb9-70"><a href=""></a></span>
+<span id="cb9-71"><a href=""></a>plt.tight_layout()</span>
+<span id="cb9-72"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-18-17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-18-17.png" class="quarto-figure quarto-figure-center" width="1344"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 50%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Result</strong></p>
+</div>
+<div class="callout-content">
+<p>Just 3 numbers (PC1, PC2, PC3 scores) capture nearly all information in 13 yields! Notice how 1 component is too simple (flat), 2 components add slope, and 3 components capture full curve shapes.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pop-quiz-3" class="slide level2 quiz-question">
+<h2>🤔 Pop Quiz</h2>
+<p>If the first principal component of yield curves is “almost constant”, what does a positive PC1 value indicate?</p>
+<ul>
+<li>The yield curve is inverted (downward sloping)</li>
+<li>Short-term rates are higher than long-term rates</li>
+<li><span class="correct">Interest rates are higher across ALL maturities (parallel shift up)</span></li>
+<li>The curve has increased curvature</li>
+</ul>
+</section>
+<section id="case-study-ii-pca-summary" class="slide level2">
+<h2>Case Study II: PCA Summary</h2>
+<div class="columns">
+<div class="column" style="font-size: 45%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key Results</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Dimensionality Reduction</strong></p>
+<ul>
+<li>9 correlated yields (13 in total) → 3 uncorrelated components</li>
+<li>99.9% of variance retained</li>
+<li>Minimal information loss</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="pipeline_files/figure-revealjs/unnamed-chunk-19-19.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="pipeline_files/figure-revealjs/unnamed-chunk-19-19.png" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Three Components &amp; 2D Plot Interpretation:</strong></p>
+<ol type="1">
+<li><p><strong>PC1 (Level)</strong>: 98.44% variance — Parallel shift of entire curve<br>
+<em>Horizontal axis: Movement left/right = interest rates rising/falling overall</em></p></li>
+<li><p><strong>PC2 (Slope)</strong>: 1.46% variance — Curve steepening/flattening<br>
+<em>Vertical axis: Movement up/down = yield curve steepening/flattening</em></p></li>
+<li><p><strong>PC3 (Curvature)</strong>: 0.09% variance — Mid-curve bending</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div><div class="column" style="font-size: 50%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Practical Value</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>When to use PCA:</strong></p>
+<ul>
+<li>Many correlated variables</li>
+<li>Need dimensionality reduction</li>
+<li>Want to remove noise</li>
+<li>Linear relationships in data</li>
+</ul>
+<p><strong>Real applications:</strong></p>
+<ul>
+<li>Interest rate modeling</li>
+<li>Portfolio risk analysis</li>
+<li>Customer segmentation</li>
+<li>Image compression</li>
+</ul>
+<p><strong>Important limitations:</strong></p>
+<ul>
+<li>Only captures linear patterns</li>
+<li>Requires standardization</li>
+<li>Components are abstract</li>
+<li>Sensitive to outliers</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="from-cookbook-to-your-project" class="slide level2">
+<h2>From Cookbook to Your Project</h2>
+<div style="font-size: 60%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Applying Today’s Lessons</strong></p>
+</div>
+<div class="callout-content">
+<p>You now have a complete workflow for your course project:</p>
+<p><strong>1. Acquire</strong> → Find/download your data (remember GIGO!)</p>
+<p><strong>2. Tidy</strong> → Check data types, missing values, duplicates</p>
+<p><strong>3. Explore (EDA)</strong> → Summary stats, distributions, scatter matrices</p>
+<p><strong>4. Visualize</strong> → Univariate plots → Multivariate plots → Group by categories</p>
+<p><strong>5. Transform (if needed)</strong> → Create derived variables, normalize, apply PCA</p>
+<p><strong>6. Communicate</strong> → Tell the story, highlight insights, recommend actions</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 60%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Common Pitfalls to Avoid</strong></p>
+</div>
+<div class="callout-content">
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pitfall</th>
+<th>Why it’s bad</th>
+<th>How to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Skipping data checks</strong></td>
+<td>GIGO → wasted effort</td>
+<td>Always run <code>.info()</code>, <code>.describe()</code>, check for NaNs</td>
+</tr>
+<tr class="even">
+<td><strong>No univariate analysis</strong></td>
+<td>Miss obvious issues (outliers, errors)</td>
+<td>Start with histograms/box plots BEFORE multivariate</td>
+</tr>
+<tr class="odd">
+<td><strong>Over-interpreting patterns</strong></td>
+<td>Correlation ≠ causation</td>
+<td>Be cautious, seek domain expertise</td>
+</tr>
+<tr class="even">
+<td><strong>Ignoring context</strong></td>
+<td>Statistical significance ≠ practical significance</td>
+<td>Always ask: “What does this mean for the business?”</td>
+</tr>
+<tr class="odd">
+<td><strong>Poor communication</strong></td>
+<td>Great analysis, but no one understands it</td>
+<td>Use clear visualizations, simple language, tell a story</td>
+</tr>
+<tr class="even">
+<td><strong>Not iterating</strong></td>
+<td>First attempt is rarely the best</td>
+<td>Revisit cleaning, feature engineering, visualization</td>
+</tr>
+</tbody>
+</table>
+<p><strong><em>Remember: The first 80% of time is spent acquiring + wrangling data, not modeling!</em></strong></p>
+</div>
+</div>
+</div>
+</div>
+<!-- ## Best Practices for Your Project
+
+::: {.callout-tip style="font-size: 55%;"}
+## Professional Data Science Workflow
+
+**Code organization:**
+- Use Jupyter notebooks for exploration
+- Comment your code!
+- Use meaningful variable names
+- Break analysis into logical sections
+
+**Documentation:**
+- Explain your data source
+- Note any assumptions
+- Document transformations
+- Justify plot choices
+
+**Presentation:**
+- Start with the problem
+- Show your process (briefly)
+- Highlight key findings
+- End with recommendations
+::: -->
+</section>
+<section id="key-takeaways-resources" class="slide level2">
+<h2>Key Takeaways &amp; Resources</h2>
+<div style="font-size: 60%;">
+<p><strong>Essential lessons:</strong></p>
+<ol type="1">
+<li><p><strong>Data Science is Iterative</strong></p>
+<ul>
+<li>Acquire → Tidy → Explore → Visualize → Transform → Communicate (repeat!)</li>
+</ul></li>
+<li><p><strong>GIGO Principle</strong></p>
+<ul>
+<li>Data quality determines project success (80% time on cleaning, 20% on modeling)</li>
+</ul></li>
+<li><p><strong>EDA Reveals Patterns</strong></p>
+<ul>
+<li>Start univariate → multivariate → grouping to discover insights</li>
+</ul></li>
+<li><p><strong>PCA Simplifies Complexity</strong></p>
+<ul>
+<li>Reduce 13 correlated variables → 2-3 key components (99% variance!)</li>
+</ul></li>
+<li><p><strong>Mortality Analysis</strong></p>
+<ul>
+<li>For a good example of how to use entire data science pipeline, see <a href="https://unco3892.github.io/dsas/labs/exercise_set_6.html">Exercise Set 6 (HMD)</a></li>
+</ul></li>
+</ol>
+</div>
+<div style="font-size: 65%;">
+<p>📚 <a href="https://unco3892.github.io/dsas/lectures/pipeline.html">Pipeline lecture</a> | <a href="https://unco3892.github.io/dsas/assessment/project_directives.html">Project guidelines</a> | <a href="https://unco3892.github.io/dsas/assessment/presentation_guidelines.html">Presentation tips</a></p>
+<p>📅 <strong>Nov 12: Report</strong> | <strong>Nov 14: Slides</strong> | <strong>Nov 18: Presentations</strong></p>
+</div>
+</section>
+<section id="questions" class="title-slide slide level1 center">
+<h1>Questions?</h1>
+<!-- ::: {.callout-note style="font-size: 60%;"}
+## Thank you!
+
+You now have all the tools to complete a professional data science project:
+
+✅ Python fundamentals  
+✅ NumPy for numerical computing  
+✅ Pandas for data manipulation  
+✅ Matplotlib & Seaborn for visualization  
+✅ Complete pipeline workflow  
+
+**Good luck with your projects!** 🚀
+::: -->
+
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIiwibWF0cGxvdGxpYiIsIm51bXB5Iiwic2VhYm9ybiIsInBhbmRhcyIsInNjaXB5Iiwic2Npa2l0LWxlYXJuIl19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJoZWFsdGhpbnN1cmFuY2UuY3N2Iiwic25iX2RhdGEuY3N2Il0=
+</script>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="auxiliary/images/unil_logo25.svg" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>DSAS 2025 | HEC Lausanne</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="pipeline_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="pipeline_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/reveal-quiz/quiz.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="pipeline_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="pipeline_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'quiz': {"checkKey":"c","resetKey":"q","shuffleKey":"t","allowNumberKeys":true,"disableOnCheck":false,"shuffleOptions":true,"defaultCorrect":"","defaultIncorrect":"","includeScore":false,"disableReset":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealQuiz, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../..";
+    window._ojs.paths.runtimeToRoot = "../../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+    (function() {
+      let previousOnload = window.onload;
+      window.onload = () => {
+        if (previousOnload) {
+          previousOnload();
+        }
+        lightboxQuarto.on('slide_before_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          const href = trigger.getAttribute('href');
+          if (href !== null) {
+            const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+            if (imgEl !== null) {
+              const srcAttr = imgEl.getAttribute("src");
+              if (srcAttr && srcAttr.startsWith("data:")) {
+                slideConfig.href = srcAttr;
+              }
+            }
+          } 
+        });
+      
+        lightboxQuarto.on('slide_after_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(slideNode);
+          }
+        });
+      
+      };
+      
+    })();
+              </script>
+    
+
+</body></html>
